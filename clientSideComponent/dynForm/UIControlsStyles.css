@@ -1,0 +1,117 @@
+/* Shared with Kendo UI mode */
+.dynUIContainer {
+    margin: 1rem;
+    padding: 1rem;
+    border: 0.3rem solid #000000;
+    border-radius: 1rem;
+}
+
+/* Not shared with Kendo UI mode */
+.dynUIContainerColors {
+    background-color: ghostwhite;
+    color: black;
+}
+
+.inputContainer {
+    margin: 1em;
+}
+
+.inputLabelSide {
+    margin-left: .3em;
+    margin-right: .3em;
+}
+
+.inputLabelAbove {
+    margin-bottom: 0.3rem;
+}
+
+.readOnlyText {
+    margin-left: .3em;
+    margin-right: .3em;
+}
+
+.fieldValidationLabel {
+    margin-left: .3em;
+    margin-right: .3em;
+}
+
+.containerValidationMessage {
+    color: firebrick;
+}
+
+.controlValidationMessage {
+    color: firebrick;
+}
+
+.textAreaControl {
+    vertical-align: middle
+}
+
+.addTextContainer {
+    text-align: center;
+    border: black 1px solid;
+    border-radius: 0.5rem;
+    margin-left: 2rem;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: blue;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    display: table;
+}
+
+.expenseAmount {
+    width: 5rem;
+    margin-left: 0.8rem;
+}
+
+.addExpenseContainer {
+    text-align: center;
+    border: black 1px solid;
+    border-radius: 0.5rem;
+    margin-left: 2rem;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: blue;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    display: table;
+}
+
+.currencySelector {
+    margin-left: 0.8rem;
+}
+
+/* Override some of the kendo ui style*/
+.k-input {
+    width: auto;
+}
+
+.k-input,
+.k-picker {
+    width: auto;
+}
+
+/* Style for the "info" icon */
+.info-icon {
+    font-size: 0.9rem;
+    color: #007bff;
+    /* Blue color for the icon */
+    cursor: pointer;
+    margin-left: 0.3rem;
+}
+
+.info-icon:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.QRCode {
+    width: 120px;
+    height: 120px;
+}
+
+.GeoCoordinates {
+    width: 600px;
+    height: 400px;
+}

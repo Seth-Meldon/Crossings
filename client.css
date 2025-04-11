@@ -1,0 +1,70 @@
+body {
+    /*background-color: black;*/
+    background-color: #5351510d;
+    color: #535151;
+    font-family: 'Source Sans Pro', sans-serif
+}
+
+.sampleTitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+    font-style: normal;
+}
+
+.commandVerticalSpacer {
+    height: 1rem;
+}
+
+.commandBar {
+    margin-top: 1rem;
+}
+
+
+
+.commandButton {
+    border-color: blue;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    background-color: transparent;
+
+    /*font-size: 1rem;*/
+    border-radius: 5px;
+}
+
+.commandButtonHidden {
+    display: none;
+}
+
+.showTraceContainer {
+    padding-top: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+}
+
+.useHtmlKuiContainer {
+    padding-top: 1rem;
+}
+
+.sampleSelectLabel {
+    font-size: 0.9rem;
+}
+
+.sampleSelect {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    background-color: lightblue;
+    border-radius: 5px;
+    width: 9rem;
+}
+
+a.command:hover,
+a.command:visited,
+a.command:link,
+a.command:active {
+    text-decoration: none;
+    color: black;
+}
