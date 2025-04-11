@@ -1,0 +1,139 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500);
+@import url(http://fontawesome.io/assets/font-awesome/css/font-awesome.css);
+* {
+	margin: 0;
+	padding: 0;
+}
+html {
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_embroidery.png);
+  color:#fff;
+}
+body{
+	font-family: 'Ubuntu', sans-serif !important;
+}
+#msform{
+	width: 80%;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset{
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+	position: absolute;
+}
+#msform fieldset:not(:first-of-type){
+	display: none;
+}
+#msform input, #msform textarea{
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: 'Ubuntu', sans-serif !important;
+	color: #2C3E50;
+	font-size: 13px;
+}
+#msform .action-button{
+	width: 100px;
+	background: #27AE60;
+	font-weight: 400;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus{
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+.fs-title{
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+	font-weight:500;
+}
+.fs-subtitle{
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+#progressbar {
+	margin-bottom: 30px;
+	overflow: hidden;
+	counter-reset: step;
+}
+#progressbar li {
+    list-style-type: none;
+    color: #D2D2D2;
+    text-transform: capitalize;
+    font-size: 16px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+#progressbar li.active {
+    color: #27AE60;
+}
+#progressbar li:before{
+    content:'' ;/*counter(step)*/
+    counter-increment: step;
+    width: 50px;
+    line-height: 50px;
+    display: block;
+    font-size: 18px;
+    color:#fff ;
+    background: transparent;
+    border-radius: 100%;
+    margin: 0 auto 5px auto;    
+	border: 2px solid #ECECEC;
+}
+#progressbar li:nth-child(1):before{
+	content:"\f129" ;
+	font-family: 'FontAwesome';	
+}
+#progressbar li:nth-child(2):before{
+	content:"\f013" ;
+	font-family: 'FontAwesome';	
+}
+#progressbar li:nth-child(3):before{
+	content:"\f00c" ;
+	font-family: 'FontAwesome';	
+}
+#progressbar li:after {
+    content: '';
+    width: 73%;
+    height: 2px;
+    background: #ECECEC;
+    position: absolute;
+    left: -35%;
+    top: 25px;
+    z-index: -1;
+}
+#progressbar li:first-child:after {
+	content: none;
+}
+#progressbar li.active:before {
+    border: 2px solid #27AE60;
+    color: #27AE60;
+  /* content: "\f164";*/
+}
+#progressbar li.active:after {
+	background: #27AE60;
+	color: white;
+}
+.form_holder {
+    text-align: center;
+    margin: 30px 0 0;
+}

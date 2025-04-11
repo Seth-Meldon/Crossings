@@ -1,18 +1,43 @@
+/* Font import */
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500);
+/* Font awesome import */
+@import url(http://fontawesome.io/assets/font-awesome/css/font-awesome.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* Using a solid dark color instead of the potentially blocked URL */
+    background-color: #333;
+    height: 100%;
+}
+
 body {
-    /*background-color: black;*/
-    background-color: #5351510d;
-    color: #535151;
-    font-family: 'Source Sans Pro', sans-serif
+    font-family: 'Ubuntu', sans-serif !important;
+    /* Using sample font */
+    background-color: transparent;
+    /* Ensure body doesn't override html background */
+    color: #333;
+    /* Default dark text color for elements not otherwise styled */
+    min-height: 100%;
 }
 
 .sampleTitle {
     font-family: 'Source Sans Pro', sans-serif;
+    /* Keeping original title font */
     font-size: 1.7rem;
     font-weight: 900;
     text-align: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.3rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
     font-style: normal;
+    color: #fff;
+    /* White text for title on dark background */
+    position: relative;
+    z-index: 2;
 }
 
 .commandVerticalSpacer {
@@ -23,14 +48,62 @@ body {
     margin-top: 1rem;
 }
 
-.commandButton {
-    border-color: blue;
-    padding: 15px 25px;
-    box-sizing: border-box;
-    background-color: transparent;
 
-    /*font-size: 1rem;*/
-    border-radius: 5px;
+
+/* --- Styling for Command Button Container (NEW Flexbox Styles) --- */
+.commandContainer {
+    display: flex;
+    /* Use Flexbox for layout */
+    flex-wrap: wrap;
+    /* Allow buttons to wrap to the next line if needed */
+    justify-content: flex-start;
+    /* Align buttons to the start of the container */
+    align-items: center;
+    /* Align buttons vertically in the middle */
+    padding: 5px 0;
+    /* Add some padding */
+}
+
+.commandButton a.command {
+    color: white !important;
+    /* Ensure link text is white */
+    text-decoration: none;
+    /* display: block; */
+    /* REMOVED THIS - Allow link to flow inline */
+    vertical-align: middle;
+    /* Align text vertically */
+}
+
+.commandButton {
+    display: inline-block;
+    /* REVERTED back */
+    width: auto;
+    min-width: 100px;
+    background: #27AE60;
+    font-weight: 400;
+    color: white;
+    border: 0 none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 5px;
+    /* Use margin for spacing between buttons */
+    text-align: center;
+    line-height: normal;
+    vertical-align: middle;
+    /* Helps alignment with inline-block */
+}
+
+.commandButton a.command {
+    color: white !important;
+    text-decoration: none;
+    /* display: block; /* Keep removed */
+    */ vertical-align: middle;
+}
+
+.commandButton:hover,
+.commandButton:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
 
 .commandButtonHidden {
@@ -39,30 +112,130 @@ body {
 
 .showTraceContainer {
     padding-top: 1rem;
-    padding-top: 0.5rem;
     padding-bottom: 0.3rem;
+    /* Style as needed, maybe ensure text color is white */
+    color: #fff;
 }
 
 .useHtmlKuiContainer {
     padding-top: 1rem;
+    /* Style as needed, maybe ensure text color is white */
+    color: #fff;
 }
 
 .sampleSelectLabel {
     font-size: 0.9rem;
+    color: #fff;
+    /* White text for label on dark background */
+    margin-right: 5px;
+    /* Add some spacing */
 }
 
 .sampleSelect {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    background-color: lightblue;
-    border-radius: 5px;
-    width: 9rem;
+    padding: 5px;
+    /* Adjusted padding */
+    background-color: #eee;
+    /* Lighter background for select */
+    color: #333;
+    /* Dark text for select */
+    border-radius: 3px;
+    width: auto;
+    /* Adjust width */
+    min-width: 150px;
+    border: 1px solid #ccc;
 }
 
-a.command:hover,
-a.command:visited,
-a.command:link,
-a.command:active {
-    text-decoration: none;
-    color: black;
+/* --- Progress Bar Styles --- */
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    counter-reset: step;
+    position: relative;
+    width: 80%;
+    margin: 30px auto;
+    padding-top: 20px;
 }
+
+#progressbar li {
+    list-style-type: none;
+    color: #D2D2D2;
+    /* Default step text color */
+    text-transform: capitalize;
+    font-size: 16px;
+    width: 25%;
+    /* Adjust based on number of steps */
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+#progressbar li.active {
+    color: #27AE60;
+    /* Active step text color */
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 50px;
+    line-height: 50px;
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    background: #D2D2D2;
+    /* Default icon background */
+    border-radius: 100%;
+    margin: 0 auto 10px auto;
+    font-family: 'FontAwesome';
+    z-index: 1;
+    position: relative;
+}
+
+/* Add specific icons via JS */
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #D2D2D2;
+    /* Default line color */
+    position: absolute;
+    left: -50%;
+    top: 25px;
+    z-index: 0;
+}
+
+#progressbar li:first-child:after {
+    content: none;
+}
+
+#progressbar li.active:before {
+    background: #27AE60;
+    /* Active icon background */
+    color: #fff;
+}
+
+#progressbar li.active:after {
+    background: #27AE60;
+    /* Active line color */
+    color: white;
+}
+
+#progressbar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Styles for Trace elements if needed on dark background */
+.allTracesContainer {
+    color: #ddd;
+    /* Lighter text color for trace */
+}
+
+.allTracesContainer a.copyToClip {
+    color: #eee;
+    /* Lighter link color */
+}
+
+/* Add other trace styles adjustments as needed */

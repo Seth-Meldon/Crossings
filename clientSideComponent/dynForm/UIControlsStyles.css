@@ -1,117 +1,266 @@
-/* Shared with Kendo UI mode */
-.dynUIContainer {
-    margin: 1rem;
-    padding: 1rem;
-    border: 0.3rem solid #000000;
-    border-radius: 1rem;
+/* Modified dynUIContainer based on sample's fieldset */
+#dynUIContainerId {
+    /* Changed selector to ID for specificity */
+    margin: 50px auto;
+    /* Center container like sample's form */
+    padding: 20px 30px;
+    /* border: 0.3rem solid #000000; /* Replaced with box-shadow */
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    width: 80%;
+    /* Match sample form width */
+    /* Removed display: table; */
+    /* Added background and text color */
+    background: white;
+    color: #333;
+    /* Default dark text color for content inside */
+    text-align: left;
+    /* Override any potential center alignment from parent */
 }
 
-/* Not shared with Kendo UI mode */
+/* Style for the title inside the container, like sample's .fs-title */
+#dynUIContainerId h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 20px;
+    /* Increased margin */
+    font-weight: 500;
+    text-align: center;
+    /* Center title */
+    font-family: 'Ubuntu', sans-serif !important;
+    /* Match body font */
+}
+
+
+/* Removed .dynUIContainerColors as styles are now in #dynUIContainerId */
+/*
 .dynUIContainerColors {
     background-color: ghostwhite;
     color: black;
 }
+*/
 
 .inputContainer {
-    margin: 1em;
+    margin: 1em 0;
+    /* Adjusted margin */
+    text-align: left;
+    /* Ensure inputs align left */
 }
 
+/* Styling for inputs and textareas based on sample */
+#dynUIContainerId input[type="text"],
+#dynUIContainerId input[type="number"],
+#dynUIContainerId input[type="date"],
+#dynUIContainerId input[type="datetime-local"],
+#dynUIContainerId input[type="file"],
+#dynUIContainerId textarea,
+#dynUIContainerId select {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif !important;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+/* Adjust specific input types if needed */
+#dynUIContainerId input[type="checkbox"],
+#dynUIContainerId input[type="radio"] {
+    width: auto;
+    /* Checkboxes/radios shouldn't be full width */
+    margin-right: 5px;
+}
+
+#dynUIContainerId select {
+    /* Add specific select styling if default isn't sufficient */
+    height: 50px;
+    /* Match padding of other inputs */
+}
+
+/* Label styling */
 .inputLabelSide {
     margin-left: .3em;
     margin-right: .3em;
+    color: #666;
+    /* Match sample subtitle color */
+    font-size: 13px;
+    /* Match sample subtitle size */
+    display: inline-block;
+    /* Align properly */
+    margin-bottom: 10px;
+    /* Add spacing like inputs */
 }
 
 .inputLabelAbove {
-    margin-bottom: 0.3rem;
+    display: block;
+    /* Ensure it's on its own line */
+    margin-bottom: 5px;
+    /* Reduced margin */
+    color: #666;
+    /* Match sample subtitle color */
+    font-size: 13px;
+    /* Match sample subtitle size */
+    font-weight: normal;
 }
 
+/* Read Only Text */
 .readOnlyText {
     margin-left: .3em;
     margin-right: .3em;
+    color: #333;
+    /* Ensure readability */
+    padding: 15px 0;
+    /* Add some padding */
+    display: block;
+    margin-bottom: 10px;
 }
 
+/* Validation messages */
 .fieldValidationLabel {
     margin-left: .3em;
     margin-right: .3em;
+    color: #E74C3C;
+    /* Use a clearer error color */
+    font-size: 12px;
+    display: block;
+    /* Show below the field */
+    margin-top: -5px;
+    /* Adjust position */
+    margin-bottom: 10px;
 }
 
 .containerValidationMessage {
-    color: firebrick;
+    color: #E74C3C;
+    text-align: center;
+    margin-top: 15px;
 }
 
 .controlValidationMessage {
-    color: firebrick;
+    color: #E74C3C;
+    font-size: 12px;
+    display: block;
+    margin-left: 5px;
+    margin-bottom: 10px;
 }
 
 .textAreaControl {
-    vertical-align: middle
+    vertical-align: top;
+    /* Align text area nicely */
 }
 
-.addTextContainer {
-    text-align: center;
-    border: black 1px solid;
-    border-radius: 0.5rem;
-    margin-left: 2rem;
-    font-size: 1.05rem;
-    font-weight: bold;
-    color: blue;
-    padding-left: .2rem;
-    padding-right: .2rem;
-    display: table;
-}
-
-.expenseAmount {
-    width: 5rem;
-    margin-left: 0.8rem;
-}
-
+/* Adjust "+" button style */
+.addTextContainer,
 .addExpenseContainer {
     text-align: center;
-    border: black 1px solid;
-    border-radius: 0.5rem;
-    margin-left: 2rem;
-    font-size: 1.05rem;
+    border: 1px solid #ccc;
+    /* Lighter border */
+    border-radius: 3px;
+    margin-left: 10px;
+    /* Adjusted margin */
+    font-size: 1.1rem;
+    /* Slightly larger */
     font-weight: bold;
-    color: blue;
-    padding-left: .2rem;
-    padding-right: .2rem;
-    display: table;
+    color: #27AE60;
+    /* Match accent color */
+    background-color: #f9f9f9;
+    /* Light background */
+    padding: 5px 10px;
+    display: inline-block;
+    /* Change display */
+    cursor: pointer;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+
+.addTextContainer:hover,
+.addExpenseContainer:hover {
+    background-color: #eee;
+}
+
+/* Adjust multi-item input spacing */
+.simpleArrayTypeControl>div,
+.complexArrayTypeControl {
+    margin-bottom: 5px;
+    /* Space between array items */
+}
+
+/* Adjust expense inputs */
+.expenseAmount {
+    width: 80px;
+    /* Adjusted width */
+    margin-left: 0.8rem;
+    display: inline-block;
+    /* Align elements */
+    vertical-align: middle;
 }
 
 .currencySelector {
     margin-left: 0.8rem;
+    width: auto;
+    /* Adjust width */
+    display: inline-block;
+    vertical-align: middle;
 }
 
-/* Override some of the kendo ui style*/
+.expenseInputContainer select {
+    /* Target select within expense */
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+/* Kendo overrides */
 .k-input {
-    width: auto;
+    width: 100%;
+    /* Make Kendo inputs full width */
+    box-sizing: border-box;
 }
 
-.k-input,
 .k-picker {
-    width: auto;
+    width: 100%;
+    /* Make Kendo pickers full width */
+    box-sizing: border-box;
 }
 
-/* Style for the "info" icon */
+#dynUIContainerId .k-picker .k-input {
+    padding: 10px;
+    /* Adjust kendo padding */
+    height: auto;
+    line-height: normal;
+}
+
+
+/* Info icon */
 .info-icon {
     font-size: 0.9rem;
     color: #007bff;
-    /* Blue color for the icon */
     cursor: pointer;
     margin-left: 0.3rem;
 }
 
 .info-icon:hover {
     color: #0056b3;
-    /* Darker blue on hover */
 }
 
+/* Other controls */
 .QRCode {
     width: 120px;
     height: 120px;
+    margin-bottom: 10px;
 }
 
 .GeoCoordinates {
-    width: 600px;
+    width: 100%;
+    /* Make map responsive */
+    max-width: 600px;
     height: 400px;
+    margin-bottom: 10px;
 }

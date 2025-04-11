@@ -3,11 +3,13 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Dynamic Forms Playground</title>
+	<title>Tidal Aquatic Connectivity Assessment</title>
 
 	<script src="https://unpkg.com/jsonpath-plus@5.0.2/dist/index-browser-umd.js"></script>
 
 	<script src="https://kendo.cdn.telerik.com/2023.1.425/js/jquery.min.js"></script>
+
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 
 	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.3.0/classic/classic-green-dark.css" />
 
@@ -36,93 +38,71 @@
 </head>
 
 <body>
-	<div class="sampleTitle"><i class="bi bi-file-earmark-ruled"></i>&nbsp; Rules Driven Dynamic Forms Playground
+	<div class="sampleTitle"><i class="bi bi-file-earmark-ruled"></i>&nbsp; Non Tidal Aquatic Connectivity Assessment
 	</div>
 
 	<table width="100%">
 		<tr>
 			<td valign="top">
 				<div class="commandBar">
-					<div class="commandContainer">
-						<script>
-							// Automatically set the sample to "Tidal Crossing Assessment" (value 9)
-							document.addEventListener("DOMContentLoaded", function () {
-								processSwitchSample({ value: 0 });
-							});
-						</script>
-					</div>
-
-					<div style="display: none;" id="languageContainerId">
-						<div class="commandVerticalSpacer">&nbsp;</div>
-						<div class="commandContainer">
-							<select class="sampleSelect" id="languageSelectId" onchange="processSwitchLanguage(this)">
-							</select>
-						</div>
-					</div>
-
-					<div class="commandVerticalSpacer">&nbsp;</div>
-
-
-					<div class="commandContainer">
-						<span class="commandButton" id="startActionId">
+					<div class="commandContainer buttonGroup" style="margin-left: 20px;">
+						<span class="commandButton" id="startActionId" onclick="processClickStart(); return false;"
+							style="cursor: pointer;">
 							<a class="command" accesskey="s"
-								title="Start Dynamic Form - Shortcut: Alt S (Windows) - CRTL Option S (Mac)" href="#"
-								onclick="processClickStart(); return false;">
-								<span style="text-decoration: underline">Start
+								title="Start Dynamic Form - Shortcut: Alt S (Windows) - CRTL Option S (Mac)" href="#">
+								<span style="text-decoration: underline">Start</span>
 							</a>
 						</span>
-						<span class="commandButton commandButtonHidden" id="prevActionId">
+						<span class="commandButton commandButtonHidden" id="prevActionId"
+							onclick="processClickPrev(); return false;" style="cursor: pointer;">
 							<a class="command" accesskey="p"
-								title="Previous Step - Shortcut: Alt P (Windows) - CRTL Option P (Mac)" href="#"
-								onclick="processClickPrev(); return false;">
-								<span style="text-decoration: underline">Previous
+								title="Previous Step - Shortcut: Alt P (Windows) - CRTL Option P (Mac)" href="#">
+								<span style="text-decoration: underline">Previous</span>
 							</a>
 						</span>
-						<div style="height: 0.6rem;"></div>
-						<span class="commandButton commandButtonHidden" id="nextActionId">
+						<span class="commandButton commandButtonHidden" id="nextActionId"
+							onclick="processClickNext(); return false;" style="cursor: pointer;">
 							<a class="command" accesskey="n"
-								title="Next Step - Shortcut: Alt N (Windows) - CRTL Option N (Mac)" href="#"
-								onclick="processClickNext(); return false;">
-								<span style="text-decoration: underline">Next
+								title="Next Step - Shortcut: Alt N (Windows) - CRTL Option N (Mac)" href="#">
+								<span style="text-decoration: underline">Next</span>
 							</a>
 						</span>
-					</div>
-					<div class="commandContainer showTraceContainer">
-						<span class="commandButton" id="showTraceId">
+						<span class="commandButton" id="showTraceId" onclick="processShowTrace(); return false;"
+							style="cursor: pointer;">
 							<a class="command" accesskey="t"
-								title="Show Trace - Shortcut: Alt T (Windows) - CRTL Option T (Mac)" href="#"
-								onclick="processShowTrace(); return false;">
-								<span style="text-decoration: underline">Show Trace
+								title="Show Trace - Shortcut: Alt T (Windows) - CRTL Option T (Mac)" href="#">
+								<span style="text-decoration: underline">Show Trace</span>
 							</a>
 						</span>
-						<span class="commandButton commandButtonHidden" id="hideTraceId">
+						<span class="commandButton commandButtonHidden" id="hideTraceId"
+							onclick="processHideTrace(); return false;" style="cursor: pointer;">
 							<a class="command" accesskey="h"
-								title="Hide Trace - Shortcut: Alt H (Windows) - CRTL Option H (Mac)" href="#"
-								onclick="processHideTrace(); return false;">
-								<span style="text-decoration: underline">Hide Trace
+								title="Hide Trace - Shortcut: Alt H (Windows) - CRTL Option H (Mac)" href="#">
+								<span style="text-decoration: underline">Hide Trace</span>
 							</a>
 						</span>
-					</div>
-					<div class="commandContainer useHtmlKuiContainer">
-						<span class="commandButton" id="useHtmlId">
+						<span class="commandButton" id="useHtmlId" onclick="processUseHtml(); return false;"
+							style="cursor: pointer;">
 							<a class="command" accesskey="t" title="Use Simple Html elements for rendering form"
-								href="#" onclick="processUseHtml(); return false;">
+								href="#">
 								Use Html
 							</a>
 						</span>
-						<span class="commandButton commandButtonHidden" id="useKuiId">
+						<span class="commandButton commandButtonHidden" id="useKuiId"
+							onclick="processUseKui(); return false;" style="cursor: pointer;">
 							<a class="command" accesskey="h" title="Use KendoUI Components for rendering form elements"
-								href="#" onclick="processUseKui(); return false;">
+								href="#">
 								Use KendoUI
 							</a>
 						</span>
 					</div>
 				</div>
 			</td>
-			<!--				<td width="98%">&nbsp;</td>-->
 			<td width="100%">
+				<ul id="progressbar">
+				</ul>
 				<div id="dynUIContainerId" class="dynUIContainer">
-					<div>Dynamic Form component</div>
+					<div>Tidal Aquatic Connectivity Assessment</div>
 					<div style="margin: 2rem;">
 						<p>
 							In these samples the forms are generated on the fly based on rules from Corticon.js decision
@@ -140,7 +120,6 @@
 	</table>
 
 	<div class="allTracesContainer">
-		<!--    <h3><i class="bi bi-layout-three-columns"></i>&nbsp;Decision Service (Rules) Trace Panel</h3>-->
 		<div class="tracePanelTitle">Decision Service (Rules) Trace Panel</div>
 
 		<div class="stageTraceHistory" style="overflow-x: auto; overflow-y: hidden; padding: 0.8rem;">
