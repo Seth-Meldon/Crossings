@@ -1343,7 +1343,15 @@ corticon.dynForm.UIControlsRenderer = function () {
                         const lng = place.geometry.location.lng();
 
                         // Prepare structured data object
-                        const locationData = { geo: [lat, lng], country: null, state: null, city: null, postalCode: null, street: null, streetNumber: null };
+                        const locationData = {
+                            geo: `${lat}, ${lng}`,
+                            country: null,
+                            state: null,
+                            city: null,
+                            postalCode: null,
+                            street: null,
+                            streetNumber: null
+                        };
 
                         // Extract components (adjust component types if needed)
                         for (let comp of address) {
