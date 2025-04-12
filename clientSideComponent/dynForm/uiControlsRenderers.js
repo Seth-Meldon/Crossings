@@ -1803,11 +1803,12 @@ corticon.dynForm.UIControlsRenderer = function () {
     }
 
     /**
-     * Creates and appends the label element for a control based on position.
-     * @param {Object} oneUIControl - Control configuration (needs label, tooltip, id).
-     * @param {String} labelPositionAtContainerLevel - Default label position.
-     * @param {Object} inputContainerEl - The specific container for this control.
-     */
+         * Creates and appends the label element for a control based on position.
+         * Includes logic for a clickable info icon with a tooltip bubble.
+         * @param {Object} oneUIControl - Control configuration (needs label, tooltip, id).
+         * @param {String} labelPositionAtContainerLevel - Default label position.
+         * @param {Object} inputContainerEl - The specific container for this control.
+         */
     function appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl) {
         // Don't add a label if the control has no label text defined
         if (!oneUIControl.label) {
@@ -1816,27 +1817,49 @@ corticon.dynForm.UIControlsRenderer = function () {
 
         const labelPosition = getLabelPositionForControl(oneUIControl, labelPositionAtContainerLevel);
         const labelText = oneUIControl.label;
-        const controlId = oneUIControl.id; // ID is needed for the 'for' attribute
+        const controlId = oneUIControl.id; // Base ID
 
-        // Create the label element, associate with control ID if available
+        // Create the label element
         const labelEl = $('<label>').text(labelText);
-        if (controlId) {
-            // Note: The 'for' attribute should match the *actual input element's ID*,
-            // which might include the unique suffix from getNextUniqueId().
-            // This is tricky. For now, let's assume it links to the base ID,
-            // or skip 'for' if it causes issues with dynamically generated IDs.
-            // labelEl.attr('for', controlId); // Potential issue with unique IDs
-        }
+        // Associate 'for' with the first actual input if possible later, or omit for now.
 
-        // Add info icon with tooltip if provided
+        // --- Tooltip / Info Icon Logic ---
         if (oneUIControl.tooltip) {
+            // 1. Create the Info Icon Span
             const infoIcon = $('<span>')
-                .addClass('info-icon')
+                .addClass('info-icon') // Class for styling (e.g., cursor: pointer)
                 .text('ⓘ') // Unicode info symbol
-                .attr('title', oneUIControl.tooltip);
-            // Add non-breaking space before icon
-            labelEl.append('&nbsp;').append(infoIcon);
+                // 2. Store tooltip text in data attribute, NOT title
+                .data('tooltip-text', oneUIControl.tooltip);
+
+            // 3. Create the Hidden Tooltip Bubble Span
+            const tooltipBubble = $('<span>')
+                .addClass('tooltip-bubble') // Class for styling & hiding
+                .text(oneUIControl.tooltip) // Put the text inside
+                .hide(); // Initially hidden using jQuery's hide() -> display: none
+
+            // 4. Add Click Handler to the Info Icon
+            infoIcon.on('click', function (event) {
+                event.stopPropagation(); // Prevent click from bubbling up if needed
+                // Find the adjacent tooltip bubble and toggle its visibility
+                $(this).siblings('.tooltip-bubble').first().toggle();
+                // Optional: Close other open tooltips
+                // $('.tooltip-bubble').not($(this).siblings('.tooltip-bubble').first()).hide();
+            });
+
+            // Append icon and bubble to the label
+            labelEl.append('&nbsp;').append(infoIcon).append(tooltipBubble);
+
+            // Optional: Add handler to close bubble when clicking elsewhere
+            // $(document).on('click', function(event) {
+            //     if (!$(event.target).closest('.info-icon').length) {
+            //         $('.tooltip-bubble').hide();
+            //    }
+            // });
+
         }
+        // --- End Tooltip Logic ---
+
 
         // Add required marker if needed
         if (oneUIControl.required === true) {
@@ -1848,15 +1871,11 @@ corticon.dynForm.UIControlsRenderer = function () {
         if (labelPosition === 'Above') {
             const labelWrapper = $('<div>').addClass('inputLabelAbove'); // Block element
             labelWrapper.append(labelEl);
-            // Prepend label before input elements within the container
-            inputContainerEl.prepend(labelWrapper);
+            inputContainerEl.prepend(labelWrapper); // Prepend label
         } else { // 'Side'
             const labelWrapper = $('<span>').addClass('inputLabelSide'); // Inline-block element
             labelWrapper.append(labelEl);
-            // Prepend label before input elements
-            inputContainerEl.prepend(labelWrapper);
-            // Add CSS for .inputLabelSide { display: inline-block; margin-right: 10px; width: 150px; /* Adjust width */ }
-            // And make the input part also inline-block or adjust layout.
+            inputContainerEl.prepend(labelWrapper); // Prepend label
         }
     }
 
