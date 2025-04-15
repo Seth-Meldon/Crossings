@@ -4,7 +4,7 @@ module.exports={"ruleMessages": []}
 "use strict";var _jsEngine=require("@corticon/js-engine"),_decisionservicerules=require("./decisionservicerules"),metadata=_interopRequireWildcard(require("./vocab.json")),ruleMessages=_interopRequireWildcard(require("./_ruleMessages.json"));function _getRequireWildcardCache(e){if("function"!=typeof WeakMap)return null;var n=new WeakMap,i=new WeakMap;return(_getRequireWildcardCache=function(e){return e?i:n})(e)}function _interopRequireWildcard(e,n){if(!n&&e&&e.__esModule)return e;if(null===e||"object"!=typeof e&&"function"!=typeof e)return{default:e};var i=_getRequireWildcardCache(n);if(i&&i.has(e))return i.get(e);var t={__proto__:null},r=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var o in e)if("default"!==o&&{}.hasOwnProperty.call(e,o)){var c=r?Object.getOwnPropertyDescriptor(e,o):null;c&&(c.get||c.set)?Object.defineProperty(t,o,c):t[o]=e[o]}return t.default=e,i&&i.set(e,t),t}void 0!==window.corticonEngine&&null!==window.corticonEngine||(window.corticonEngine={}),void 0!==window.corticonEngines&&null!==window.corticonEngines||(window.corticonEngines=[]),void 0!==window.corticonEnginesMetadata&&null!==window.corticonEnginesMetadata||(window.corticonEnginesMetadata=[]);const decisionServiceFct=async function(e,n){const i=new _jsEngine.CorticonEngine(metadata,ruleMessages,new _decisionservicerules.DecisionServiceRules);return await i.executeDecisionService(e,n)},vocabMetadataFct=function(){return metadata};window.corticonEngine.execute=decisionServiceFct,window.corticonEngine.getVocabularyMetadata=vocabMetadataFct,window.corticonEngines.push({execute:decisionServiceFct}),window.corticonEnginesMetadata.push({getVocabularyMetadata:vocabMetadataFct});
 
 },{"./_ruleMessages.json":1,"./decisionservicerules":3,"./vocab.json":4,"@corticon/js-engine":5}],3:[function(require,module,exports){
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.DecisionServiceRules=void 0;var _jsEngine=require("@corticon/js-engine");class DecisionServiceRules{setUpDecisionService(e,d){if(_jsEngine.Utilities.checksum())throw new Error("Decision Service has expired evaluation license");{_jsEngine.Logger.logDebug("Javascript Studio Build: 2.2.0.0.14226");const a=new _jsEngine.RuleContainer("CrossingForm");e.addRule(a);const l=new _jsEngine.RuleContainer("Submit","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/Submit.ers");a.addRule(l),this.addRulesheetContainer_js_Submit_Cc2(l,d);const u=new _jsEngine.RuleContainer("4_parse_structure","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/4_parse_structure.ers");a.addRule(u),this.addRulesheetContainer_js_4_parse_structure_Cc3(u,d);const t=new _jsEngine.RuleContainer("4_parse_structure2","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/4_parse_structure2.ers");a.addRule(t),this.addRulesheetContainer_js_4_parse_structure2_Cc4(t,d);const n=new _jsEngine.RuleContainer("3_stucture","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/3_stucture.ers");a.addRule(n),this.addRulesheetContainer_js_3_stucture_Cc5(n,d);const i=new _jsEngine.RuleContainer("3_stucture_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/3_stucture_options.ers");a.addRule(i),this.addRulesheetContainer_js_3_stucture_options_Cc6(i,d);const R=new _jsEngine.RuleContainer("2_parse crossing data","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/2_parse crossing data.ers");a.addRule(R),this.addRulesheetContainer_js_2_parse32crossing32data_Cc7(R,d);const o=new _jsEngine.RuleContainer("1_CrossingData","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/1_CrossingData.ers");a.addRule(o),this.addRulesheetContainer_js_1_CrossingData_Cc8(o,d);const r=new _jsEngine.RuleContainer("1_CrossingData_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/1_CrossingData_options.ers");a.addRule(r),this.addRulesheetContainer_js_1_CrossingData_options_Cc9(r,d);const s=new _jsEngine.RuleContainer("0_CrossingData","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/0_CrossingData.ers");a.addRule(s),this.addRulesheetContainer_js_0_CrossingData_Cc10(s,d);const c=new _jsEngine.RuleContainer("0_CrossingData_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/NAACC/Form Logic/0_CrossingData_options.ers");a.addRule(c),this.addRulesheetContainer_js_0_CrossingData_options_Cc11(c,d)}}addRulesheetContainer_js_0_CrossingData_Cc10(e,d){const a=new _jsEngine.TupleOperator("js_0_CrossingData_precondition_0Func",[function(e){e.extend("T0","T1",["UI","UI.containers"],"UI","containers")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=new _jsEngine.Filter("js_0_CrossingData_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,0)]],!0),i=new _jsEngine.Rule("A0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=1]]),R=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>e.get("UI").pathToData="formData"]]),o=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Stream Crossing Survey",e.title="Stream Crossing Survey"}))]]),r=new _jsEngine.Rule("E0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Local_ID",e.id="Local ID (Optional)",e.label="Local ID (Optional)",e.type="Text"}))]]),s=new _jsEngine.Rule("F0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Observation_Lead_Observer",e.id="Lead Observer",e.label="Lead Observer",e.required=!0,e.type="Text"}))]]),c=new _jsEngine.Rule("G0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Observation_Date_Observed",e.id="Date Observed",e.label="Date Observed",e.required=!0,e.type="DateTime",e.value=_jsEngine.dateTimeOps.now.func()}))]]),_=new _jsEngine.Rule("I0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Stream",e.id="Stream",e.label="Stream",e.tooltip="The name of the stream taken from the map, or if not named on the map, the name as known locally, or otherwise list as Unnamed.",e.type="Text"}))]]),g=new _jsEngine.Rule("K0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Road_Type",e.id="Crossing_Road_Type",e.label="Type",e.type="MultipleChoices"}))]]),p=new _jsEngine.Rule("L0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="location",e.id="Location",e.label="Location",e.required=!0,e.type="Geolocation"}))]]),I=new _jsEngine.Rule("N0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Location_Description",e.id="Location Description",e.label="Location Description",e.type="Text"}))]]),U=new _jsEngine.Rule("O0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Comments",e.id="Crossing Comments",e.label="Crossing Comments",e.tooltip="Use this area for brief comments about any aspect of the overall crossing survey ",e.type="Text"}))]]);e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(i),e.addRule(R),e.addRule(o),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(r),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(s),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(c),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(_),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(g),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(p),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(U)}addRulesheetContainer_js_0_CrossingData_options_Cc11(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_0_CrossingData_options_precondition_0Func",[function(e){e.extend("T0","T2",["UI","UI.containers"],"UI","containers"),e.extend("T2","T1",["UI","UI.containers","UI.containers.uiControls"],"UI.containers","uiControls")}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI.containers.uiControls")),t=e=>_jsEngine.Utilities.isValid(e.get("UI")),n=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),i=new _jsEngine.Filter("js_0_CrossingData_options_filter_0","T0",[[e=>t(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,0)]],!0),R=new _jsEngine.Filter("js_0_CrossingData_options_filter_1","T1",[[e=>t(e)&&n(e)&&u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI.containers.uiControls").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("UI.containers.uiControls").id,"Crossing_Road_Type")]]),o=new _jsEngine.Rule("B0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Multilane",e.value="Multilane"}))]]),r=new _jsEngine.Rule("C0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Paved",e.value="Paved"}))]]),s=new _jsEngine.Rule("D0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Unpaved",e.value="Unpaved"}))]]),c=new _jsEngine.Rule("E0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Driveway",e.value="Driveway"}))]]),_=new _jsEngine.Rule("F0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Railroad",e.value="Railroad"}))]]);e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(o),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(r),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(s),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(c),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(_)}addRulesheetContainer_js_1_CrossingData_Cc8(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_1_CrossingData_precondition_0Func",[function(e){e.bind("T1","Data.FormData",e.datamanager.getEntitiesByType("Data.FormData")),e.extend("T0","T2",["UI","UI.containers"],"UI","containers")}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=e=>_jsEngine.Utilities.isValid(e.get("Data.FormData")),i=new _jsEngine.Filter("js_1_CrossingData_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,1)]],!0),R=new _jsEngine.Rule("A0","T1",[],[[e=>n(e),e=>d.setAssociation(e.get("Data.FormData"),"observation",d.createEntity("Data.Observation",function(d){d.Date_Observed=e.get("Data.FormData").Observation_Date_Observed,d.Lead_Observer=e.get("Data.FormData").Observation_Lead_Observer}))]]),o=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=2]]),r=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Stream Crossing Survey",e.title="Stream Crossing Survey"}))]]),s=new _jsEngine.Rule("Q0","T1",[],[[e=>n(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.FormData").Crossing_Lat))(e)&&(e=>_jsEngine.Utilities.isValid(_jsEngine.decimalOps.toString.func(e.get("Data.FormData").Crossing_Lat)))(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.FormData").Crossing_Long))(e)&&(e=>_jsEngine.Utilities.isValid(_jsEngine.decimalOps.toString.func(e.get("Data.FormData").Crossing_Long)))(e),e=>e.get("Data.FormData").Crossing_Crossing_Code=_jsEngine.stringOps.plus.func(_jsEngine.stringOps.plus.func("xy",_jsEngine.stringOps.replaceString.func(_jsEngine.decimalOps.toString.func(e.get("Data.FormData").Crossing_Lat),".","")),_jsEngine.stringOps.replaceString.func(_jsEngine.decimalOps.toString.func(e.get("Data.FormData").Crossing_Long),".",""))]]),c=new _jsEngine.Rule("D0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Type",e.id="Crossing Type",e.label="Crossing Type",e.type="MultipleChoices"}))]]),_=new _jsEngine.Rule("E0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Number_Culverts_BridgeCells",e.id="Number of Culverts/ Bridge Cells",e.label="Number of Culverts/ Bridge Cells",e.type="Number"}))]]),g=new _jsEngine.Rule("F0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photo_inlet",e.id="Photo - Inlet",e.label="Photo - Inlet",e.type="FileUpload"}))]]),p=new _jsEngine.Rule("G0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photo_outlet",e.id="Photo - Outlet",e.label="Photo - Outlet",e.type="FileUpload"}))]]),I=new _jsEngine.Rule("H0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photo_upstream",e.id="Photo - Upstream",e.label="Photo - Upstream",e.type="FileUpload"}))]]),U=new _jsEngine.Rule("I0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photo_downstream",e.id="Photo - Downstream",e.label="Photo - Downstream",e.type="FileUpload"}))]]),T=new _jsEngine.Rule("J0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Flow_Condition",e.id="Flow Condition",e.label="Flow Condition",e.type="MultipleChoices"}))]]),m=new _jsEngine.Rule("K0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Condition",e.id="Crossing Condition",e.label="Crossing Condition",e.type="MultipleChoices"}))]]),y=new _jsEngine.Rule("L0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Alignment",e.id="Alignment",e.label="Alignment",e.type="MultipleChoices"}))]]),E=new _jsEngine.Rule("M0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Road_Fill_Height_Ft",e.id="Road Fill Height",e.label="Road Fill Height",e.tooltip="Within 1 foot, measure the height of fill material between the top of the crossing structure(s   and the road surface. This is best measured with two people when the road surface or fill height is above a   surveyor’s height, with one person holding a stadia rod, and the other sighting the elevation of the road   surface from the side. For multiple culverts with differing amounts of fill over them, provide an average fill height. ",e.type="Number"}))]]),h=new _jsEngine.Rule("N0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Scour_Pool",e.id="Tailwater Scour Pool",e.label="Tailwater Scour Pool",e.tooltip="This is a pool created downstream of a crossing as a result of high flows exiting the  crossing. Use as a reference natural pools in a portion of the stream that is outside the influence of the  crossing structure. A scour pool is considered to exist when its size (a combination of length, width, and  depth) is larger than pools found in the natural stream. Check Large if the length, width or depth of the pool  is two or more times larger than of pools in the natural stream channel. Otherwise, check Small if the pool is  between one and two times the length, width, or depth of pools in the natural channel.  None: There is no difference between the length, width, or depth of the tailwater pool compared with  reference pools, or no tailwater pool exists at the site.  Small: The tailwater pool is between one and two times the length, width, or depth of reference pools.  Large: The tailwater pool is more than twice the length, width or depth of reference pools.",e.type="MultipleChoices"}))]]),j=new _jsEngine.Rule("O0","T2",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Constriction",e.id="Constriction",e.label="Constriction",e.tooltip="Regardless of whether you measured Bankfull Width above, this element assesses how the width of the crossing (including all of its structures) compares to the width of the natural stream channel. Refer to the above section on determining Bankfull Width for reference. Two other ways of assessing the width of the natural stream channel consider the active channel and the wetted channel. The active channel is the area of the stream that is very frequently affected by flowing water. The width of the active channel can often be very close to the Bankfull Width when stream banks are very steep. The wetted channel is simply the area of the stream that contains water at the time of survey, which may be significantly less than the active channel, depending on flow.",e.type="MultipleChoices"}))]]);e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(o),e.addRule(r),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(s),e.addRule(c),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(_),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(g),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(p),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(I),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(U),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(T),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(m),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(y),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(E),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(h),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(j)}addRulesheetContainer_js_1_CrossingData_options_Cc9(e,d){const a=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_0Func",[function(e){e.bind("T1","scourPool",e.datamanager.getEntitiesByType("UIControl"))}]),l=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_1Func",[function(e){e.bind("T2","flowCond",e.datamanager.getEntitiesByType("UIControl"))}]),u=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_2Func",[function(e){e.bind("T3","crossType",e.datamanager.getEntitiesByType("UIControl"))}]),t=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_3Func",[function(e){e.bind("T4","crossCond",e.datamanager.getEntitiesByType("UIControl"))}]),n=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_4Func",[function(e){e.bind("T5","constriction",e.datamanager.getEntitiesByType("UIControl"))}]),i=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_5Func",[function(e){e.bind("T6","alignment",e.datamanager.getEntitiesByType("UIControl"))}]),R=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),o=e=>_jsEngine.Utilities.isValid(e.get("crossCond")),r=e=>_jsEngine.Utilities.isValid(e.get("scourPool")),s=e=>_jsEngine.Utilities.isValid(e.get("crossType")),c=e=>_jsEngine.Utilities.isValid(e.get("constriction")),_=e=>_jsEngine.Utilities.isValid(e.get("alignment")),g=e=>_jsEngine.Utilities.isValid(e.get("flowCond")),p=new _jsEngine.Filter("js_1_CrossingData_options_filter_0","T0",[[e=>(e=>_jsEngine.Utilities.isValid(e.get("UI")))(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,1)]],!0),I=new _jsEngine.Filter("js_1_CrossingData_options_filter_1","T1",[[e=>r(e)&&(e=>_jsEngine.Utilities.isValid(e.get("scourPool").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("scourPool").id,"Tailwater Scour Pool")]]),U=new _jsEngine.Filter("js_1_CrossingData_options_filter_2","T2",[[e=>g(e)&&(e=>_jsEngine.Utilities.isValid(e.get("flowCond").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("flowCond").id,"Flow Condition")]]),T=new _jsEngine.Filter("js_1_CrossingData_options_filter_3","T3",[[e=>s(e)&&(e=>_jsEngine.Utilities.isValid(e.get("crossType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("crossType").id,"Crossing Type")]]),m=new _jsEngine.Filter("js_1_CrossingData_options_filter_4","T4",[[e=>o(e)&&(e=>_jsEngine.Utilities.isValid(e.get("crossCond").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("crossCond").id,"Crossing Condition")]]),y=new _jsEngine.Filter("js_1_CrossingData_options_filter_5","T5",[[e=>c(e)&&(e=>_jsEngine.Utilities.isValid(e.get("constriction").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("constriction").id,"Constriction")]]),E=new _jsEngine.Filter("js_1_CrossingData_options_filter_6","T6",[[e=>_(e)&&(e=>_jsEngine.Utilities.isValid(e.get("alignment").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("alignment").id,"Alignment")]]),h=new _jsEngine.Rule("A0","T6",[],[[e=>_(e),e=>d.addAssociation(e.get("alignment"),"option",d.createEntity("Option",function(e){e.displayName="Flow Aligned",e.value="Flow Aligned"}))]]),j=new _jsEngine.Rule("B0","T6",[],[[e=>_(e),e=>d.addAssociation(e.get("alignment"),"option",d.createEntity("Option",function(e){e.displayName="Skewed (>45)",e.value="Skewed (>45)"}))]]),S=new _jsEngine.Rule("C0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Severe",e.value="Severe"}))]]),C=new _jsEngine.Rule("D0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),f=new _jsEngine.Rule("E0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Spans only bankful/active channel",e.value="Spans only bankful/active channel"}))]]),D=new _jsEngine.Rule("F0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Spans full channel and banks",e.value="Spans full channel and banks"}))]]),w=new _jsEngine.Rule("G0","T4",[],[[e=>o(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="OK",e.value="OK"}))]]),b=new _jsEngine.Rule("H0","T4",[],[[e=>o(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="Poor",e.value="Poor"}))]]),O=new _jsEngine.Rule("I0","T4",[],[[e=>o(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="New",e.value="New"}))]]),v=new _jsEngine.Rule("J0","T4",[],[[e=>o(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),A=new _jsEngine.Rule("K0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Bridge",e.value="Bridge"}))]]),N=new _jsEngine.Rule("L0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Culvert",e.value="Culvert"}))]]),F=new _jsEngine.Rule("M0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Multiple Culvert",e.value="Multiple Culvert"}))]]),B=new _jsEngine.Rule("N0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),M=new _jsEngine.Rule("O0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="No crossing",e.value="No crossing"}))]]),P=new _jsEngine.Rule("P0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Removed crossing",e.value="Removed crossing"}))]]),V=new _jsEngine.Rule("Q0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Buried stream",e.value="Buried stream"}))]]),W=new _jsEngine.Rule("R0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Inaccessible",e.value="Inaccessible"}))]]),L=new _jsEngine.Rule("S0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Partially Inaccessible",e.value="Partially Inaccessible"}))]]),k=new _jsEngine.Rule("T0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="No Upstream Channel",e.value="No Upstream Channel"}))]]),G=new _jsEngine.Rule("U0","T3",[],[[e=>s(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Bridge Adequate",e.value="Bridge Adequate"}))]]),x=new _jsEngine.Rule("V0","T2",[],[[e=>g(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="No Flow",e.value="No Flow"}))]]),q=new _jsEngine.Rule("W0","T2",[],[[e=>g(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="Typical-Low",e.value="Typical-Low"}))]]),H=new _jsEngine.Rule("X0","T2",[],[[e=>g(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),K=new _jsEngine.Rule("Y0","T2",[],[[e=>g(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="High",e.value="High"}))]]),Y=new _jsEngine.Rule("Z0","T1",[],[[e=>r(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="Large",e.value="Large"}))]]),J=new _jsEngine.Rule("AA0","T1",[],[[e=>r(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="Small",e.value="Small"}))]]),z=new _jsEngine.Rule("AB0","T1",[],[[e=>r(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]);e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(h),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(j),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(S),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(C),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(f),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(D),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(w),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(b),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(O),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(v),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(A),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(N),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(F),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(B),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(M),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(P),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(V),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(W),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(L),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(k),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(G),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(x),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(q),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(H),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(K),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(Y),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(J),e.addRule(R),e.addRule(p),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(U),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(m),e.addRule(n),e.addRule(y),e.addRule(i),e.addRule(E),e.addRule(z)}addRulesheetContainer_js_2_parse32crossing32data_Cc7(e,d){const a=new _jsEngine.TupleOperator("js_2_parse32crossing32data_precondition_0Func",[function(e){e.bind("T2","Data.FormData",e.datamanager.getEntitiesByType("Data.FormData")),e.extend("T2","T1",["Data.FormData","Data.FormData.observation"],"Data.FormData","observation")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=new _jsEngine.Filter("js_2_parse32crossing32data_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,2)]],!0),n=new _jsEngine.Rule("A0","T0",[],[[e=>u(e),e=>e.get("UI").noUiToRenderContinue=!0]]),i=new _jsEngine.Rule("B0","T1",[],[[e=>(e=>_jsEngine.Utilities.isValid(e.get("Data.FormData")))(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.FormData.observation")))(e),e=>d.setAssociation(e.get("Data.FormData.observation"),"crossing",d.createEntity("Data.Crossing",function(d){d.Alignment=e.get("Data.FormData").Crossing_Alignment,d.Comments=e.get("Data.FormData").Crossing_Comments,d.Constriction=e.get("Data.FormData").Crossing_Constriction,d.Crossing_Code=e.get("Data.FormData").Crossing_Crossing_Code,d.Crossing_Condition=e.get("Data.FormData").Crossing_Condition,d.Crossing_Type=e.get("Data.FormData").Crossing_Type,d.Flow_Condition=e.get("Data.FormData").Crossing_Flow_Condition,d.Local_ID=e.get("Data.FormData").Crossing_Local_ID,d.Location_Description=e.get("Data.FormData").Crossing_Location_Description,d.Number_Culverts_BridgeCells=e.get("Data.FormData").Crossing_Number_Culverts_BridgeCells,d.Road=e.get("Data.FormData").Crossing_Road,d.Road_Fill_Height_Ft=e.get("Data.FormData").Crossing_Road_Fill_Height_Ft,d.Road_Type=e.get("Data.FormData").Crossing_Road_Type,d.Scour_Pool=e.get("Data.FormData").Crossing_Scour_Pool,d.Stream=e.get("Data.FormData").Crossing_Stream,d.Tidal_site=e.get("Data.FormData").Crossing_tidal_site,d.Town=e.get("Data.FormData").Crossing_Town,d.Watershed=e.get("Data.FormData").Crossing_Watershed,d.lat=e.get("Data.FormData").Crossing_Lat,d.long=e.get("Data.FormData").Crossing_Long}))]]),R=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=3]]);e.addRule(l),e.addRule(t),e.addRule(a),e.addRule(n),e.addRule(i),e.addRule(l),e.addRule(t),e.addRule(a),e.addRule(R)}addRulesheetContainer_js_3_stucture_Cc5(e,d){const a=new _jsEngine.TupleOperator("js_3_stucture_precondition_0Func",[function(e){e.extend("T0","T1",["UI","UI.containers"],"UI","containers")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=new _jsEngine.Filter("js_3_stucture_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,3)]],!0),i=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Structure 1",e.title="Structure 1"}))]]),R=new _jsEngine.Rule("D0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Material",e.id="Structure Material",e.label="Structure Material",e.tooltip="Record here the primary material of which the structure is made, i.e., the material that makes up the majority of the structure. When in doubt, focus on the material that is most in contact with the stream. If a structure is made of two materials, such as a bridge with concrete abutments and a steel deck structure, a metal culvert that has been lined along its entire bottom with concrete, or a crossing with different types of structures at inlet and outlet, select Combination.",e.type="MultipleChoices"}))]]),o=new _jsEngine.Rule("E0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_Shape",e.id="Outlet Shape",e.label="Outlet Shape",e.tooltip="Round Culvert: This is a circular pipe. It may or may not have substrate inside, even though the diagram on the field form shows a layer of substrate. It may be compressed slightly in one dimension, and should be considered round unless it is truly squashed  Pipe Arch/Elliptical Culvert: This is essentially a squashed round culvert, where the lower portion is flatter, and the upper portion is a semicircular arch, or more of a pure ellipse. It may or may not have substrate inside.  Open Bottom Arch Bridge/Culvert: This structure will often look like a round culvert on the top half, but it will not have a bottom. There will be some sort of footings to stabilize it, either buried metal or concrete footings, or concrete footings that rise some height above the channel bottom. There will be natural substrate throughout the structure. To distinguish between an embedded Pipe Arch Culvert and an Open Bottom Arch, note that the sides of the Pipe Arch curve inward in their lower section, while the sides of the Open Bottom Arch will run straight downward into the streambed substrate or to a vertical footing. Beware of confusion between an Open Bottom Arch and an embedded Round Culvert; Open Bottom Arches tend to be larger than most Round Culverts. This shape could also be selected for certain bridges that have a similar arched shape and are not well represented by other bridge types.  Box Culvert: These structures are usually made of concrete or stone, but sometimes of corrugated  metal with a slightly arched top. Typically, they have a top, two sides, and a bottom.  A box culvert without a bottom, called a bottomless box culvert, should be classified as a Box/Bridge  with Abutments (#6). If you cannot tell if the structure has a bottom, classify it as a Box/Bridge  with Abutments (#6).  Bridge with Side Slopes: This is a bridge with angled banks up to the bottom of the road deck. This type will have no obvious abutments, though they may be buried in the road fill.  - Box/Bridge with Abutments: This is a bridge or bottomless box culvert with vertical sides. Bridge with Side Slopes and Abutments: This is a bridge with sloping banks and vertical abutments (typically short) that support the bridge deck.  Ford: A ford is a shallow, open stream crossing that may have aminimal structure to stabilize where vehicles drive across the stream bottom.  Unknown: Select when a structure’s shape is unidentifiable for any reason. Typically, the inlet shape may be unidentifiable because it is submerged or completely blocked with debris.  Removed: Select when the structure is no longer present.",e.type="MultipleChoices"}))]]),r=new _jsEngine.Rule("F0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_Armoring",e.id="Outlet Armoring",e.label="Outlet Armoring",e.type="MultipleChoices"}))]]),s=new _jsEngine.Rule("G0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_Grade",e.id="Outlet Grade",e.label="Outlet Grade",e.type="MultipleChoices"}))]]),c=new _jsEngine.Rule("I0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_structureWidthFt",e.id="Outlet Width (ft.)",e.label="Outlet Width (ft.)",e.type="Number"}))]]),_=new _jsEngine.Rule("J0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_structureHeightFt",e.id="Outlet Height (ft.)",e.label="Outlet Height (ft.)",e.type="Number"}))]]),g=new _jsEngine.Rule("K0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_substrateWaterWidth",e.id="Outlet Substrate Water Width (ft.)",e.label="Outlet Substrate Water Width (ft.)",e.type="Number"}))]]),p=new _jsEngine.Rule("L0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_Water_Depth",e.id="Outlet Depth (ft.)",e.label="Outlet Depth (ft.)",e.type="Number"}))]]),I=new _jsEngine.Rule("M0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_DropToSurfaceFt",e.id="Outlet Drop to Surface (ft.)",e.label="Outlet Drop to Surface (ft.)",e.type="Number"}))]]),U=new _jsEngine.Rule("N0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_DropToBottomFt",e.id="Outlet Drop to Bottom (ft.)",e.label="Outlet Drop to Bottom (ft.)",e.type="Number"}))]]),T=new _jsEngine.Rule("O0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Outlet_abutmentHeightFt",e.id="Outlet Abutment (ft.)",e.label="Outlet Abutment (ft.)",e.type="Number"}))]]),m=new _jsEngine.Rule("P0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_lengthFt",e.id="Outlet Length (ft.)",e.label="Outlet Length (ft.)",e.type="Number"}))]]),y=new _jsEngine.Rule("R0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_Shape",e.id="Inlet Shape",e.label="Inlet Shape",e.type="MultipleChoices"}))]]),E=new _jsEngine.Rule("S0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_type",e.id="Inlet Type",e.label="Inlet Type",e.type="MultipleChoices"}))]]),h=new _jsEngine.Rule("T0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_Grade",e.id="Inlet Grade",e.label="Inlet Grade",e.type="MultipleChoices"}))]]),j=new _jsEngine.Rule("V0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_structureWidthFt",e.id="Inlet Width (ft.)",e.label="Inlet Width (ft.)",e.type="Number"}))]]),S=new _jsEngine.Rule("W0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_structureHeightFt",e.id="Inlet Height (ft.)",e.label="Inlet Height (ft.)",e.type="Number"}))]]),C=new _jsEngine.Rule("X0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_substrateWaterWidth",e.id="Inlet Substrate Width (ft.)",e.label="Inlet Substrate Width (ft.)",e.type="Number"}))]]),f=new _jsEngine.Rule("Y0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Inlet_Water_Depth",e.id="Inlet Depth (ft.)",e.label="Inlet Depth (ft.)",e.type="Number"}))]]),D=new _jsEngine.Rule("AA0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Internal_Structures",e.id="Internal Structures",e.label="Internal Structures",e.type="MultipleChoices"}))]]),w=new _jsEngine.Rule("AB0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Substrate_Matches_Stream",e.id="Substrate Matches Stream",e.label="Substrate Matches Stream",e.type="MultipleChoices"}))]]),b=new _jsEngine.Rule("AC0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Substrate_Type",e.id="Substrate Type",e.label="Substrate Type",e.type="MultipleChoices"}))]]),O=new _jsEngine.Rule("AD0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Substrate_Coverage",e.id="Substrate Coverage",e.label="Substrate Coverage",e.type="MultipleChoices"}))]]),v=new _jsEngine.Rule("AE0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_None",e.id="Physical Barriers None",e.label="Physical Barriers None",e.type="SingleChoice"}))]]),A=new _jsEngine.Rule("AF0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Debris",e.id="Physical Barriers Debris",e.label="Physical Barriers Debris",e.type="SingleChoice"}))]]),N=new _jsEngine.Rule("AG0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Deformation",e.id="Physical Barriers Deformation",e.label="Physical Barriers Deformation",e.type="SingleChoice"}))]]),F=new _jsEngine.Rule("AH0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Freefall",e.id="Physical Barriers Freefall",e.label="Physical Barriers Freefall",e.type="SingleChoice"}))]]),B=new _jsEngine.Rule("AI0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Fencing",e.id="Physical Barriers Fencing",e.label="Physical Barriers Fencing",e.type="SingleChoice"}))]]),M=new _jsEngine.Rule("AJ0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Dry",e.id="Physical Barriers Dry",e.label="Physical Barriers Dry",e.type="SingleChoice"}))]]),P=new _jsEngine.Rule("AK0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Severity",e.id="Physical Barriers Severity",e.label="Physical Barriers Severity",e.type="SingleChoice"}))]]),V=new _jsEngine.Rule("AL0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Physical_Barriers_Other",e.id="Physical Barriers Other",e.label="Physical Barriers Other",e.type="Text"}))]]),W=new _jsEngine.Rule("AN0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Water_Depth_Matches_Stream",e.id="Water Depth Matches Stream",e.label="Water Depth Matches Stream",e.type="MultipleChoices"}))]]),L=new _jsEngine.Rule("AO0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Water_Velocity_Matches_Stream",e.id="Water Velocity Matches Stream",e.label="Water Velocity Matches Stream",e.type="MultipleChoices"}))]]),k=new _jsEngine.Rule("AQ0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Structure_Dry_Passage",e.id="Dry Passage through Structure?",e.label="Dry Passage through Structure?",e.type="MultipleChoices"}))]]);e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(R),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(o),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(r),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(s),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(c),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(_),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(g),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(p),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(T),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(m),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(y),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(E),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(h),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(j),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(S),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(C),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(f),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(D),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(w),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(b),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(O),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(v),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(A),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(N),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(F),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(B),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(M),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(P),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(V),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(W),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(L),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(k)}addRulesheetContainer_js_3_stucture_options_Cc6(e,d){const a=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_15Func",[function(e){e.extend("T2","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"],"UI.containers","uiControls")}]),l=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_16Func",[function(e){e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.join("T5","T1",["UI","UI.containers"],"T31",["UI","UI.containers","OutletGrade","StructureMaterial"]),e.projection("T31","T1",["UI","UI.containers","StructureMaterial"]),e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.join("T5","T6",["UI","UI.containers"],"T32",["UI","UI.containers","InletShape","OutletGrade"]),e.projection("T32","T6",["UI","UI.containers","InletShape"]),e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.projection("T5","T0",["UI"])}]),u=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_0Func",[function(e){e.extend("T0","T2",["UI","UI.containers"],"UI","containers"),e.extend("T2","T1",["UI","UI.containers","StructureMaterial"],"UI.containers","uiControls")}]),t=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_2Func",[function(e){e.extend("T2","T3",["UI","UI.containers","OutletShape"],"UI.containers","uiControls")}]),n=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_3Func",[function(e){e.extend("T2","T4",["UI","UI.containers","OutletArmoring"],"UI.containers","uiControls")}]),i=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_4Func",[function(e){e.extend("T2","T5",["UI","UI.containers","OutletGrade"],"UI.containers","uiControls")}]),R=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_5Func",[function(e){e.extend("T2","T6",["UI","UI.containers","InletShape"],"UI.containers","uiControls")}]),o=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_6Func",[function(e){e.extend("T2","T7",["UI","UI.containers","InletType"],"UI.containers","uiControls")}]),r=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_7Func",[function(e){e.extend("T2","T8",["UI","UI.containers","InletGrade"],"UI.containers","uiControls")}]),s=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_8Func",[function(e){e.extend("T2","T9",["UI","UI.containers","InternalStructures"],"UI.containers","uiControls")}]),c=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_9Func",[function(e){e.extend("T2","T10",["UI","UI.containers","SubstrateMatchesStream"],"UI.containers","uiControls")}]),_=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),g=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_10Func",[function(e){e.extend("T2","T11",["UI","UI.containers","SubstrateType"],"UI.containers","uiControls")}]),p=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_13Func",[function(e){e.extend("T2","T14",["UI","UI.containers","Structure_Dry_Passage"],"UI.containers","uiControls")}]),I=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_14Func",[function(e){e.extend("T2","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"],"UI.containers","uiControls")}]),U=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_11Func",[function(e){e.extend("T2","T12",["UI","UI.containers","SubstrateCoverage"],"UI.containers","uiControls")}]),T=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_12Func",[function(e){e.extend("T2","T13",["UI","UI.containers","BarrierSeverity"],"UI.containers","uiControls")}]),m=e=>_jsEngine.Utilities.isValid(e.get("SubstrateCoverage")),y=e=>_jsEngine.Utilities.isValid(e.get("Structure_Structure_Water_Velocity_Matches_Stream")),E=e=>_jsEngine.Utilities.isValid(e.get("Structure_Dry_Passage")),h=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),j=e=>_jsEngine.Utilities.isValid(e.get("StructureMaterial")),S=e=>_jsEngine.Utilities.isValid(e.get("SubstrateMatchesStream")),C=e=>_jsEngine.Utilities.isValid(e.get("UI")),f=e=>_jsEngine.Utilities.isValid(e.get("OutletShape")),D=e=>_jsEngine.Utilities.isValid(e.get("InletType")),w=e=>_jsEngine.Utilities.isValid(e.get("OutletArmoring")),b=e=>_jsEngine.Utilities.isValid(e.get("SubstrateType")),O=e=>_jsEngine.Utilities.isValid(e.get("Structure_Water_Depth_Matches_Stream")),v=e=>_jsEngine.Utilities.isValid(e.get("OutletGrade")),A=e=>_jsEngine.Utilities.isValid(e.get("InletShape")),N=e=>_jsEngine.Utilities.isValid(e.get("InternalStructures")),F=e=>_jsEngine.Utilities.isValid(e.get("BarrierSeverity")),B=e=>_jsEngine.Utilities.isValid(e.get("InletGrade")),M=new _jsEngine.Filter("js_3_stucture_options_filter_0","T0",[[e=>C(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,3)]]),P=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_2","T1",[[e=>C(e)&&h(e)&&j(e)&&(e=>_jsEngine.Utilities.isValid(e.get("StructureMaterial").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("StructureMaterial").id,"Structure Material")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","StructureMaterial"],["UI","UI.containers","StructureMaterial"]]]),V=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_3","T3",[[e=>C(e)&&h(e)&&f(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletShape").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletShape").id,"Outlet Shape")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletShape"],["UI","UI.containers","OutletShape"]]]),W=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_4","T4",[[e=>C(e)&&h(e)&&w(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletArmoring").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletArmoring").id,"Outlet Armoring")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletArmoring"],["UI","UI.containers","OutletArmoring"]]]),L=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_5","T5",[[e=>C(e)&&h(e)&&v(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletGrade").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletGrade").id,"Outlet Grade")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletGrade"],["UI","UI.containers","OutletGrade"]]]),k=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_6","T6",[[e=>C(e)&&h(e)&&A(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletShape").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletShape").id,"Inlet Shape")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletShape"],["UI","UI.containers","InletShape"]]]),G=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_7","T7",[[e=>C(e)&&h(e)&&D(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletType").id,"Inlet Type")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletType"],["UI","UI.containers","InletType"]]]),x=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_8","T8",[[e=>C(e)&&h(e)&&B(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletGrade").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletGrade").id,"Inlet Grade")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletGrade"],["UI","UI.containers","InletGrade"]]]),q=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_9","T9",[[e=>C(e)&&h(e)&&N(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InternalStructures").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InternalStructures").id,"Internal Structures")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InternalStructures"],["UI","UI.containers","InternalStructures"]]]),H=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_10","T10",[[e=>C(e)&&h(e)&&S(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateMatchesStream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateMatchesStream").id,"Substrate Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateMatchesStream"],["UI","UI.containers","SubstrateMatchesStream"]]]),K=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_11","T11",[[e=>C(e)&&h(e)&&b(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateType").id,"Substrate Type")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateType"],["UI","UI.containers","SubstrateType"]]]),Y=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_12","T12",[[e=>C(e)&&h(e)&&m(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateCoverage").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateCoverage").id,"Substrate Coverage")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateCoverage"],["UI","UI.containers","SubstrateCoverage"]]]),J=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_13","T13",[[e=>C(e)&&h(e)&&F(e)&&(e=>_jsEngine.Utilities.isValid(e.get("BarrierSeverity").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("BarrierSeverity").id,"Physical Barriers Severity")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","BarrierSeverity"],["UI","UI.containers","BarrierSeverity"]]]),z=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_14","T14",[[e=>C(e)&&h(e)&&E(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Dry_Passage").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Dry_Passage").id,"Dry Passage through Structure?")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Dry_Passage"],["UI","UI.containers","Structure_Dry_Passage"]]]),Q=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_15","T15",[[e=>C(e)&&h(e)&&y(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Structure_Water_Velocity_Matches_Stream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Structure_Water_Velocity_Matches_Stream").id,"Water Velocity Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"],["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]]]),X=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_16","T16",[[e=>C(e)&&h(e)&&O(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Water_Depth_Matches_Stream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Water_Depth_Matches_Stream").id,"Water Depth Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Water_Depth_Matches_Stream"],["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]]]),Z=new _jsEngine.Rule("A0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Metal",e.value="Metal"}))]]),$=new _jsEngine.Rule("B0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Concrete",e.value="Concrete"}))]]),ee=new _jsEngine.Rule("C0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Plastic",e.value="Plastic"}))]]),de=new _jsEngine.Rule("D0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Wood",e.value="Wood"}))]]),ae=new _jsEngine.Rule("E0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Rock/Stone",e.value="Rock/Stone"}))]]),le=new _jsEngine.Rule("F0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Fiberglass",e.value="Fiberglass"}))]]),ue=new _jsEngine.Rule("G0","T1",[],[[e=>C(e)&&h(e)&&j(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Combination",e.value="Combination"}))]]),te=new _jsEngine.Rule("I0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="1",e.value="1"}))]]),ne=new _jsEngine.Rule("J0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="2",e.value="2"}))]]),ie=new _jsEngine.Rule("K0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="3",e.value="3"}))]]),Re=new _jsEngine.Rule("L0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="4",e.value="4"}))]]),oe=new _jsEngine.Rule("M0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="5",e.value="5"}))]]),re=new _jsEngine.Rule("N0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="6",e.value="6"}))]]),se=new _jsEngine.Rule("O0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="7",e.value="7"}))]]),ce=new _jsEngine.Rule("P0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),_e=new _jsEngine.Rule("Q0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),ge=new _jsEngine.Rule("R0","T3",[],[[e=>C(e)&&h(e)&&f(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Removed",e.value="Removed"}))]]),pe=new _jsEngine.Rule("T0","T4",[],[[e=>C(e)&&h(e)&&w(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),Ie=new _jsEngine.Rule("U0","T4",[],[[e=>C(e)&&h(e)&&w(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="Not Extensive",e.value="Not Extensive"}))]]),Ue=new _jsEngine.Rule("V0","T4",[],[[e=>C(e)&&h(e)&&w(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="Extensive",e.value="Extensive"}))]]),Te=new _jsEngine.Rule("X0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="At stream grade ",e.value="At stream grade "}))]]),me=new _jsEngine.Rule("Y0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Free Fall",e.value="Free Fall"}))]]),ye=new _jsEngine.Rule("Z0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Free Fall Onto Cascade",e.value="Free Fall Onto Cascade"}))]]),Ee=new _jsEngine.Rule("AA0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Cascade",e.value="Cascade"}))]]),he=new _jsEngine.Rule("AB0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Clogged/Collapsed/Submerged",e.value="Clogged/Collapsed/Submerged"}))]]),je=new _jsEngine.Rule("AC0","T5",[],[[e=>C(e)&&h(e)&&v(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Se=new _jsEngine.Rule("AE0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="1",e.value="1"}))]]),Ce=new _jsEngine.Rule("AF0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="2",e.value="2"}))]]),fe=new _jsEngine.Rule("AG0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="3",e.value="3"}))]]),De=new _jsEngine.Rule("AH0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="4",e.value="4"}))]]),we=new _jsEngine.Rule("AI0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="5",e.value="5"}))]]),be=new _jsEngine.Rule("AJ0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="6",e.value="6"}))]]),Oe=new _jsEngine.Rule("AK0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="7",e.value="7"}))]]),ve=new _jsEngine.Rule("AL0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),Ae=new _jsEngine.Rule("AM0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Ne=new _jsEngine.Rule("AN0","T6",[],[[e=>C(e)&&h(e)&&A(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Removed",e.value="Removed"}))]]),Fe=new _jsEngine.Rule("AP0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Projecting",e.value="Projecting"}))]]),Be=new _jsEngine.Rule("AQ0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Headwall",e.value="Headwall"}))]]),Me=new _jsEngine.Rule("AR0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Wingwalls",e.value="Wingwalls"}))]]),Pe=new _jsEngine.Rule("AS0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Headwall & Wingwalls",e.value="Headwall & Wingwalls"}))]]),Ve=new _jsEngine.Rule("AT0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Mitered to Slope",e.value="Mitered to Slope"}))]]),We=new _jsEngine.Rule("AU0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Other",e.value="Other"}))]]),Le=new _jsEngine.Rule("AV0","T7",[],[[e=>C(e)&&h(e)&&D(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),ke=new _jsEngine.Rule("AX0","T8",[],[[e=>C(e)&&h(e)&&B(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="At stream grade ",e.value="At stream grade "}))]]),Ge=new _jsEngine.Rule("AY0","T8",[],[[e=>C(e)&&h(e)&&B(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Inlet drop ",e.value="Inlet drop "}))]]),xe=new _jsEngine.Rule("AZ0","T8",[],[[e=>C(e)&&h(e)&&B(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Perched ",e.value="Perched "}))]]),qe=new _jsEngine.Rule("BA0","T8",[],[[e=>C(e)&&h(e)&&B(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Clogged/collapsed/submerged",e.value="Clogged/collapsed/submerged"}))]]),He=new _jsEngine.Rule("BB0","T8",[],[[e=>C(e)&&h(e)&&B(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Ke=new _jsEngine.Rule("BD0","T9",[],[[e=>C(e)&&h(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="none ",e.value="none "}))]]),Ye=new _jsEngine.Rule("BE0","T9",[],[[e=>C(e)&&h(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="baffles/weirs ",e.value="baffles/weirs "}))]]),Je=new _jsEngine.Rule("BF0","T9",[],[[e=>C(e)&&h(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="supports ",e.value="supports "}))]]),ze=new _jsEngine.Rule("BH0","T10",[],[[e=>C(e)&&h(e)&&S(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),Qe=new _jsEngine.Rule("BI0","T10",[],[[e=>C(e)&&h(e)&&S(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Not appropriate",e.value="Not appropriate"}))]]),Xe=new _jsEngine.Rule("BJ0","T10",[],[[e=>C(e)&&h(e)&&S(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Vontrasting ",e.value="Vontrasting "}))]]),Ze=new _jsEngine.Rule("BK0","T10",[],[[e=>C(e)&&h(e)&&S(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Comparable ",e.value="Comparable "}))]]),$e=new _jsEngine.Rule("BL0","T10",[],[[e=>C(e)&&h(e)&&S(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),ed=new _jsEngine.Rule("BN0","T13",[],[[e=>C(e)&&h(e)&&F(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),dd=new _jsEngine.Rule("BO0","T13",[],[[e=>C(e)&&h(e)&&F(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Minor",e.value="Minor"}))]]),ad=new _jsEngine.Rule("BP0","T13",[],[[e=>C(e)&&h(e)&&F(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),ld=new _jsEngine.Rule("BQ0","T13",[],[[e=>C(e)&&h(e)&&F(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Severe",e.value="Severe"}))]]),ud=new _jsEngine.Rule("BT0","T16",[],[[e=>C(e)&&h(e)&&O(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),td=new _jsEngine.Rule("BU0","T16",[],[[e=>C(e)&&h(e)&&O(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Shallower",e.value="No-Shallower"}))]]),nd=new _jsEngine.Rule("BV0","T16",[],[[e=>C(e)&&h(e)&&O(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Deeper",e.value="No-Deeper"}))]]),id=new _jsEngine.Rule("BW0","T16",[],[[e=>C(e)&&h(e)&&O(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Rd=new _jsEngine.Rule("BX0","T16",[],[[e=>C(e)&&h(e)&&O(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Dry",e.value="Dry"}))]]),od=new _jsEngine.Rule("BZ0","T15",[],[[e=>C(e)&&h(e)&&y(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),rd=new _jsEngine.Rule("CA0","T15",[],[[e=>C(e)&&h(e)&&y(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Faster",e.value="No-Faster"}))]]),sd=new _jsEngine.Rule("CB0","T15",[],[[e=>C(e)&&h(e)&&y(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Slower",e.value="No-Slower"}))]]),cd=new _jsEngine.Rule("CC0","T15",[],[[e=>C(e)&&h(e)&&y(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),_d=new _jsEngine.Rule("CD0","T15",[],[[e=>C(e)&&h(e)&&y(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Dry",e.value="Dry"}))]]),gd=new _jsEngine.Rule("CF0","T14",[],[[e=>C(e)&&h(e)&&E(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),pd=new _jsEngine.Rule("CG0","T14",[],[[e=>C(e)&&h(e)&&E(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="No",e.value="No"}))]]),Id=new _jsEngine.Rule("CH0","T14",[],[[e=>C(e)&&h(e)&&E(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="Unsure",e.value="Unsure"}))]]),Ud=new _jsEngine.Rule("CJ0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Silt",e.value="Silt"}))]]),Td=new _jsEngine.Rule("CK0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Sand",e.value="Sand"}))]]),md=new _jsEngine.Rule("CL0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Gravel",e.value="Gravel"}))]]),yd=new _jsEngine.Rule("CM0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Cobble",e.value="Cobble"}))]]),Ed=new _jsEngine.Rule("CN0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Boulder",e.value="Boulder"}))]]),hd=new _jsEngine.Rule("CO0","T11",[],[[e=>C(e)&&h(e)&&b(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Bedrock",e.value="Bedrock"}))]]),jd=new _jsEngine.Rule("CQ0","T12",[],[[e=>C(e)&&h(e)&&m(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="none",e.value="none"}))]]),Sd=new _jsEngine.Rule("CR0","T12",[],[[e=>C(e)&&h(e)&&m(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="25%",e.value="25%"}))]]),Cd=new _jsEngine.Rule("CS0","T12",[],[[e=>C(e)&&h(e)&&m(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="50%",e.value="50%"}))]]),fd=new _jsEngine.Rule("CT0","T12",[],[[e=>C(e)&&h(e)&&m(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="75%",e.value="75%"}))]]),Dd=new _jsEngine.Rule("CU0","T12",[],[[e=>C(e)&&h(e)&&m(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="100%",e.value="100%"}))]]),wd=new _jsEngine.Rule("CY0","T0",[],[[e=>C(e),e=>e.get("UI").nextStageNumber=4]]);e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Z),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule($),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ee),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(de),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ae),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(le),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ue),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(te),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ne),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ie),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Re),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(oe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(re),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(se),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ce),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(_e),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ge),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(pe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ie),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ue),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Te),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(me),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ye),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q);e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ee),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(he),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(je),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Se),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ce),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(fe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(De),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(we),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(be),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Oe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ve),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ae),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ne),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Fe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Be),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Me),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Pe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ve),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(We),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Le),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ke),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ge),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(xe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(qe),e.addRule(_),e.addRule(M);e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(He),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ke),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ye),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Je),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ze),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Qe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Xe),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ze),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule($e),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ed),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(dd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ad),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ld),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ud),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(td),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(nd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(id),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Rd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(od),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(rd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(sd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(cd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(_d),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H);e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(gd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(pd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Id),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ud),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Td),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(md),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(yd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ed),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(hd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(jd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Sd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Cd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(fd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Dd),e.addRule(_),e.addRule(M),e.addRule(u),e.addRule(P),e.addRule(t),e.addRule(V),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(L),e.addRule(R),e.addRule(k),e.addRule(o),e.addRule(G),e.addRule(r),e.addRule(x),e.addRule(s),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(g),e.addRule(K),e.addRule(U),e.addRule(Y),e.addRule(T),e.addRule(J),e.addRule(p),e.addRule(z),e.addRule(I),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(wd)}addRulesheetContainer_js_4_parse_structure2_Cc4(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_4_parse_structure2_precondition_0Func",[function(e){e.bind("T1","Data.Crossing",e.datamanager.getEntitiesByType("Data.Crossing")),e.bind("T2","Data.FormData",e.datamanager.getEntitiesByType("Data.FormData")),e.crossproduct("T1","T2","T3"),e.extend("T2","T4",["Data.FormData","Data.FormData.observation"],"Data.FormData","observation"),e.join("T3","T4",["Data.FormData"],"T5",["Data.Crossing","Data.FormData","Data.FormData.observation"]),e.extend("T4","T6",["Data.FormData","Data.FormData.observation","Data.FormData.observation.crossing"],"Data.FormData.observation","crossing"),e.join("T5","T6",["Data.FormData","Data.FormData.observation"],"T7",["Data.Crossing","Data.FormData","Data.FormData.observation","Data.FormData.observation.crossing"]),e.extend("T1","T8",["Data.Crossing","Data.Crossing.structure"],"Data.Crossing","structure"),e.accumulate("T8",["Data.Crossing"],["Data.Crossing.structure"],"T9"),e.join("T7","T9",["Data.Crossing"],"T10",["Data.Crossing","Data.FormData","Data.FormData.observation","Data.FormData.observation.crossing","Data.Crossing.structure->"])}]),u=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))),t=e=>_jsEngine.Utilities.isValid(e.get("Data.FormData.observation.crossing")),n=e=>_jsEngine.Utilities.isValid(e.get("UI")),i=e=>_jsEngine.Utilities.isValid(e.get("Data.FormData.observation")),R=e=>_jsEngine.Utilities.isValid(e.get("Data.FormData")),o=new _jsEngine.Filter("js_4_parse_structure2_filter_0","T0",[[e=>n(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,4)]],!0),r=new _jsEngine.Rule("A0","T0",[],[[e=>n(e),e=>e.get("UI").noUiToRenderContinue=!0]]),s=new _jsEngine.Rule("B0","T0",[],[[e=>n(e),e=>e.get("UI").nextStageNumber=5]]),c=new _jsEngine.Rule("1","T10",[[e=>u(e),e=>_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>R(e)&&i(e)&&t(e),e=>d.addAssociation(e.get("Data.FormData.observation.crossing"),"structure",d.createEntity("Data.Structure",function(d){d.Contains_Debris_Sediment_Rock=e.get("Data.FormData").Structure_Contains_Debris_Sediment_Rock,d.Dry_Passage=e.get("Data.FormData").Structure_Dry_Passage,d.Height_Above_Dry_Passage=e.get("Data.FormData").Structure_Height_Above_Dry_Passage,d.Internal_Baffles=e.get("Data.FormData").Structure_Internal_Baffles,d.Internal_Structure_Other=e.get("Data.FormData").Structure_Internal_Structure_Other,d.Internal_Structures=e.get("Data.FormData").Structure_Internal_Structures,d.Internal_Structures_None=e.get("Data.FormData").Structure_Internal_Structures_None,d.Internal_Supports=e.get("Data.FormData").Structure_Internal_Supports,d.Physical_Barriers_Deformation=e.get("Data.FormData").Structure_Physical_Barriers_Deformation,d.Physical_Barriers_Dry=e.get("Data.FormData").Structure_Physical_Barriers_Dry,d.Physical_Barriers_Fencing=e.get("Data.FormData").Structure_Physical_Barriers_Fencing,d.Physical_Barriers_Freefall=e.get("Data.FormData").Structure_Physical_Barriers_Freefall,d.Physical_Barriers_None=e.get("Data.FormData").Structure_Physical_Barriers_None,d.Physical_Barriers_Other=e.get("Data.FormData").Structure_Physical_Barriers_Other,d.Physical_Barriers_Severity=e.get("Data.FormData").Structure_Physical_Barriers_Severity,d.Structure_Material=e.get("Data.FormData").Structure_Material,d.Substrate_Coverage=e.get("Data.FormData").Structure_Substrate_Coverage,d.Substrate_Matches_Stream=e.get("Data.FormData").Structure_Substrate_Matches_Stream,d.Substrate_Type=e.get("Data.FormData").Structure_Substrate_Type,d.Water_Depth_Matches_Stream=e.get("Data.FormData").Structure_Water_Depth_Matches_Stream,d.Water_Velocity_Matches_Stream=e.get("Data.FormData").Structure_Water_Velocity_Matches_Stream,d.id=1,d.lengthFt=e.get("Data.FormData").Structure_lengthFt}))]]),_=new _jsEngine.Rule("2","T10",[[e=>u(e),e=>!1===_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>R(e)&&i(e)&&t(e)&&(e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->"))))(e),e=>d.addAssociation(e.get("Data.FormData.observation.crossing"),"structure",d.createEntity("Data.Structure",function(d){d.Contains_Debris_Sediment_Rock=e.get("Data.FormData").Structure_Contains_Debris_Sediment_Rock,d.Dry_Passage=e.get("Data.FormData").Structure_Dry_Passage,d.Height_Above_Dry_Passage=e.get("Data.FormData").Structure_Height_Above_Dry_Passage,d.Internal_Baffles=e.get("Data.FormData").Structure_Internal_Baffles,d.Internal_Structure_Other=e.get("Data.FormData").Structure_Internal_Structure_Other,d.Internal_Structures=e.get("Data.FormData").Structure_Internal_Structures,d.Internal_Structures_None=e.get("Data.FormData").Structure_Internal_Structures_None,d.Internal_Supports=e.get("Data.FormData").Structure_Internal_Supports,d.Physical_Barriers_Deformation=e.get("Data.FormData").Structure_Physical_Barriers_Deformation,d.Physical_Barriers_Dry=e.get("Data.FormData").Structure_Physical_Barriers_Dry,d.Physical_Barriers_Fencing=e.get("Data.FormData").Structure_Physical_Barriers_Fencing,d.Physical_Barriers_Freefall=e.get("Data.FormData").Structure_Physical_Barriers_Freefall,d.Physical_Barriers_None=e.get("Data.FormData").Structure_Physical_Barriers_None,d.Physical_Barriers_Other=e.get("Data.FormData").Structure_Physical_Barriers_Other,d.Physical_Barriers_Severity=e.get("Data.FormData").Structure_Physical_Barriers_Severity,d.Structure_Material=e.get("Data.FormData").Structure_Material,d.Substrate_Coverage=e.get("Data.FormData").Structure_Substrate_Coverage,d.Substrate_Matches_Stream=e.get("Data.FormData").Structure_Substrate_Matches_Stream,d.Substrate_Type=e.get("Data.FormData").Structure_Substrate_Type,d.Water_Depth_Matches_Stream=e.get("Data.FormData").Structure_Water_Depth_Matches_Stream,d.Water_Velocity_Matches_Stream=e.get("Data.FormData").Structure_Water_Velocity_Matches_Stream,d.id=_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1),d.lengthFt=e.get("Data.FormData").Structure_lengthFt}))]]);e.addRule(a),e.addRule(o),e.addRule(l),e.addRule(r),e.addRule(s),e.addRule(c),e.addRule(a),e.addRule(o),e.addRule(l),e.addRule(_)}addRulesheetContainer_js_4_parse_structure_Cc3(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_4_parse_structure_precondition_0Func",[function(e){e.bind("T1","Data.Crossing",e.datamanager.getEntitiesByType("Data.Crossing")),e.extend("T1","T2",["Data.Crossing","Data.Crossing.structure"],"Data.Crossing","structure"),e.accumulate("T2",["Data.Crossing"],["Data.Crossing.structure"],"T3"),e.crossproduct("T0","T3","T4")}]),u=e=>_jsEngine.Utilities.isValid(e.get("Data.Crossing").Number_Culverts_BridgeCells),t=e=>_jsEngine.Utilities.isValid(e.get("Data.Crossing")),n=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->"))),i=e=>_jsEngine.Utilities.isValid(e.get("UI")),R=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))),o=(e,d)=>e.get("UI").nextStageNumber=d,r=new _jsEngine.Filter("js_4_parse_structure_filter_0","T0",[[e=>i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,4)]],!0),s=new _jsEngine.Rule("A0","T0",[],[[e=>i(e),e=>e.get("UI").noUiToRenderContinue=!0]]),c=new _jsEngine.Rule("1","T4",[[e=>R(e),e=>!1===_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))],[e=>t(e)&&u(e)&&n(e),e=>_jsEngine.integerOps.lessThan.func(_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1),e.get("Data.Crossing").Number_Culverts_BridgeCells)]],[[e=>i(e),o,e=>3]]),_=new _jsEngine.Rule("2","T4",[[e=>R(e),e=>!1===_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))],[e=>t(e)&&u(e)&&n(e),e=>_jsEngine.integerOps.greaterOrEqual.func(_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1),e.get("Data.Crossing").Number_Culverts_BridgeCells)]],[[e=>i(e),o,e=>5]]);e.addRule(a),e.addRule(r),e.addRule(l),e.addRule(s),e.addRule(c),e.addRule(_)}addRulesheetContainer_js_Submit_Cc2(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=e=>_jsEngine.Utilities.isValid(e.get("UI")),u=new _jsEngine.Filter("js_Submit_filter_0","T0",[[e=>l(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,5)]],!0),t=new _jsEngine.Rule("1","T0",[],[[e=>l(e),(e,d)=>e.get("UI").done=d,e=>!0],[e=>l(e),(e,d)=>e.get("UI").postType=d,e=>"REST"]]);e.addRule(a),e.addRule(u),e.addRule(t)}}exports.DecisionServiceRules=DecisionServiceRules;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.DecisionServiceRules=void 0;var _jsEngine=require("@corticon/js-engine");class DecisionServiceRules{setUpDecisionService(e,d){if(_jsEngine.Utilities.checksum())throw new Error("Decision Service has expired evaluation license");{_jsEngine.Logger.logDebug("Javascript Studio Build: 2.2.0.0.14226");const a=new _jsEngine.RuleContainer("CrossingForm");e.addRule(a);const l=new _jsEngine.RuleContainer("5_check structure count","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/5_check structure count.ers");a.addRule(l),this.addRulesheetContainer_js_5_check32structure32count_Cc2(l,d);const u=new _jsEngine.RuleContainer("6_submit","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/6_submit.ers");a.addRule(u),this.addRulesheetContainer_js_6_submit_Cc3(u,d);const t=new _jsEngine.RuleContainer("4_parse_structure","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/4_parse_structure.ers");a.addRule(t),this.addRulesheetContainer_js_4_parse_structure_Cc4(t,d);const n=new _jsEngine.RuleContainer("3_stucture","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/3_stucture.ers");a.addRule(n),this.addRulesheetContainer_js_3_stucture_Cc5(n,d);const i=new _jsEngine.RuleContainer("3_stucture_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/3_stucture_options.ers");a.addRule(i),this.addRulesheetContainer_js_3_stucture_options_Cc6(i,d);const R=new _jsEngine.RuleContainer("2_parseCrossingData","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/2_parseCrossingData.ers");a.addRule(R),this.addRulesheetContainer_js_2_parseCrossingData_Cc7(R,d);const s=new _jsEngine.RuleContainer("1_Crossing Data","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/1_Crossing Data.ers");a.addRule(s),this.addRulesheetContainer_js_1_Crossing32Data_Cc8(s,d);const o=new _jsEngine.RuleContainer("1_CrossingData_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/1_CrossingData_options.ers");a.addRule(o),this.addRulesheetContainer_js_1_CrossingData_options_Cc9(o,d);const r=new _jsEngine.RuleContainer("0_CrossingData","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/0_CrossingData.ers");a.addRule(r),this.addRulesheetContainer_js_0_CrossingData_Cc10(r,d);const c=new _jsEngine.RuleContainer("0_CrossingData_options","file:/C:/Users/smeldon/Workspaces/Corticon.js/2.2/Culvert Assessment/0_CrossingData_options.ers");a.addRule(c),this.addRulesheetContainer_js_0_CrossingData_options_Cc11(c,d)}}addRulesheetContainer_js_0_CrossingData_Cc10(e,d){const a=new _jsEngine.TupleOperator("js_0_CrossingData_precondition_0Func",[function(e){e.extend("T0","T1",["UI","UI.containers"],"UI","containers")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=new _jsEngine.Filter("js_0_CrossingData_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,0)]],!0),i=new _jsEngine.Rule("A0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=1]]),R=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>e.get("UI").pathToData="assessment"]]),s=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Stream Crossing Survey",e.title="Stream Crossing Survey"}))]]),o=new _jsEngine.Rule("E0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="localID",e.id="Local ID (Optional)",e.label="Local ID (Optional)",e.type="Text"}))]]),r=new _jsEngine.Rule("F0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="leadObserver",e.id="Lead Observer",e.label="Lead Observer",e.required=!0,e.type="Text"}))]]),c=new _jsEngine.Rule("G0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="dateObserved",e.id="Date Observed",e.label="Date Observed",e.required=!0,e.type="DateTime",e.value=_jsEngine.dateTimeOps.now.func()}))]]),g=new _jsEngine.Rule("H0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="stream",e.id="Stream",e.label="Stream",e.tooltip="The name of the stream taken from the map, or if not named on the map, the name as known locally, or otherwise list as Unnamed.",e.type="Text"}))]]),p=new _jsEngine.Rule("I0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="Crossing_Road_Type",e.id="roadType",e.label="Type",e.type="MultipleChoices"}))]]),_=new _jsEngine.Rule("J0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="location",e.id="Location",e.label="Location",e.required=!0,e.type="Geolocation"}))]]),U=new _jsEngine.Rule("K0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="locationDescription",e.id="Location Description",e.label="Location Description",e.type="Text"}))]]),I=new _jsEngine.Rule("L0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="comments",e.id="Crossing Comments",e.label="Crossing Comments",e.tooltip="Use this area for brief comments about any aspect of the overall crossing survey ",e.type="Text"}))]]);e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(i),e.addRule(R),e.addRule(s),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(o),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(r),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(c),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(g),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(p),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(_),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(n),e.addRule(a),e.addRule(I)}addRulesheetContainer_js_0_CrossingData_options_Cc11(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_0_CrossingData_options_precondition_0Func",[function(e){e.extend("T0","T2",["UI","UI.containers"],"UI","containers"),e.extend("T2","T1",["UI","UI.containers","UI.containers.uiControls"],"UI.containers","uiControls")}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI.containers.uiControls")),t=e=>_jsEngine.Utilities.isValid(e.get("UI")),n=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),i=new _jsEngine.Filter("js_0_CrossingData_options_filter_0","T0",[[e=>t(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,0)]],!0),R=new _jsEngine.Filter("js_0_CrossingData_options_filter_1","T1",[[e=>t(e)&&n(e)&&u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI.containers.uiControls").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("UI.containers.uiControls").id,"Crossing_Road_Type")]]),s=new _jsEngine.Rule("B0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Multilane",e.value="Multilane"}))]]),o=new _jsEngine.Rule("C0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Paved",e.value="Paved"}))]]),r=new _jsEngine.Rule("D0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Unpaved",e.value="Unpaved"}))]]),c=new _jsEngine.Rule("E0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Driveway",e.value="Driveway"}))]]),g=new _jsEngine.Rule("F0","T1",[],[[e=>t(e)&&n(e)&&u(e),e=>d.addAssociation(e.get("UI.containers.uiControls"),"option",d.createEntity("Option",function(e){e.displayName="Railroad",e.value="Railroad"}))]]);e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(s),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(o),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(r),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(c),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(g)}addRulesheetContainer_js_1_Crossing32Data_Cc8(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_1_Crossing32Data_precondition_0Func",[function(e){e.extend("T0","T1",["UI","UI.containers"],"UI","containers")}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=new _jsEngine.Filter("js_1_Crossing32Data_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,1)]],!0),i=new _jsEngine.Rule("A0","T0",[],[[e=>u(e),e=>e.get("UI").pathToData="crossingData"]]),R=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=2]]),s=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Stream Crossing Survey",e.title="Stream Crossing Survey"}))]]),o=new _jsEngine.Rule("D0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="crossingType",e.id="Crossing Type",e.label="Crossing Type",e.type="MultipleChoices"}))]]),r=new _jsEngine.Rule("E0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="numberCulverts",e.id="Number of Culverts/ Bridge Cells",e.label="Number of Culverts/ Bridge Cells",e.type="Number"}))]]),c=new _jsEngine.Rule("F0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photoInlet",e.id="Photo - Inlet",e.label="Photo - Inlet",e.type="FileUpload"}))]]),g=new _jsEngine.Rule("G0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photoOutlet",e.id="Photo - Outlet",e.label="Photo - Outlet",e.type="FileUpload"}))]]),p=new _jsEngine.Rule("H0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photoUpstream",e.id="Photo - Upstream",e.label="Photo - Upstream",e.type="FileUpload"}))]]),_=new _jsEngine.Rule("I0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="photoDownstream",e.id="Photo - Downstream",e.label="Photo - Downstream",e.type="FileUpload"}))]]),U=new _jsEngine.Rule("J0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="flowCondition",e.id="Flow Condition",e.label="Flow Condition",e.type="MultipleChoices"}))]]),I=new _jsEngine.Rule("K0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="crossingCondition",e.id="Crossing Condition",e.label="Crossing Condition",e.type="MultipleChoices"}))]]),T=new _jsEngine.Rule("L0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="alignment",e.id="Alignment",e.label="Alignment",e.type="MultipleChoices"}))]]),y=new _jsEngine.Rule("M0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="roadfillHeight_ft",e.id="Road Fill Height",e.label="Road Fill Height",e.tooltip="Within 1 foot, measure the height of fill material between the top of the crossing structure(s   and the road surface. This is best measured with two people when the road surface or fill height is above a   surveyor’s height, with one person holding a stadia rod, and the other sighting the elevation of the road   surface from the side. For multiple culverts with differing amounts of fill over them, provide an average fill height. ",e.type="Number"}))]]),E=new _jsEngine.Rule("N0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="scourPool",e.id="Tailwater Scour Pool",e.label="Tailwater Scour Pool",e.tooltip="This is a pool created downstream of a crossing as a result of high flows exiting the  crossing. Use as a reference natural pools in a portion of the stream that is outside the influence of the  crossing structure. A scour pool is considered to exist when its size (a combination of length, width, and  depth) is larger than pools found in the natural stream. Check Large if the length, width or depth of the pool  is two or more times larger than of pools in the natural stream channel. Otherwise, check Small if the pool is  between one and two times the length, width, or depth of pools in the natural channel.  None: There is no difference between the length, width, or depth of the tailwater pool compared with  reference pools, or no tailwater pool exists at the site.  Small: The tailwater pool is between one and two times the length, width, or depth of reference pools.  Large: The tailwater pool is more than twice the length, width or depth of reference pools.",e.type="MultipleChoices"}))]]),h=new _jsEngine.Rule("O0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="constriction",e.id="Constriction",e.label="Constriction",e.tooltip="Regardless of whether you measured Bankfull Width above, this element assesses how the width of the crossing (including all of its structures) compares to the width of the natural stream channel. Refer to the above section on determining Bankfull Width for reference. Two other ways of assessing the width of the natural stream channel consider the active channel and the wetted channel. The active channel is the area of the stream that is very frequently affected by flowing water. The width of the active channel can often be very close to the Bankfull Width when stream banks are very steep. The wetted channel is simply the area of the stream that contains water at the time of survey, which may be significantly less than the active channel, depending on flow.",e.type="MultipleChoices"}))]]);e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(i),e.addRule(R),e.addRule(s),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(o),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(r),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(c),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(g),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(p),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(_),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(U),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(I),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(T),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(y),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(E),e.addRule(a),e.addRule(n),e.addRule(l),e.addRule(h)}addRulesheetContainer_js_1_CrossingData_options_Cc9(e,d){const a=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_0Func",[function(e){e.bind("T1","scourPool",e.datamanager.getEntitiesByType("UIControl"))}]),l=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_1Func",[function(e){e.bind("T2","flowCond",e.datamanager.getEntitiesByType("UIControl"))}]),u=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_2Func",[function(e){e.bind("T3","crossType",e.datamanager.getEntitiesByType("UIControl"))}]),t=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_3Func",[function(e){e.bind("T4","crossCond",e.datamanager.getEntitiesByType("UIControl"))}]),n=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_4Func",[function(e){e.bind("T5","constriction",e.datamanager.getEntitiesByType("UIControl"))}]),i=new _jsEngine.TupleOperator("js_1_CrossingData_options_precondition_5Func",[function(e){e.bind("T6","alignment",e.datamanager.getEntitiesByType("UIControl"))}]),R=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),s=e=>_jsEngine.Utilities.isValid(e.get("crossCond")),o=e=>_jsEngine.Utilities.isValid(e.get("scourPool")),r=e=>_jsEngine.Utilities.isValid(e.get("crossType")),c=e=>_jsEngine.Utilities.isValid(e.get("constriction")),g=e=>_jsEngine.Utilities.isValid(e.get("alignment")),p=e=>_jsEngine.Utilities.isValid(e.get("flowCond")),_=new _jsEngine.Filter("js_1_CrossingData_options_filter_0","T0",[[e=>(e=>_jsEngine.Utilities.isValid(e.get("UI")))(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,1)]],!0),U=new _jsEngine.Filter("js_1_CrossingData_options_filter_1","T1",[[e=>o(e)&&(e=>_jsEngine.Utilities.isValid(e.get("scourPool").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("scourPool").id,"Tailwater Scour Pool")]]),I=new _jsEngine.Filter("js_1_CrossingData_options_filter_2","T2",[[e=>p(e)&&(e=>_jsEngine.Utilities.isValid(e.get("flowCond").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("flowCond").id,"Flow Condition")]]),T=new _jsEngine.Filter("js_1_CrossingData_options_filter_3","T3",[[e=>r(e)&&(e=>_jsEngine.Utilities.isValid(e.get("crossType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("crossType").id,"Crossing Type")]]),y=new _jsEngine.Filter("js_1_CrossingData_options_filter_4","T4",[[e=>s(e)&&(e=>_jsEngine.Utilities.isValid(e.get("crossCond").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("crossCond").id,"Crossing Condition")]]),E=new _jsEngine.Filter("js_1_CrossingData_options_filter_5","T5",[[e=>c(e)&&(e=>_jsEngine.Utilities.isValid(e.get("constriction").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("constriction").id,"Constriction")]]),h=new _jsEngine.Filter("js_1_CrossingData_options_filter_6","T6",[[e=>g(e)&&(e=>_jsEngine.Utilities.isValid(e.get("alignment").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("alignment").id,"Alignment")]]),j=new _jsEngine.Rule("A0","T6",[],[[e=>g(e),e=>d.addAssociation(e.get("alignment"),"option",d.createEntity("Option",function(e){e.displayName="Flow Aligned",e.value="Flow Aligned"}))]]),m=new _jsEngine.Rule("B0","T6",[],[[e=>g(e),e=>d.addAssociation(e.get("alignment"),"option",d.createEntity("Option",function(e){e.displayName="Skewed (>45)",e.value="Skewed (>45)"}))]]),f=new _jsEngine.Rule("C0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Severe",e.value="Severe"}))]]),C=new _jsEngine.Rule("D0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),S=new _jsEngine.Rule("E0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Spans only bankful/active channel",e.value="Spans only bankful/active channel"}))]]),w=new _jsEngine.Rule("F0","T5",[],[[e=>c(e),e=>d.addAssociation(e.get("constriction"),"option",d.createEntity("Option",function(e){e.displayName="Spans full channel and banks",e.value="Spans full channel and banks"}))]]),b=new _jsEngine.Rule("G0","T4",[],[[e=>s(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="OK",e.value="OK"}))]]),O=new _jsEngine.Rule("H0","T4",[],[[e=>s(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="Poor",e.value="Poor"}))]]),A=new _jsEngine.Rule("I0","T4",[],[[e=>s(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="New",e.value="New"}))]]),D=new _jsEngine.Rule("J0","T4",[],[[e=>s(e),e=>d.addAssociation(e.get("crossCond"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),v=new _jsEngine.Rule("K0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Bridge",e.value="Bridge"}))]]),N=new _jsEngine.Rule("L0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Culvert",e.value="Culvert"}))]]),B=new _jsEngine.Rule("M0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Multiple Culvert",e.value="Multiple Culvert"}))]]),M=new _jsEngine.Rule("N0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),F=new _jsEngine.Rule("O0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="No crossing",e.value="No crossing"}))]]),V=new _jsEngine.Rule("P0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Removed crossing",e.value="Removed crossing"}))]]),P=new _jsEngine.Rule("Q0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Buried stream",e.value="Buried stream"}))]]),W=new _jsEngine.Rule("R0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Inaccessible",e.value="Inaccessible"}))]]),k=new _jsEngine.Rule("S0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Partially Inaccessible",e.value="Partially Inaccessible"}))]]),G=new _jsEngine.Rule("T0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="No Upstream Channel",e.value="No Upstream Channel"}))]]),x=new _jsEngine.Rule("U0","T3",[],[[e=>r(e),e=>d.addAssociation(e.get("crossType"),"option",d.createEntity("Option",function(e){e.displayName="Bridge Adequate",e.value="Bridge Adequate"}))]]),L=new _jsEngine.Rule("V0","T2",[],[[e=>p(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="No Flow",e.value="No Flow"}))]]),q=new _jsEngine.Rule("W0","T2",[],[[e=>p(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="Typical-Low",e.value="Typical-Low"}))]]),H=new _jsEngine.Rule("X0","T2",[],[[e=>p(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),K=new _jsEngine.Rule("Y0","T2",[],[[e=>p(e),e=>d.addAssociation(e.get("flowCond"),"option",d.createEntity("Option",function(e){e.displayName="High",e.value="High"}))]]),z=new _jsEngine.Rule("Z0","T1",[],[[e=>o(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="Large",e.value="Large"}))]]),J=new _jsEngine.Rule("AA0","T1",[],[[e=>o(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="Small",e.value="Small"}))]]),Y=new _jsEngine.Rule("AB0","T1",[],[[e=>o(e),e=>d.addAssociation(e.get("scourPool"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]);e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(j),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(m),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(f),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(C),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(S),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(w),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(b),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(O),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(A),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(D),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(v),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(N),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(B),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(M),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(F),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(V),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(P),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(W),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(k),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(G),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(x),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(L),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(q),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(H),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(K),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(z),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(J),e.addRule(R),e.addRule(_),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(I),e.addRule(u),e.addRule(T),e.addRule(t),e.addRule(y),e.addRule(n),e.addRule(E),e.addRule(i),e.addRule(h),e.addRule(Y)}addRulesheetContainer_js_2_parseCrossingData_Cc7(e,d){const a=new _jsEngine.TupleOperator("js_2_parseCrossingData_precondition_1Func",[function(e){e.bind("T2","Data.Assessment",e.datamanager.getEntitiesByType("Data.Assessment")),e.extend("T2","T3",["Data.Assessment","Data.Assessment.location"],"Data.Assessment","location"),e.bind("T4","Data.Data",e.datamanager.getEntitiesByType("Data.Data")),e.crossproduct("T3","T4","T5"),e.extend("T4","T6",["Data.Data","Data.Data.crossingData"],"Data.Data","crossingData"),e.join("T5","T6",["Data.Data"],"T1",["Data.Assessment","Data.Assessment.location","Data.Data","Data.Data.crossingData"])}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location")),n=e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment")),i=e=>_jsEngine.Utilities.isValid(e.get("Data.Data.crossingData")),R=e=>_jsEngine.Utilities.isValid(e.get("Data.Data")),s=new _jsEngine.Filter("js_2_parseCrossingData_filter_1","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,2)]],!0),o=new _jsEngine.Rule("B0","T0",[],[[e=>u(e),e=>e.get("UI").noUiToRenderContinue=!0]]),r=new _jsEngine.Rule("C0","T0",[],[[e=>u(e),e=>e.get("UI").nextStageNumber=3]]),c=new _jsEngine.Rule("H0","T1",[],[[e=>n(e)&&t(e)&&R(e)&&i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location").city))(e),e=>e.get("Data.Data.crossingData").city=e.get("Data.Assessment.location").city]]),g=new _jsEngine.Rule("I0","T1",[],[[e=>n(e)&&t(e)&&R(e)&&i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location").state))(e),e=>e.get("Data.Data.crossingData").state=e.get("Data.Assessment.location").state]]),p=new _jsEngine.Rule("J0","T1",[],[[e=>n(e)&&t(e)&&R(e)&&i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location").street))(e),e=>e.get("Data.Data.crossingData").street=e.get("Data.Assessment.location").street]]),_=new _jsEngine.Rule("K0","T1",[],[[e=>n(e)&&t(e)&&R(e)&&i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location").postalCode))(e),e=>e.get("Data.Data.crossingData").postalCode=e.get("Data.Assessment.location").postalCode]]),U=new _jsEngine.Rule("L0","T1",[],[[e=>n(e)&&t(e)&&R(e)&&i(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Data.Assessment.location").geo))(e),e=>e.get("Data.Data.crossingData").geo=e.get("Data.Assessment.location").geo]]);e.addRule(l),e.addRule(s),e.addRule(a),e.addRule(o),e.addRule(r),e.addRule(c),e.addRule(g),e.addRule(p),e.addRule(_),e.addRule(U)}addRulesheetContainer_js_3_stucture_Cc5(e,d){const a=new _jsEngine.TupleOperator("js_3_stucture_precondition_0Func",[function(e){e.extend("T0","T1",["UI","UI.containers"],"UI","containers"),e.bind("T2","Data.Crossing",e.datamanager.getEntitiesByType("Data.Crossing")),e.extend("T2","T3",["Data.Crossing","Data.Crossing.structure"],"Data.Crossing","structure"),e.accumulate("T3",["Data.Crossing"],["Data.Crossing.structure"],"T4"),e.crossproduct("T0","T4","T5")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("UI")),t=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),n=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))),i=new _jsEngine.Filter("js_3_stucture_filter_0","T0",[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,3)]],!0),R=new _jsEngine.Rule("1","T5",[[e=>n(e),e=>_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>u(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(e){e.id="Structure 1",e.title="Structure 1"}))]]),s=new _jsEngine.Rule("2","T5",[[e=>n(e),e=>!1===_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>u(e)&&(e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->"))))(e),e=>d.setAssociation(e.get("UI"),"containers",d.createEntity("Container",function(d){d.id=_jsEngine.stringOps.plus.func("Structure ",_jsEngine.integerOps.toStringOp.func(_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1))),d.title=_jsEngine.stringOps.plus.func("Structure ",_jsEngine.integerOps.toStringOp.func(_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1)))}))]]),o=new _jsEngine.Rule("D0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="material",e.id="Structure Material",e.label="Structure Material",e.tooltip="Record here the primary material of which the structure is made, i.e., the material that makes up the majority of the structure. When in doubt, focus on the material that is most in contact with the stream. If a structure is made of two materials, such as a bridge with concrete abutments and a steel deck structure, a metal culvert that has been lined along its entire bottom with concrete, or a crossing with different types of Crossing.structure at inlet and outlet, select Combination.",e.type="MultipleChoices"}))]]),r=new _jsEngine.Rule("E0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletShape",e.id="Outlet Shape",e.label="Outlet Shape",e.tooltip="Round Culvert: This is a circular pipe. It may or may not have substrate inside, even though the diagram on the field form shows a layer of substrate. It may be compressed slightly in one dimension, and should be considered round unless it is truly squashed  Pipe Arch/Elliptical Culvert: This is essentially a squashed round culvert, where the lower portion is flatter, and the upper portion is a semicircular arch, or more of a pure ellipse. It may or may not have substrate inside.  Open Bottom Arch Bridge/Culvert: This structure will often look like a round culvert on the top half, but it will not have a bottom. There will be some sort of footings to stabilize it, either buried metal or concrete footings, or concrete footings that rise some height above the channel bottom. There will be natural substrate throughout the structure. To distinguish between an embedded Pipe Arch Culvert and an Open Bottom Arch, note that the sides of the Pipe Arch curve inward in their lower section, while the sides of the Open Bottom Arch will run straight downward into the streambed substrate or to a vertical footing. Beware of confusion between an Open Bottom Arch and an embedded Round Culvert; Open Bottom Arches tend to be larger than most Round Culverts. This shape could also be selected for certain bridges that have a similar arched shape and are not well represented by other bridge types.  Box Culvert: These Crossing.structure are usually made of concrete or stone, but sometimes of corrugated  metal with a slightly arched top. Typically, they have a top, two sides, and a bottom.  A box culvert without a bottom, called a bottomless box culvert, should be classified as a Box/Bridge  with Abutments (#6). If you cannot tell if the structure has a bottom, classify it as a Box/Bridge  with Abutments (#6).  Bridge with Side Slopes: This is a bridge with angled banks up to the bottom of the road deck. This type will have no obvious abutments, though they may be buried in the road fill.  - Box/Bridge with Abutments: This is a bridge or bottomless box culvert with vertical sides. Bridge with Side Slopes and Abutments: This is a bridge with sloping banks and vertical abutments (typically short) that support the bridge deck.  Ford: A ford is a shallow, open stream crossing that may have aminimal structure to stabilize where vehicles drive across the stream bottom.  Unknown: Select when a structure’s shape is unidentifiable for any reason. Typically, the inlet shape may be unidentifiable because it is submerged or completely blocked with debris.  Removed: Select when the structure is no longer present.",e.type="MultipleChoices"}))]]),c=new _jsEngine.Rule("F0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletArmoring",e.id="Outlet Armoring",e.label="Outlet Armoring",e.type="MultipleChoices"}))]]),g=new _jsEngine.Rule("G0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletGrade",e.id="Outlet Grade",e.label="Outlet Grade",e.type="MultipleChoices"}))]]),p=new _jsEngine.Rule("I0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletWidthFt",e.id="Outlet Width (ft.)",e.label="Outlet Width (ft.)",e.type="Number"}))]]),_=new _jsEngine.Rule("J0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletHeightFt",e.id="Outlet Height (ft.)",e.label="Outlet Height (ft.)",e.type="Number"}))]]),U=new _jsEngine.Rule("K0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletSubstrateWaterWidth",e.id="Outlet Substrate Water Width (ft.)",e.label="Outlet Substrate Water Width (ft.)",e.type="Number"}))]]),I=new _jsEngine.Rule("L0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletWaterDepth",e.id="Outlet Depth (ft.)",e.label="Outlet Depth (ft.)",e.type="Number"}))]]),T=new _jsEngine.Rule("M0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletDropToSurfaceFt",e.id="Outlet Drop to Surface (ft.)",e.label="Outlet Drop to Surface (ft.)",e.type="Number"}))]]),y=new _jsEngine.Rule("N0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletDropToBottomFt",e.id="Outlet Drop to Bottom (ft.)",e.label="Outlet Drop to Bottom (ft.)",e.type="Number"}))]]),E=new _jsEngine.Rule("O0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="outletAbutmentHeightFt",e.id="Outlet Abutment (ft.)",e.label="Outlet Abutment (ft.)",e.type="Number"}))]]),h=new _jsEngine.Rule("P0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="lengthFt",e.id="Structure Length (ft.)",e.label="Structure Length (ft.)",e.type="Number"}))]]),j=new _jsEngine.Rule("R0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletShape",e.id="Inlet Shape",e.label="Inlet Shape",e.type="MultipleChoices"}))]]),m=new _jsEngine.Rule("S0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletType",e.id="Inlet Type",e.label="Inlet Type",e.type="MultipleChoices"}))]]),f=new _jsEngine.Rule("T0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletGrade",e.id="Inlet Grade",e.label="Inlet Grade",e.type="MultipleChoices"}))]]),C=new _jsEngine.Rule("V0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletWidthFt",e.id="Inlet Width (ft.)",e.label="Inlet Width (ft.)",e.type="Number"}))]]),S=new _jsEngine.Rule("W0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletHeightFt",e.id="Inlet Height (ft.)",e.label="Inlet Height (ft.)",e.type="Number"}))]]),w=new _jsEngine.Rule("X0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletSubstrateWaterWidth",e.id="Inlet Substrate Width (ft.)",e.label="Inlet Substrate Width (ft.)",e.type="Number"}))]]),b=new _jsEngine.Rule("Y0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="inletWaterDepth",e.id="Inlet Depth (ft.)",e.label="Inlet Depth (ft.)",e.type="Number"}))]]),O=new _jsEngine.Rule("AA0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="internalStructures",e.id="Internal Structures",e.label="Internal Structures",e.type="MultipleChoices"}))]]),A=new _jsEngine.Rule("AB0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="substrateMatchesStream",e.id="Substrate Matches Stream",e.label="Substrate Matches Stream",e.type="MultipleChoices"}))]]),D=new _jsEngine.Rule("AC0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="substrateType",e.id="Substrate Type",e.label="Substrate Type",e.type="MultipleChoices"}))]]),v=new _jsEngine.Rule("AD0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="substrateCoverage",e.id="Substrate Coverage",e.label="Substrate Coverage",e.type="MultipleChoices"}))]]),N=new _jsEngine.Rule("AE0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersNone",e.id="Physical Barriers None",e.label="Physical Barriers None",e.type="SingleChoice"}))]]),B=new _jsEngine.Rule("AF0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersDebris",e.id="Physical Barriers Debris",e.label="Physical Barriers Debris",e.type="SingleChoice"}))]]),M=new _jsEngine.Rule("AG0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersDeformation",e.id="Physical Barriers Deformation",e.label="Physical Barriers Deformation",e.type="SingleChoice"}))]]),F=new _jsEngine.Rule("AH0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersFreefall",e.id="Physical Barriers Freefall",e.label="Physical Barriers Freefall",e.type="SingleChoice"}))]]),V=new _jsEngine.Rule("AI0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersFencing",e.id="Physical Barriers Fencing",e.label="Physical Barriers Fencing",e.type="SingleChoice"}))]]),P=new _jsEngine.Rule("AJ0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersDry",e.id="Physical Barriers Dry",e.label="Physical Barriers Dry",e.type="SingleChoice"}))]]),W=new _jsEngine.Rule("AK0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersSeverity",e.id="Physical Barriers Severity",e.label="Physical Barriers Severity",e.type="SingleChoice"}))]]),k=new _jsEngine.Rule("AL0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="physicalBarriersOther",e.id="Physical Barriers Other",e.label="Physical Barriers Other",e.type="Text"}))]]),G=new _jsEngine.Rule("AN0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="waterDepthMatchesStream",e.id="Water Depth Matches Stream",e.label="Water Depth Matches Stream",e.type="MultipleChoices"}))]]),x=new _jsEngine.Rule("AO0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="waterVelocityMatchesStream",e.id="Water Velocity Matches Stream",e.label="Water Velocity Matches Stream",e.type="MultipleChoices"}))]]),L=new _jsEngine.Rule("AQ0","T1",[],[[e=>u(e)&&t(e),e=>d.addAssociation(e.get("UI.containers"),"uiControls",d.createEntity("UIControl",function(e){e.fieldName="dryPassage",e.id="Dry Passage through Structure?",e.label="Dry Passage through Structure?",e.type="MultipleChoices"}))]]);e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(R),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(s),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(o),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(r),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(c),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(g),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(p),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(_),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(U),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(I),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(T),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(y),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(E),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(h),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(j),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(m),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(f),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(C),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(S),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(w),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(b),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(O),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(A),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(D),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(v),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(N),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(B),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(M),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(F),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(V),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(P),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(W),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(k),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(G),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(x),e.addRule(l),e.addRule(i),e.addRule(a),e.addRule(L)}addRulesheetContainer_js_3_stucture_options_Cc6(e,d){const a=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_15Func",[function(e){e.extend("T2","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"],"UI.containers","uiControls")}]),l=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_16Func",[function(e){e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.join("T5","T1",["UI","UI.containers"],"T31",["UI","UI.containers","OutletGrade","StructureMaterial"]),e.projection("T31","T1",["UI","UI.containers","StructureMaterial"]),e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.join("T5","T6",["UI","UI.containers"],"T32",["UI","UI.containers","InletShape","OutletGrade"]),e.projection("T32","T6",["UI","UI.containers","InletShape"]),e.join("T6","T1",["UI","UI.containers"],"T17",["UI","UI.containers","InletShape","StructureMaterial"]),e.projection("T17","T1",["UI","UI.containers","StructureMaterial"]),e.join("T1","T7",["UI","UI.containers"],"T18",["UI","UI.containers","InletType","StructureMaterial"]),e.projection("T18","T7",["UI","UI.containers","InletType"]),e.join("T7","T13",["UI","UI.containers"],"T19",["UI","UI.containers","BarrierSeverity","InletType"]),e.projection("T19","T13",["UI","UI.containers","BarrierSeverity"]),e.join("T13","T4",["UI","UI.containers"],"T20",["UI","UI.containers","BarrierSeverity","OutletArmoring"]),e.projection("T20","T4",["UI","UI.containers","OutletArmoring"]),e.join("T4","T8",["UI","UI.containers"],"T21",["UI","UI.containers","InletGrade","OutletArmoring"]),e.projection("T21","T8",["UI","UI.containers","InletGrade"]),e.join("T8","T3",["UI","UI.containers"],"T22",["UI","UI.containers","InletGrade","OutletShape"]),e.projection("T22","T3",["UI","UI.containers","OutletShape"]),e.join("T3","T16",["UI","UI.containers"],"T23",["UI","UI.containers","OutletShape","Structure_Water_Depth_Matches_Stream"]),e.projection("T23","T16",["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]),e.join("T16","T10",["UI","UI.containers"],"T24",["UI","UI.containers","Structure_Water_Depth_Matches_Stream","SubstrateMatchesStream"]),e.projection("T24","T10",["UI","UI.containers","SubstrateMatchesStream"]),e.join("T10","T11",["UI","UI.containers"],"T25",["UI","UI.containers","SubstrateMatchesStream","SubstrateType"]),e.projection("T25","T11",["UI","UI.containers","SubstrateType"]),e.join("T11","T15",["UI","UI.containers"],"T26",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateType"]),e.projection("T26","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]),e.join("T15","T12",["UI","UI.containers"],"T27",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream","SubstrateCoverage"]),e.projection("T27","T12",["UI","UI.containers","SubstrateCoverage"]),e.join("T12","T9",["UI","UI.containers"],"T28",["UI","UI.containers","InternalStructures","SubstrateCoverage"]),e.projection("T28","T9",["UI","UI.containers","InternalStructures"]),e.join("T9","T14",["UI","UI.containers"],"T29",["UI","UI.containers","InternalStructures","Structure_Dry_Passage"]),e.projection("T29","T14",["UI","UI.containers","Structure_Dry_Passage"]),e.join("T14","T5",["UI","UI.containers"],"T30",["UI","UI.containers","OutletGrade","Structure_Dry_Passage"]),e.projection("T30","T5",["UI","UI.containers","OutletGrade"]),e.projection("T5","T0",["UI"])}]),u=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_0Func",[function(e){e.extend("T0","T2",["UI","UI.containers"],"UI","containers"),e.extend("T2","T1",["UI","UI.containers","StructureMaterial"],"UI.containers","uiControls")}]),t=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_2Func",[function(e){e.extend("T2","T3",["UI","UI.containers","OutletShape"],"UI.containers","uiControls")}]),n=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_3Func",[function(e){e.extend("T2","T4",["UI","UI.containers","OutletArmoring"],"UI.containers","uiControls")}]),i=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_4Func",[function(e){e.extend("T2","T5",["UI","UI.containers","OutletGrade"],"UI.containers","uiControls")}]),R=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_5Func",[function(e){e.extend("T2","T6",["UI","UI.containers","InletShape"],"UI.containers","uiControls")}]),s=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_6Func",[function(e){e.extend("T2","T7",["UI","UI.containers","InletType"],"UI.containers","uiControls")}]),o=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_7Func",[function(e){e.extend("T2","T8",["UI","UI.containers","InletGrade"],"UI.containers","uiControls")}]),r=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_8Func",[function(e){e.extend("T2","T9",["UI","UI.containers","InternalStructures"],"UI.containers","uiControls")}]),c=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_9Func",[function(e){e.extend("T2","T10",["UI","UI.containers","SubstrateMatchesStream"],"UI.containers","uiControls")}]),g=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),p=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_10Func",[function(e){e.extend("T2","T11",["UI","UI.containers","SubstrateType"],"UI.containers","uiControls")}]),_=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_13Func",[function(e){e.extend("T2","T14",["UI","UI.containers","Structure_Dry_Passage"],"UI.containers","uiControls")}]),U=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_14Func",[function(e){e.extend("T2","T15",["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"],"UI.containers","uiControls")}]),I=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_11Func",[function(e){e.extend("T2","T12",["UI","UI.containers","SubstrateCoverage"],"UI.containers","uiControls")}]),T=new _jsEngine.TupleOperator("js_3_stucture_options_precondition_12Func",[function(e){e.extend("T2","T13",["UI","UI.containers","BarrierSeverity"],"UI.containers","uiControls")}]),y=e=>_jsEngine.Utilities.isValid(e.get("SubstrateCoverage")),E=e=>_jsEngine.Utilities.isValid(e.get("Structure_Structure_Water_Velocity_Matches_Stream")),h=e=>_jsEngine.Utilities.isValid(e.get("Structure_Dry_Passage")),j=e=>_jsEngine.Utilities.isValid(e.get("UI.containers")),m=e=>_jsEngine.Utilities.isValid(e.get("StructureMaterial")),f=e=>_jsEngine.Utilities.isValid(e.get("SubstrateMatchesStream")),C=e=>_jsEngine.Utilities.isValid(e.get("UI")),S=e=>_jsEngine.Utilities.isValid(e.get("OutletShape")),w=e=>_jsEngine.Utilities.isValid(e.get("InletType")),b=e=>_jsEngine.Utilities.isValid(e.get("OutletArmoring")),O=e=>_jsEngine.Utilities.isValid(e.get("SubstrateType")),A=e=>_jsEngine.Utilities.isValid(e.get("Structure_Water_Depth_Matches_Stream")),D=e=>_jsEngine.Utilities.isValid(e.get("OutletGrade")),v=e=>_jsEngine.Utilities.isValid(e.get("InletShape")),N=e=>_jsEngine.Utilities.isValid(e.get("InternalStructures")),B=e=>_jsEngine.Utilities.isValid(e.get("BarrierSeverity")),M=e=>_jsEngine.Utilities.isValid(e.get("InletGrade")),F=new _jsEngine.Filter("js_3_stucture_options_filter_0","T0",[[e=>C(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,3)]],!0),V=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_2","T1",[[e=>C(e)&&j(e)&&m(e)&&(e=>_jsEngine.Utilities.isValid(e.get("StructureMaterial").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("StructureMaterial").id,"Structure Material")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","StructureMaterial"],["UI","UI.containers","StructureMaterial"]]]),P=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_3","T3",[[e=>C(e)&&j(e)&&S(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletShape").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletShape").id,"Outlet Shape")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletShape"],["UI","UI.containers","OutletShape"]]]),W=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_4","T4",[[e=>C(e)&&j(e)&&b(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletArmoring").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletArmoring").id,"Outlet Armoring")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletArmoring"],["UI","UI.containers","OutletArmoring"]]]),k=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_5","T5",[[e=>C(e)&&j(e)&&D(e)&&(e=>_jsEngine.Utilities.isValid(e.get("OutletGrade").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("OutletGrade").id,"Outlet Grade")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","OutletGrade"],["UI","UI.containers","OutletGrade"]]]),G=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_6","T6",[[e=>C(e)&&j(e)&&v(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletShape").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletShape").id,"Inlet Shape")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletShape"],["UI","UI.containers","InletShape"]]]),x=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_7","T7",[[e=>C(e)&&j(e)&&w(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletType").id,"Inlet Type")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletType"],["UI","UI.containers","InletType"]]]),L=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_8","T8",[[e=>C(e)&&j(e)&&M(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InletGrade").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InletGrade").id,"Inlet Grade")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InletGrade"],["UI","UI.containers","InletGrade"]]]),q=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_9","T9",[[e=>C(e)&&j(e)&&N(e)&&(e=>_jsEngine.Utilities.isValid(e.get("InternalStructures").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("InternalStructures").id,"Internal Structures")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","InternalStructures"],["UI","UI.containers","InternalStructures"]]]),H=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_10","T10",[[e=>C(e)&&j(e)&&f(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateMatchesStream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateMatchesStream").id,"Substrate Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateMatchesStream"],["UI","UI.containers","SubstrateMatchesStream"]]]),K=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_11","T11",[[e=>C(e)&&j(e)&&O(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateType").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateType").id,"Substrate Type")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateType"],["UI","UI.containers","SubstrateType"]]]),z=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_12","T12",[[e=>C(e)&&j(e)&&y(e)&&(e=>_jsEngine.Utilities.isValid(e.get("SubstrateCoverage").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("SubstrateCoverage").id,"Substrate Coverage")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","SubstrateCoverage"],["UI","UI.containers","SubstrateCoverage"]]]),J=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_13","T13",[[e=>C(e)&&j(e)&&B(e)&&(e=>_jsEngine.Utilities.isValid(e.get("BarrierSeverity").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("BarrierSeverity").id,"Physical Barriers Severity")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","BarrierSeverity"],["UI","UI.containers","BarrierSeverity"]]]),Y=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_14","T14",[[e=>C(e)&&j(e)&&h(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Dry_Passage").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Dry_Passage").id,"Dry Passage through Structure?")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Dry_Passage"],["UI","UI.containers","Structure_Dry_Passage"]]]),Q=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_15","T15",[[e=>C(e)&&j(e)&&E(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Structure_Water_Velocity_Matches_Stream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Structure_Water_Velocity_Matches_Stream").id,"Water Velocity Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"],["UI","UI.containers","Structure_Structure_Water_Velocity_Matches_Stream"]]]),X=new _jsEngine.LimitedFilter("js_3_stucture_options_filter_16","T16",[[e=>C(e)&&j(e)&&A(e)&&(e=>_jsEngine.Utilities.isValid(e.get("Structure_Water_Depth_Matches_Stream").id))(e),e=>_jsEngine.stringOps.equal.func(e.get("Structure_Water_Depth_Matches_Stream").id,"Water Depth Matches Stream")]],[[[],["UI"]],[["UI.containers"],["UI","UI.containers"]],[["UI.containers","Structure_Water_Depth_Matches_Stream"],["UI","UI.containers","Structure_Water_Depth_Matches_Stream"]]]),Z=new _jsEngine.Rule("A0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Metal",e.value="Metal"}))]]),$=new _jsEngine.Rule("B0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Concrete",e.value="Concrete"}))]]),ee=new _jsEngine.Rule("C0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Plastic",e.value="Plastic"}))]]),de=new _jsEngine.Rule("D0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Wood",e.value="Wood"}))]]),ae=new _jsEngine.Rule("E0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Rock/Stone",e.value="Rock/Stone"}))]]),le=new _jsEngine.Rule("F0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Fiberglass",e.value="Fiberglass"}))]]),ue=new _jsEngine.Rule("G0","T1",[],[[e=>C(e)&&j(e)&&m(e),e=>d.addAssociation(e.get("StructureMaterial"),"option",d.createEntity("Option",function(e){e.displayName="Combination",e.value="Combination"}))]]),te=new _jsEngine.Rule("I0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="1",e.value="1"}))]]),ne=new _jsEngine.Rule("J0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="2",e.value="2"}))]]),ie=new _jsEngine.Rule("K0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="3",e.value="3"}))]]),Re=new _jsEngine.Rule("L0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="4",e.value="4"}))]]),se=new _jsEngine.Rule("M0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="5",e.value="5"}))]]),oe=new _jsEngine.Rule("N0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="6",e.value="6"}))]]),re=new _jsEngine.Rule("O0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="7",e.value="7"}))]]),ce=new _jsEngine.Rule("P0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),ge=new _jsEngine.Rule("Q0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),pe=new _jsEngine.Rule("R0","T3",[],[[e=>C(e)&&j(e)&&S(e),e=>d.addAssociation(e.get("OutletShape"),"option",d.createEntity("Option",function(e){e.displayName="Removed",e.value="Removed"}))]]),_e=new _jsEngine.Rule("T0","T4",[],[[e=>C(e)&&j(e)&&b(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),Ue=new _jsEngine.Rule("U0","T4",[],[[e=>C(e)&&j(e)&&b(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="Not Extensive",e.value="Not Extensive"}))]]),Ie=new _jsEngine.Rule("V0","T4",[],[[e=>C(e)&&j(e)&&b(e),e=>d.addAssociation(e.get("OutletArmoring"),"option",d.createEntity("Option",function(e){e.displayName="Extensive",e.value="Extensive"}))]]),Te=new _jsEngine.Rule("X0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="At stream grade ",e.value="At stream grade "}))]]),ye=new _jsEngine.Rule("Y0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Free Fall",e.value="Free Fall"}))]]),Ee=new _jsEngine.Rule("Z0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Free Fall Onto Cascade",e.value="Free Fall Onto Cascade"}))]]),he=new _jsEngine.Rule("AA0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Cascade",e.value="Cascade"}))]]),je=new _jsEngine.Rule("AB0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Clogged/Collapsed/Submerged",e.value="Clogged/Collapsed/Submerged"}))]]),me=new _jsEngine.Rule("AC0","T5",[],[[e=>C(e)&&j(e)&&D(e),e=>d.addAssociation(e.get("OutletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),fe=new _jsEngine.Rule("AE0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="1",e.value="1"}))]]),Ce=new _jsEngine.Rule("AF0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="2",e.value="2"}))]]),Se=new _jsEngine.Rule("AG0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="3",e.value="3"}))]]),we=new _jsEngine.Rule("AH0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="4",e.value="4"}))]]),be=new _jsEngine.Rule("AI0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="5",e.value="5"}))]]),Oe=new _jsEngine.Rule("AJ0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="6",e.value="6"}))]]),Ae=new _jsEngine.Rule("AK0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="7",e.value="7"}))]]),De=new _jsEngine.Rule("AL0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Ford",e.value="Ford"}))]]),ve=new _jsEngine.Rule("AM0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Ne=new _jsEngine.Rule("AN0","T6",[],[[e=>C(e)&&j(e)&&v(e),e=>d.addAssociation(e.get("InletShape"),"option",d.createEntity("Option",function(e){e.displayName="Removed",e.value="Removed"}))]]),Be=new _jsEngine.Rule("AP0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Projecting",e.value="Projecting"}))]]),Me=new _jsEngine.Rule("AQ0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Headwall",e.value="Headwall"}))]]),Fe=new _jsEngine.Rule("AR0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Wingwalls",e.value="Wingwalls"}))]]),Ve=new _jsEngine.Rule("AS0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Headwall & Wingwalls",e.value="Headwall & Wingwalls"}))]]),Pe=new _jsEngine.Rule("AT0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Mitered to Slope",e.value="Mitered to Slope"}))]]),We=new _jsEngine.Rule("AU0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="Other",e.value="Other"}))]]),ke=new _jsEngine.Rule("AV0","T7",[],[[e=>C(e)&&j(e)&&w(e),e=>d.addAssociation(e.get("InletType"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),Ge=new _jsEngine.Rule("AX0","T8",[],[[e=>C(e)&&j(e)&&M(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="At stream grade ",e.value="At stream grade "}))]]),xe=new _jsEngine.Rule("AY0","T8",[],[[e=>C(e)&&j(e)&&M(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Inlet drop ",e.value="Inlet drop "}))]]),Le=new _jsEngine.Rule("AZ0","T8",[],[[e=>C(e)&&j(e)&&M(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Perched ",e.value="Perched "}))]]),qe=new _jsEngine.Rule("BA0","T8",[],[[e=>C(e)&&j(e)&&M(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Clogged/collapsed/submerged",e.value="Clogged/collapsed/submerged"}))]]),He=new _jsEngine.Rule("BB0","T8",[],[[e=>C(e)&&j(e)&&M(e),e=>d.addAssociation(e.get("InletGrade"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Ke=new _jsEngine.Rule("BD0","T9",[],[[e=>C(e)&&j(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="none ",e.value="none "}))]]),ze=new _jsEngine.Rule("BE0","T9",[],[[e=>C(e)&&j(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="baffles/weirs ",e.value="baffles/weirs "}))]]),Je=new _jsEngine.Rule("BF0","T9",[],[[e=>C(e)&&j(e)&&N(e),e=>d.addAssociation(e.get("InternalStructures"),"option",d.createEntity("Option",function(e){e.displayName="supports ",e.value="supports "}))]]),Ye=new _jsEngine.Rule("BH0","T10",[],[[e=>C(e)&&j(e)&&f(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),Qe=new _jsEngine.Rule("BI0","T10",[],[[e=>C(e)&&j(e)&&f(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Not appropriate",e.value="Not appropriate"}))]]),Xe=new _jsEngine.Rule("BJ0","T10",[],[[e=>C(e)&&j(e)&&f(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Vontrasting ",e.value="Vontrasting "}))]]),Ze=new _jsEngine.Rule("BK0","T10",[],[[e=>C(e)&&j(e)&&f(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Comparable ",e.value="Comparable "}))]]),$e=new _jsEngine.Rule("BL0","T10",[],[[e=>C(e)&&j(e)&&f(e),e=>d.addAssociation(e.get("SubstrateMatchesStream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),ed=new _jsEngine.Rule("BN0","T13",[],[[e=>C(e)&&j(e)&&B(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="None",e.value="None"}))]]),dd=new _jsEngine.Rule("BO0","T13",[],[[e=>C(e)&&j(e)&&B(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Minor",e.value="Minor"}))]]),ad=new _jsEngine.Rule("BP0","T13",[],[[e=>C(e)&&j(e)&&B(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Moderate",e.value="Moderate"}))]]),ld=new _jsEngine.Rule("BQ0","T13",[],[[e=>C(e)&&j(e)&&B(e),e=>d.addAssociation(e.get("BarrierSeverity"),"option",d.createEntity("Option",function(e){e.displayName="Severe",e.value="Severe"}))]]),ud=new _jsEngine.Rule("BT0","T16",[],[[e=>C(e)&&j(e)&&A(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),td=new _jsEngine.Rule("BU0","T16",[],[[e=>C(e)&&j(e)&&A(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Shallower",e.value="No-Shallower"}))]]),nd=new _jsEngine.Rule("BV0","T16",[],[[e=>C(e)&&j(e)&&A(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Deeper",e.value="No-Deeper"}))]]),id=new _jsEngine.Rule("BW0","T16",[],[[e=>C(e)&&j(e)&&A(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),Rd=new _jsEngine.Rule("BX0","T16",[],[[e=>C(e)&&j(e)&&A(e),e=>d.addAssociation(e.get("Structure_Water_Depth_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Dry",e.value="Dry"}))]]),sd=new _jsEngine.Rule("BZ0","T15",[],[[e=>C(e)&&j(e)&&E(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),od=new _jsEngine.Rule("CA0","T15",[],[[e=>C(e)&&j(e)&&E(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Faster",e.value="No-Faster"}))]]),rd=new _jsEngine.Rule("CB0","T15",[],[[e=>C(e)&&j(e)&&E(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="No-Slower",e.value="No-Slower"}))]]),cd=new _jsEngine.Rule("CC0","T15",[],[[e=>C(e)&&j(e)&&E(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Unknown",e.value="Unknown"}))]]),gd=new _jsEngine.Rule("CD0","T15",[],[[e=>C(e)&&j(e)&&E(e),e=>d.addAssociation(e.get("Structure_Structure_Water_Velocity_Matches_Stream"),"option",d.createEntity("Option",function(e){e.displayName="Dry",e.value="Dry"}))]]),pd=new _jsEngine.Rule("CF0","T14",[],[[e=>C(e)&&j(e)&&h(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="Yes",e.value="Yes"}))]]),_d=new _jsEngine.Rule("CG0","T14",[],[[e=>C(e)&&j(e)&&h(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="No",e.value="No"}))]]),Ud=new _jsEngine.Rule("CH0","T14",[],[[e=>C(e)&&j(e)&&h(e),e=>d.addAssociation(e.get("Structure_Dry_Passage"),"option",d.createEntity("Option",function(e){e.displayName="Unsure",e.value="Unsure"}))]]),Id=new _jsEngine.Rule("CJ0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Silt",e.value="Silt"}))]]),Td=new _jsEngine.Rule("CK0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Sand",e.value="Sand"}))]]),yd=new _jsEngine.Rule("CL0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Gravel",e.value="Gravel"}))]]),Ed=new _jsEngine.Rule("CM0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Cobble",e.value="Cobble"}))]]),hd=new _jsEngine.Rule("CN0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Boulder",e.value="Boulder"}))]]),jd=new _jsEngine.Rule("CO0","T11",[],[[e=>C(e)&&j(e)&&O(e),e=>d.addAssociation(e.get("SubstrateType"),"option",d.createEntity("Option",function(e){e.displayName="Bedrock",e.value="Bedrock"}))]]),md=new _jsEngine.Rule("CQ0","T12",[],[[e=>C(e)&&j(e)&&y(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="none",e.value="none"}))]]),fd=new _jsEngine.Rule("CR0","T12",[],[[e=>C(e)&&j(e)&&y(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="25%",e.value="25%"}))]]),Cd=new _jsEngine.Rule("CS0","T12",[],[[e=>C(e)&&j(e)&&y(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="50%",e.value="50%"}))]]),Sd=new _jsEngine.Rule("CT0","T12",[],[[e=>C(e)&&j(e)&&y(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="75%",e.value="75%"}))]]),wd=new _jsEngine.Rule("CU0","T12",[],[[e=>C(e)&&j(e)&&y(e),e=>d.addAssociation(e.get("SubstrateCoverage"),"option",d.createEntity("Option",function(e){e.displayName="100%",e.value="100%"}))]]),bd=new _jsEngine.Rule("CY0","T0",[],[[e=>C(e),e=>e.get("UI").nextStageNumber=4]]);e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Z),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule($),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ee),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(de),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ae),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(le),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ue),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(te),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ne),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ie),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Re),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(se),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(oe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(re),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ce),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ge),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(pe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(_e),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ue),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ie),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Te),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ye),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ee),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q);e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(he),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(je),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(me),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(fe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ce),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Se),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(we),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(be),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Oe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ae),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(De),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ve),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ne),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Be),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Me),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Fe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ve),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Pe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(We),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ke),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ge),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(xe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Le),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(qe),e.addRule(g),e.addRule(F);e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(He),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ke),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ze),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Je),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ye),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Qe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Xe),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ze),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule($e),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ed),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(dd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ad),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ld),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(ud),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(td),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(nd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(id),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Rd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(sd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(od),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(rd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(cd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(gd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H);e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(pd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(_d),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ud),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Id),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Td),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(yd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Ed),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(hd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(jd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(md),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(fd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Cd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(Sd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(wd),e.addRule(g),e.addRule(F),e.addRule(u),e.addRule(V),e.addRule(t),e.addRule(P),e.addRule(n),e.addRule(W),e.addRule(i),e.addRule(k),e.addRule(R),e.addRule(G),e.addRule(s),e.addRule(x),e.addRule(o),e.addRule(L),e.addRule(r),e.addRule(q),e.addRule(c),e.addRule(H),e.addRule(p),e.addRule(K),e.addRule(I),e.addRule(z),e.addRule(T),e.addRule(J),e.addRule(_),e.addRule(Y),e.addRule(U),e.addRule(Q),e.addRule(a),e.addRule(X),e.addRule(l),e.addRule(bd)}addRulesheetContainer_js_4_parse_structure_Cc4(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=new _jsEngine.TupleOperator("js_4_parse_structure_precondition_0Func",[function(e){e.bind("T1","Data.Crossing",e.datamanager.getEntitiesByType("Data.Crossing")),e.extend("T1","T2",["Data.Crossing","Data.Crossing.structure"],"Data.Crossing","structure"),e.accumulate("T2",["Data.Crossing"],["Data.Crossing.structure"],"T3")}]),u=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))),t=e=>_jsEngine.Utilities.isValid(e.get("UI")),n=e=>_jsEngine.Utilities.isValid(e.get("Data.Crossing")),i=new _jsEngine.Filter("js_4_parse_structure_filter_0","T0",[[e=>t(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,4)]],!0),R=new _jsEngine.Rule("A0","T0",[],[[e=>t(e),e=>e.get("UI").noUiToRenderContinue=!0]]),s=new _jsEngine.Rule("B0","T0",[],[[e=>t(e),e=>e.get("UI").nextStageNumber=5]]),o=new _jsEngine.Rule("1","T3",[[e=>u(e),e=>_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>n(e),e=>d.addAssociation(e.get("Data.Crossing"),"structure",d.createEntity("Data.Structure",function(d){d.containsDebris=e.get("Data.Crossing").containsDebris,d.dryPassage=e.get("Data.Crossing").dryPassage,d.heightAboveDryPassage=e.get("Data.Crossing").heightAboveDryPassage,d.id=1,d.internalBaffles=e.get("Data.Crossing").internalBaffles,d.internalStructures=e.get("Data.Crossing").internalStructures,d.internalStructuresNone=e.get("Data.Crossing").internalStructuresNone,d.internalStructuresOther=e.get("Data.Crossing").internalStructuresOther,d.internalSupports=e.get("Data.Crossing").internalSupports,d.lengthFt=e.get("Data.Crossing").lengthFt,d.material=e.get("Data.Crossing").material,d.physicalBarriersDeformation=e.get("Data.Crossing").physicalBarriersDeformation,d.physicalBarriersDry=e.get("Data.Crossing").physicalBarriersDry,d.physicalBarriersFencing=e.get("Data.Crossing").physicalBarriersFencing,d.physicalBarriersFreefall=e.get("Data.Crossing").physicalBarriersFreefall,d.physicalBarriersNone=e.get("Data.Crossing").physicalBarriersNone,d.physicalBarriersOther=e.get("Data.Crossing").physicalBarriersOther,d.physicalBarriersSeverity=e.get("Data.Crossing").physicalBarriersSeverity,d.substrateCoverage=e.get("Data.Crossing").substrateCoverage,d.substrateMatchesStream=e.get("Data.Crossing").substrateMatchesStream,d.substrateType=e.get("Data.Crossing").substrateType,d.waterDepthMatchesStream=e.get("Data.Crossing").waterDepthMatchesStream,d.waterVelocityMatchesStream=e.get("Data.Crossing").waterVelocityMatchesStream}))]]),r=new _jsEngine.Rule("2","T3",[[e=>u(e),e=>!1===_jsEngine.collectionOps.isEmpty.func(e.get("Data.Crossing.structure->"))]],[[e=>n(e)&&(e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->"))))(e),e=>d.addAssociation(e.get("Data.Crossing"),"structure",d.createEntity("Data.Structure",function(d){d.containsDebris=e.get("Data.Crossing").containsDebris,d.dryPassage=e.get("Data.Crossing").dryPassage,d.heightAboveDryPassage=e.get("Data.Crossing").heightAboveDryPassage,d.id=_jsEngine.integerOps.add.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),1),d.internalBaffles=e.get("Data.Crossing").internalBaffles,d.internalStructures=e.get("Data.Crossing").internalStructures,d.internalStructuresNone=e.get("Data.Crossing").internalStructuresNone,d.internalStructuresOther=e.get("Data.Crossing").internalStructuresOther,d.internalSupports=e.get("Data.Crossing").internalSupports,d.lengthFt=e.get("Data.Crossing").lengthFt,d.material=e.get("Data.Crossing").material,d.physicalBarriersDeformation=e.get("Data.Crossing").physicalBarriersDeformation,d.physicalBarriersDry=e.get("Data.Crossing").physicalBarriersDry,d.physicalBarriersFencing=e.get("Data.Crossing").physicalBarriersFencing,d.physicalBarriersFreefall=e.get("Data.Crossing").physicalBarriersFreefall,d.physicalBarriersNone=e.get("Data.Crossing").physicalBarriersNone,d.physicalBarriersOther=e.get("Data.Crossing").physicalBarriersOther,d.physicalBarriersSeverity=e.get("Data.Crossing").physicalBarriersSeverity,d.substrateCoverage=e.get("Data.Crossing").substrateCoverage,d.substrateMatchesStream=e.get("Data.Crossing").substrateMatchesStream,d.substrateType=e.get("Data.Crossing").substrateType,d.waterDepthMatchesStream=e.get("Data.Crossing").waterDepthMatchesStream,d.waterVelocityMatchesStream=e.get("Data.Crossing").waterVelocityMatchesStream}))]]);e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(R),e.addRule(s),e.addRule(o),e.addRule(a),e.addRule(i),e.addRule(l),e.addRule(r)}addRulesheetContainer_js_5_check32structure32count_Cc2(e,d){const a=new _jsEngine.TupleOperator("js_5_check32structure32count_precondition_0Func",[function(e){e.bind("T1","Data.Crossing",e.datamanager.getEntitiesByType("Data.Crossing")),e.extend("T1","T2",["Data.Crossing","Data.Crossing.structure"],"Data.Crossing","structure"),e.accumulate("T2",["Data.Crossing"],["Data.Crossing.structure"],"T3"),e.crossproduct("T0","T3","T4")}]),l=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),u=e=>_jsEngine.Utilities.isValid(e.get("Data.Crossing")),t=e=>_jsEngine.Utilities.isValid(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->"))),n=e=>_jsEngine.Utilities.isValid(e.get("UI")),i=e=>_jsEngine.Utilities.isValid(e.get("Data.Crossing").numberCulverts),R=(e,d)=>e.get("UI").nextStageNumber=d,s=new _jsEngine.Filter("js_5_check32structure32count_filter_0","T0",[[e=>n(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,5)]],!0),o=new _jsEngine.Rule("A0","T0",[],[[e=>n(e),e=>e.get("UI").noUiToRenderContinue=!0]]),r=new _jsEngine.Rule("1","T4",[[e=>u(e)&&i(e)&&t(e),e=>_jsEngine.integerOps.lessThan.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),e.get("Data.Crossing").numberCulverts)]],[[e=>n(e),R,e=>3]]),c=new _jsEngine.Rule("2","T4",[[e=>u(e)&&i(e)&&t(e),e=>_jsEngine.integerOps.intEqual.func(_jsEngine.collectionOps.size.func(e.get("Data.Crossing.structure->")),e.get("Data.Crossing").numberCulverts)]],[[e=>n(e),R,e=>6]]);e.addRule(l),e.addRule(s),e.addRule(a),e.addRule(o),e.addRule(r),e.addRule(c)}addRulesheetContainer_js_6_submit_Cc3(e,d){const a=new _jsEngine.TupleOperator("PREFILTERFunc",[function(e){e.bind("T0","UI",e.datamanager.getEntitiesByType("UI"))}]),l=e=>_jsEngine.Utilities.isValid(e.get("UI")),u=new _jsEngine.Filter("js_6_submit_filter_0","T0",[[e=>l(e)&&(e=>_jsEngine.Utilities.isValid(e.get("UI").currentStageNumber))(e),e=>_jsEngine.integerOps.intEqual.func(e.get("UI").currentStageNumber,6)]],!0),t=new _jsEngine.Rule("A0","T0",[],[[e=>l(e),e=>e.get("UI").done=!0]]),n=new _jsEngine.Rule("B0","T0",[],[[e=>l(e),e=>e.get("UI").postType="REST"]]);e.addRule(a),e.addRule(u),e.addRule(t),e.addRule(n)}}exports.DecisionServiceRules=DecisionServiceRules;
 
 },{"@corticon/js-engine":5}],4:[function(require,module,exports){
 module.exports={
@@ -13,91 +13,119 @@ module.exports={
         {
             "associations": [
                 {
-                    "targetEntity": "Data.Observation",
-                    "roleName": "observation",
-                    "reverseRoleName": "crossing",
-                    "navigability": "Bidirectional",
+                    "targetEntity": "Data.Crossing",
+                    "roleName": "crossing",
+                    "navigability": "Assessment->crossing",
                     "mandatory": false,
-                    "cardinality": "*"
+                    "cardinality": "1"
                 },
                 {
-                    "targetEntity": "Data.Structure",
-                    "roleName": "structure",
-                    "reverseRoleName": "crossing",
-                    "navigability": "Bidirectional",
+                    "targetEntity": "Data.Location",
+                    "roleName": "location",
+                    "navigability": "Assessment->location",
                     "mandatory": false,
-                    "cardinality": "*"
+                    "cardinality": "1"
                 }
             ],
             "transientAttributesDefinition": [],
             "associationsDefinition": [
-                "observation",
-                "structure"
+                "crossing",
+                "location"
             ],
-            "name": "Data.Crossing",
+            "name": "Data.Assessment",
             "attributesDefinition": [
-                "Alignment",
-                "Comments",
-                "Constriction",
-                "Crossing_Code",
-                "Crossing_Condition",
-                "Crossing_Type",
-                "Flow_Condition",
+                "alignment",
+                "city",
+                "comments",
+                "constriction",
+                "crossingCode",
+                "crossingCondition",
+                "crossingLocalID",
+                "crossingType",
+                "dateObserved",
+                "flowCondition",
+                "geo",
                 "GPS",
                 "lat",
-                "Local_ID",
-                "Location_Description",
+                "leadObserver",
+                "localID",
+                "locationDescription",
                 "long",
-                "Number_Culverts_BridgeCells",
-                "Road",
-                "Road_Fill_Height_Ft",
-                "Road_Type",
-                "Scour_Pool",
-                "Stream",
-                "Tidal_site",
-                "Town",
-                "Watershed"
+                "numberCulverts",
+                "postalCode",
+                "roadfillHeight_ft",
+                "roadType",
+                "scourPool",
+                "state",
+                "stream",
+                "street",
+                "streetNumber",
+                "watershed"
             ],
             "attributes": [
                 {
                     "dataType": "String",
-                    "name": "Alignment",
+                    "name": "alignment",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Comments",
+                    "name": "city",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Constriction",
+                    "name": "comments",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Crossing_Code",
+                    "name": "constriction",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Crossing_Condition",
+                    "name": "crossingCode",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Crossing_Type",
+                    "name": "crossingCondition",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Flow_Condition",
+                    "name": "crossingLocalID",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "crossingType",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Date",
+                    "name": "dateObserved",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "flowCondition",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "geo",
                     "type": "Base",
                     "mandatory": false
                 },
@@ -115,13 +143,19 @@ module.exports={
                 },
                 {
                     "dataType": "String",
-                    "name": "Local_ID",
+                    "name": "leadObserver",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Location_Description",
+                    "name": "localID",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "locationDescription",
                     "type": "Base",
                     "mandatory": false
                 },
@@ -133,55 +167,435 @@ module.exports={
                 },
                 {
                     "dataType": "Integer",
-                    "name": "Number_Culverts_BridgeCells",
+                    "name": "numberCulverts",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Road",
+                    "name": "postalCode",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Integer",
-                    "name": "Road_Fill_Height_Ft",
+                    "name": "roadfillHeight_ft",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Road_Type",
+                    "name": "roadType",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Scour_Pool",
+                    "name": "scourPool",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Stream",
+                    "name": "state",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Tidal_site",
+                    "name": "stream",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Town",
+                    "name": "street",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Watershed",
+                    "name": "streetNumber",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "watershed",
+                    "type": "Base",
+                    "mandatory": false
+                }
+            ],
+            "id": "Data.Assessment"
+        },
+        {
+            "associations": [{
+                "targetEntity": "Data.Structure",
+                "roleName": "structure",
+                "navigability": "Crossing->structure",
+                "mandatory": false,
+                "cardinality": "*"
+            }],
+            "transientAttributesDefinition": [],
+            "associationsDefinition": ["structure"],
+            "name": "Data.Crossing",
+            "attributesDefinition": [
+                "alignment",
+                "city",
+                "comments",
+                "constriction",
+                "containsDebris",
+                "crossingCode",
+                "crossingCondition",
+                "crossingType",
+                "dryPassage",
+                "flowCondition",
+                "geo",
+                "heightAboveDryPassage",
+                "id",
+                "internalBaffles",
+                "internalStructures",
+                "internalStructuresNone",
+                "internalStructuresOther",
+                "internalSupports",
+                "lat",
+                "lengthFt",
+                "localID",
+                "locationDescription",
+                "long",
+                "material",
+                "numberCulverts",
+                "photoDownstream",
+                "photoInlet",
+                "photoOutlet",
+                "photoUpstream",
+                "physicalBarriers",
+                "physicalBarriersDebris",
+                "physicalBarriersDeformation",
+                "physicalBarriersDry",
+                "physicalBarriersFencing",
+                "physicalBarriersFreefall",
+                "physicalBarriersNone",
+                "physicalBarriersOther",
+                "physicalBarriersSeverity",
+                "postalCode",
+                "roadfillHeight_ft",
+                "roadType",
+                "scourPool",
+                "state",
+                "stream",
+                "street",
+                "substrateCoverage",
+                "substrateMatchesStream",
+                "substrateType",
+                "waterDepthMatchesStream",
+                "watershed",
+                "waterVelocityMatchesStream"
+            ],
+            "attributes": [
+                {
+                    "dataType": "String",
+                    "name": "alignment",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "city",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "comments",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "constriction",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "containsDebris",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "crossingCode",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "crossingCondition",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "crossingType",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "dryPassage",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "flowCondition",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "geo",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "heightAboveDryPassage",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Integer",
+                    "name": "id",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalBaffles",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalStructures",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalStructuresNone",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalStructuresOther",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalSupports",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "lat",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Integer",
+                    "name": "lengthFt",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "localID",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "locationDescription",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "long",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "material",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Integer",
+                    "name": "numberCulverts",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "photoDownstream",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "photoInlet",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "photoOutlet",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "photoUpstream",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriers",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriersDebris",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "physicalBarriersDeformation",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "physicalBarriersDry",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "physicalBarriersFencing",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "physicalBarriersFreefall",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "physicalBarriersNone",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriersOther",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriersSeverity",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "postalCode",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Integer",
+                    "name": "roadfillHeight_ft",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "roadType",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "scourPool",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "state",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "stream",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "street",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "substrateCoverage",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "substrateMatchesStream",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "substrateType",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "waterDepthMatchesStream",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "watershed",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "waterVelocityMatchesStream",
                     "type": "Base",
                     "mandatory": false
                 }
@@ -189,577 +603,62 @@ module.exports={
             "id": "Data.Crossing"
         },
         {
-            "associations": [{
-                "targetEntity": "Data.FormData",
-                "roleName": "formData",
-                "navigability": "Data->formData",
-                "mandatory": false,
-                "cardinality": "1"
-            }],
-            "transientAttributesDefinition": [],
-            "associationsDefinition": ["formData"],
-            "name": "Data.Data",
-            "attributesDefinition": [],
-            "attributes": [],
-            "id": "Data.Data"
-        },
-        {
             "associations": [
                 {
-                    "targetEntity": "Data.Location",
-                    "roleName": "location",
-                    "reverseRoleName": "formData",
-                    "navigability": "Bidirectional",
+                    "targetEntity": "Data.Assessment",
+                    "roleName": "assessment",
+                    "navigability": "Data->assessment",
                     "mandatory": false,
                     "cardinality": "1"
                 },
                 {
-                    "targetEntity": "Data.Observation",
-                    "roleName": "observation",
-                    "navigability": "FormData->observation",
+                    "targetEntity": "Data.Crossing",
+                    "roleName": "crossingData",
+                    "navigability": "Data->crossingData",
                     "mandatory": false,
                     "cardinality": "1"
                 }
             ],
             "transientAttributesDefinition": [],
             "associationsDefinition": [
-                "location",
-                "observation"
+                "assessment",
+                "crossingData"
             ],
-            "name": "Data.FormData",
-            "attributesDefinition": [
-                "Crossing_Alignment",
-                "Crossing_Comments",
-                "Crossing_Condition",
-                "Crossing_Constriction",
-                "Crossing_Crossing_Code",
-                "Crossing_Flow_Condition",
-                "Crossing_GPS",
-                "Crossing_Lat",
-                "Crossing_Local_ID",
-                "Crossing_Location_Description",
-                "Crossing_Long",
-                "Crossing_Number_Culverts_BridgeCells",
-                "Crossing_Road",
-                "Crossing_Road_Fill_Height_Ft",
-                "Crossing_Road_Type",
-                "Crossing_Scour_Pool",
-                "Crossing_Stream",
-                "Crossing_tidal_site",
-                "Crossing_Town",
-                "Crossing_Type",
-                "Crossing_Watershed",
-                "Date_Observed",
-                "Inlet_Grade",
-                "Inlet_Shape",
-                "Inlet_structureHeightFt",
-                "Inlet_structureWidthFt",
-                "Inlet_substrateWaterWidth",
-                "Inlet_type",
-                "Inlet_Water_Depth",
-                "Lead_Observer",
-                "Observation_Date_Observed",
-                "Observation_Lead_Observer",
-                "Outlet_abutmentHeightFt",
-                "Outlet_Armoring",
-                "Outlet_DropToBottomFt",
-                "Outlet_DropToSurfaceFt",
-                "Outlet_Grade",
-                "Outlet_Shape",
-                "Outlet_structureHeightFt",
-                "Outlet_structureWidthFt",
-                "Outlet_substrateWaterWidth",
-                "Outlet_Water_Depth",
-                "photo_downstream",
-                "photo_inlet",
-                "photo_outlet",
-                "photo_upstream",
-                "Structure_Contains_Debris_Sediment_Rock",
-                "Structure_Dry_Passage",
-                "Structure_Height_Above_Dry_Passage",
-                "Structure_Internal_Baffles",
-                "Structure_Internal_Structure_Other",
-                "Structure_Internal_Structures",
-                "Structure_Internal_Structures_None",
-                "Structure_Internal_Supports",
-                "Structure_lengthFt",
-                "Structure_Material",
-                "Structure_Physical_Barriers",
-                "Structure_Physical_Barriers_Debris",
-                "Structure_Physical_Barriers_Deformation",
-                "Structure_Physical_Barriers_Dry",
-                "Structure_Physical_Barriers_Fencing",
-                "Structure_Physical_Barriers_Freefall",
-                "Structure_Physical_Barriers_None",
-                "Structure_Physical_Barriers_Other",
-                "Structure_Physical_Barriers_Severity",
-                "Structure_Substrate_Coverage",
-                "Structure_Substrate_Matches_Stream",
-                "Structure_Substrate_Type",
-                "Structure_Water_Depth_Matches_Stream",
-                "Structure_Water_Velocity_Matches_Stream"
-            ],
-            "attributes": [
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Alignment",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Comments",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Condition",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Constriction",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Crossing_Code",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Flow_Condition",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_GPS",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Crossing_Lat",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Local_ID",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Location_Description",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Crossing_Long",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Integer",
-                    "name": "Crossing_Number_Culverts_BridgeCells",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Road",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Integer",
-                    "name": "Crossing_Road_Fill_Height_Ft",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Road_Type",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Scour_Pool",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Stream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_tidal_site",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Town",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Type",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Crossing_Watershed",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Date",
-                    "name": "Date_Observed",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Inlet_Grade",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Inlet_Shape",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Inlet_structureHeightFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Inlet_structureWidthFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Inlet_substrateWaterWidth",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Inlet_type",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Inlet_Water_Depth",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Lead_Observer",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "DateTime",
-                    "name": "Observation_Date_Observed",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Observation_Lead_Observer",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Integer",
-                    "name": "Outlet_abutmentHeightFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Outlet_Armoring",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Outlet_DropToBottomFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Outlet_DropToSurfaceFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Outlet_Grade",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Outlet_Shape",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Outlet_structureHeightFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Outlet_structureWidthFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Outlet_substrateWaterWidth",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Outlet_Water_Depth",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "photo_downstream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "photo_inlet",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "photo_outlet",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "photo_upstream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Contains_Debris_Sediment_Rock",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Dry_Passage",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Decimal",
-                    "name": "Structure_Height_Above_Dry_Passage",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Internal_Baffles",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Internal_Structure_Other",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Internal_Structures",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Internal_Structures_None",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Internal_Supports",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Integer",
-                    "name": "Structure_lengthFt",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Material",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Physical_Barriers",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_Debris",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_Deformation",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_Dry",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_Fencing",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_Freefall",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "Boolean",
-                    "name": "Structure_Physical_Barriers_None",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Physical_Barriers_Other",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Physical_Barriers_Severity",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Substrate_Coverage",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Substrate_Matches_Stream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Substrate_Type",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Water_Depth_Matches_Stream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Structure_Water_Velocity_Matches_Stream",
-                    "type": "Base",
-                    "mandatory": false
-                }
-            ],
-            "id": "Data.FormData"
+            "name": "Data.Data",
+            "attributesDefinition": [],
+            "attributes": [],
+            "id": "Data.Data"
         },
         {
             "associations": [{
-                "targetEntity": "Data.Structure",
-                "roleName": "structure",
-                "reverseRoleName": "inlet",
-                "navigability": "Bidirectional",
-                "mandatory": true,
-                "cardinality": "1"
+                "targetEntity": "Data.Photo",
+                "roleName": "photo",
+                "navigability": "Inlet->photo",
+                "mandatory": false,
+                "cardinality": "*"
             }],
             "transientAttributesDefinition": [],
-            "associationsDefinition": ["structure"],
+            "associationsDefinition": ["photo"],
             "name": "Data.Inlet",
             "attributesDefinition": [
-                "Grade",
-                "Inlet_type",
-                "Shape",
+                "grade",
+                "shape",
                 "structureHeightFt",
                 "structureWidthFt",
                 "substrateWaterWidth",
-                "Water_Depth"
+                "type",
+                "waterDepth"
             ],
             "attributes": [
                 {
                     "dataType": "String",
-                    "name": "Grade",
+                    "name": "grade",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Inlet_type",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Shape",
+                    "name": "shape",
                     "type": "Base",
                     "mandatory": false
                 },
@@ -783,7 +682,13 @@ module.exports={
                 },
                 {
                     "dataType": "String",
-                    "name": "Water_Depth",
+                    "name": "type",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "waterDepth",
                     "type": "Base",
                     "mandatory": false
                 }
@@ -791,24 +696,15 @@ module.exports={
             "id": "Data.Inlet"
         },
         {
-            "associations": [{
-                "targetEntity": "Data.FormData",
-                "roleName": "formData",
-                "reverseRoleName": "location",
-                "navigability": "Bidirectional",
-                "mandatory": true,
-                "cardinality": "1"
-            }],
+            "associations": [],
             "transientAttributesDefinition": [],
-            "associationsDefinition": ["formData"],
             "name": "Data.Location",
             "attributesDefinition": [
                 "city",
                 "geo",
                 "postalCode",
                 "state",
-                "street",
-                "streetNumber"
+                "street"
             ],
             "attributes": [
                 {
@@ -840,71 +736,32 @@ module.exports={
                     "name": "street",
                     "type": "Base",
                     "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "streetNumber",
-                    "type": "Base",
-                    "mandatory": false
                 }
             ],
             "id": "Data.Location"
         },
         {
             "associations": [{
-                "targetEntity": "Data.Crossing",
-                "roleName": "crossing",
-                "reverseRoleName": "observation",
-                "navigability": "Bidirectional",
-                "mandatory": true,
-                "cardinality": "1"
+                "targetEntity": "Data.Photo",
+                "roleName": "photo",
+                "navigability": "Outlet->photo",
+                "mandatory": false,
+                "cardinality": "*"
             }],
             "transientAttributesDefinition": [],
-            "associationsDefinition": ["crossing"],
-            "name": "Data.Observation",
-            "attributesDefinition": [
-                "Date_Observed",
-                "Lead_Observer"
-            ],
-            "attributes": [
-                {
-                    "dataType": "DateTime",
-                    "name": "Date_Observed",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Lead_Observer",
-                    "type": "Base",
-                    "mandatory": false
-                }
-            ],
-            "id": "Data.Observation"
-        },
-        {
-            "associations": [{
-                "targetEntity": "Data.Structure",
-                "roleName": "structure",
-                "reverseRoleName": "outlet",
-                "navigability": "Bidirectional",
-                "mandatory": true,
-                "cardinality": "1"
-            }],
-            "transientAttributesDefinition": [],
-            "associationsDefinition": ["structure"],
+            "associationsDefinition": ["photo"],
             "name": "Data.Outlet",
             "attributesDefinition": [
                 "abutmentHeightFt",
-                "Armoring",
-                "DropToBottomFt",
-                "DropToSurfaceFt",
-                "Grade",
-                "Shape",
+                "armoring",
+                "dropToBottomFt",
+                "dropToSurfaceFt",
+                "grade",
+                "shape",
                 "structureHeightFt",
                 "structureWidthFt",
                 "substrateWaterWidth",
-                "Water_Depth"
+                "waterDepth"
             ],
             "attributes": [
                 {
@@ -915,31 +772,31 @@ module.exports={
                 },
                 {
                     "dataType": "String",
-                    "name": "Armoring",
+                    "name": "armoring",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Decimal",
-                    "name": "DropToBottomFt",
+                    "name": "dropToBottomFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Decimal",
-                    "name": "DropToSurfaceFt",
+                    "name": "dropToSurfaceFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Grade",
+                    "name": "grade",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Shape",
+                    "name": "shape",
                     "type": "Base",
                     "mandatory": false
                 },
@@ -963,7 +820,7 @@ module.exports={
                 },
                 {
                     "dataType": "String",
-                    "name": "Water_Depth",
+                    "name": "waterDepth",
                     "type": "Base",
                     "mandatory": false
                 }
@@ -1021,80 +878,86 @@ module.exports={
         {
             "associations": [
                 {
-                    "targetEntity": "Data.Crossing",
-                    "roleName": "crossing",
-                    "reverseRoleName": "structure",
-                    "navigability": "Bidirectional",
-                    "mandatory": true,
-                    "cardinality": "1"
-                },
-                {
                     "targetEntity": "Data.Inlet",
                     "roleName": "inlet",
-                    "reverseRoleName": "structure",
-                    "navigability": "Bidirectional",
+                    "navigability": "Structure->inlet",
                     "mandatory": false,
                     "cardinality": "1"
                 },
                 {
                     "targetEntity": "Data.Outlet",
                     "roleName": "outlet",
-                    "reverseRoleName": "structure",
-                    "navigability": "Bidirectional",
+                    "navigability": "Structure->outlet",
                     "mandatory": false,
                     "cardinality": "1"
                 }
             ],
             "transientAttributesDefinition": [],
             "associationsDefinition": [
-                "crossing",
                 "inlet",
                 "outlet"
             ],
             "name": "Data.Structure",
             "attributesDefinition": [
-                "Contains_Debris_Sediment_Rock",
-                "Dry_Passage",
-                "Height_Above_Dry_Passage",
+                "containsDebris",
+                "dryPassage",
+                "heightAboveDryPassage",
                 "id",
-                "Internal_Baffles",
-                "Internal_Structure_Other",
-                "Internal_Structures",
-                "Internal_Structures_None",
-                "Internal_Supports",
+                "inletGrade",
+                "inletHeightFt",
+                "inletShape",
+                "inletSubstrateWaterWidth",
+                "inletType",
+                "inletWaterDepth",
+                "inletWidthFt",
+                "internalBaffles",
+                "internalStructures",
+                "internalStructuresNone",
+                "internalStructuresOther",
+                "internalSupports",
                 "lengthFt",
-                "Physical_Barriers",
-                "Physical_Barriers_Debris",
-                "Physical_Barriers_Deformation",
-                "Physical_Barriers_Dry",
-                "Physical_Barriers_Fencing",
-                "Physical_Barriers_Freefall",
-                "Physical_Barriers_None",
-                "Physical_Barriers_Other",
-                "Physical_Barriers_Severity",
-                "Structure_Material",
-                "Substrate_Coverage",
-                "Substrate_Matches_Stream",
-                "Substrate_Type",
-                "Water_Depth_Matches_Stream",
-                "Water_Velocity_Matches_Stream"
+                "material",
+                "outletAbutmentHeightFt",
+                "outletArmoring",
+                "outletDropToBottomFt",
+                "outletDropToSurfaceFt",
+                "outletGrade",
+                "outletHeightFt",
+                "outletShape",
+                "outletSubstrateWaterWidth",
+                "outletWaterDepth",
+                "outletWidthFt",
+                "physicalBarriers",
+                "physicalBarriersDebris",
+                "physicalBarriersDeformation",
+                "physicalBarriersDry",
+                "physicalBarriersFencing",
+                "physicalBarriersFreefall",
+                "physicalBarriersNone",
+                "physicalBarriersOther",
+                "physicalBarriersSeverity",
+                "substrateCoverage",
+                "substrateMatchesStream",
+                "substrateType",
+                "waterDepthMatchesStream",
+                "waterVelocityMatchesStream"
             ],
             "attributes": [
                 {
                     "dataType": "Boolean",
-                    "name": "Contains_Debris_Sediment_Rock",
+                    "name": "containsDebris",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Dry_Passage",
+                    "name": "dryPassage",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Decimal",
-                    "name": "Height_Above_Dry_Passage",
+                    "name": "heightAboveDryPassage",
                     "type": "Base",
                     "mandatory": false
                 },
@@ -1105,128 +968,230 @@ module.exports={
                     "mandatory": false
                 },
                 {
-                    "dataType": "Boolean",
-                    "name": "Internal_Baffles",
+                    "dataType": "String",
+                    "name": "inletGrade",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
-                    "dataType": "Boolean",
-                    "name": "Internal_Structure_Other",
+                    "dataType": "Decimal",
+                    "name": "inletHeightFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Internal_Structures",
+                    "name": "inletShape",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "inletSubstrateWaterWidth",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "inletType",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "inletWaterDepth",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "DateTime",
+                    "name": "inletWidthFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Internal_Structures_None",
+                    "name": "internalBaffles",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Internal_Supports",
+                    "name": "internalStructures",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
-                    "dataType": "Integer",
+                    "dataType": "Boolean",
+                    "name": "internalStructuresNone",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalStructuresOther",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Boolean",
+                    "name": "internalSupports",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
                     "name": "lengthFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Physical_Barriers",
+                    "name": "material",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletAbutmentHeightFt",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Physical_Barriers_Debris",
+                    "name": "outletArmoring",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletDropToBottomFt",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletDropToSurfaceFt",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "outletGrade",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletHeightFt",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "outletShape",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletSubstrateWaterWidth",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletWaterDepth",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "Decimal",
+                    "name": "outletWidthFt",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriers",
+                    "type": "Base",
+                    "mandatory": false
+                },
+                {
+                    "dataType": "String",
+                    "name": "physicalBarriersDebris",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Physical_Barriers_Deformation",
+                    "name": "physicalBarriersDeformation",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Physical_Barriers_Dry",
+                    "name": "physicalBarriersDry",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Physical_Barriers_Fencing",
+                    "name": "physicalBarriersFencing",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Physical_Barriers_Freefall",
+                    "name": "physicalBarriersFreefall",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "Boolean",
-                    "name": "Physical_Barriers_None",
+                    "name": "physicalBarriersNone",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Physical_Barriers_Other",
+                    "name": "physicalBarriersOther",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Physical_Barriers_Severity",
+                    "name": "physicalBarriersSeverity",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Structure_Material",
+                    "name": "substrateCoverage",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Substrate_Coverage",
+                    "name": "substrateMatchesStream",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Substrate_Matches_Stream",
+                    "name": "substrateType",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Substrate_Type",
+                    "name": "waterDepthMatchesStream",
                     "type": "Base",
                     "mandatory": false
                 },
                 {
                     "dataType": "String",
-                    "name": "Water_Depth_Matches_Stream",
-                    "type": "Base",
-                    "mandatory": false
-                },
-                {
-                    "dataType": "String",
-                    "name": "Water_Velocity_Matches_Stream",
+                    "name": "waterVelocityMatchesStream",
                     "type": "Base",
                     "mandatory": false
                 }
