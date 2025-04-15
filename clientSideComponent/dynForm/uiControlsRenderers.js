@@ -1847,7 +1847,7 @@ corticon.dynForm.UIControlsRenderer = function () {
             //    Give it a specific class and keep it hidden initially
             tooltipBubbleEl = $('<div>') // Use DIV for block display
                 .addClass('tooltip-bubble inline-tooltip') // Add a new class 'inline-tooltip' for specific styling
-                .text(oneUIControl.tooltip)
+                .html(oneUIControl.tooltip)
                 .hide(); // Hide using jQuery
 
             // 3. Add Click Handler to the Info Icon
