@@ -1817,65 +1817,64 @@ corticon.dynForm.UIControlsRenderer = function () {
 
         const labelPosition = getLabelPositionForControl(oneUIControl, labelPositionAtContainerLevel);
         const labelText = oneUIControl.label;
-        const controlId = oneUIControl.id; // Base ID
+        const controlId = oneUIControl.id; // Base ID for association (though less direct now)
 
-        // Create the label element
-        const labelEl = $('<label>').text(labelText);
-        // Associate 'for' with the first actual input if possible later, or omit for now.
+        // --- Create Label Wrapper (as before) ---
+        let labelWrapper;
+        const labelEl = $('<label>').text(labelText); // Create the basic label text part
 
-        // --- Tooltip / Info Icon Logic ---
+        if (labelPosition === 'Above') {
+            labelWrapper = $('<div>').addClass('inputLabelAbove');
+        } else { // 'Side'
+            labelWrapper = $('<span>').addClass('inputLabelSide');
+        }
+        labelWrapper.append(labelEl); // Add the text label part
+
+
+        // --- Tooltip / Info Icon Logic (Modified) ---
+        let tooltipBubbleEl = null; // Initialize bubble variable
         if (oneUIControl.tooltip) {
-            // 1. Create the Info Icon Span
+            // 1. Create the Info Icon Span (as before)
             const infoIcon = $('<span>')
-                .addClass('info-icon') // Class for styling (e.g., cursor: pointer)
-                .text('ⓘ') // Unicode info symbol
-                // 2. Store tooltip text in data attribute, NOT title
-                .data('tooltip-text', oneUIControl.tooltip);
+                .addClass('info-icon')
+                .text('ⓘ')
+                .css('cursor', 'pointer'); // Ensure cursor indicates clickable
 
-            // 3. Create the Hidden Tooltip Bubble Span
-            const tooltipBubble = $('<span>')
-                .addClass('tooltip-bubble') // Class for styling & hiding
-                .text(oneUIControl.tooltip) // Put the text inside
-                .hide(); // Initially hidden using jQuery's hide() -> display: none
+            // Append icon *to the label wrapper*
+            labelWrapper.append('&nbsp;').append(infoIcon); // Append icon next to label text
 
-            // 4. Add Click Handler to the Info Icon
+            // 2. Create the Tooltip Bubble DIV (outside the labelWrapper)
+            //    Give it a specific class and keep it hidden initially
+            tooltipBubbleEl = $('<div>') // Use DIV for block display
+                .addClass('tooltip-bubble inline-tooltip') // Add a new class 'inline-tooltip' for specific styling
+                .text(oneUIControl.tooltip)
+                .hide(); // Hide using jQuery
+
+            // 3. Add Click Handler to the Info Icon
             infoIcon.on('click', function (event) {
-                event.stopPropagation(); // Prevent click from bubbling up if needed
-                // Find the adjacent tooltip bubble and toggle its visibility
-                $(this).siblings('.tooltip-bubble').first().toggle();
-                // Optional: Close other open tooltips
-                // $('.tooltip-bubble').not($(this).siblings('.tooltip-bubble').first()).hide();
+                event.stopPropagation();
+                // Find the tooltip bubble DIV that is *next* sibling within the inputContainer
+                // This assumes the bubble is placed right after the label wrapper
+                $(this).closest('.inputContainer').find('.tooltip-bubble.inline-tooltip').first().slideToggle(200); // Use slideToggle for smooth effect
+                // Optional: Close other open tooltips if needed
+                // $('.tooltip-bubble.inline-tooltip').not($(this).closest('.inputContainer').find('.tooltip-bubble.inline-tooltip').first()).slideUp(200);
             });
-
-            // Append icon and bubble to the label
-            labelEl.append('&nbsp;').append(infoIcon).append(tooltipBubble);
-
-            // Optional: Add handler to close bubble when clicking elsewhere
-            // $(document).on('click', function(event) {
-            //     if (!$(event.target).closest('.info-icon').length) {
-            //         $('.tooltip-bubble').hide();
-            //    }
-            // });
-
         }
         // --- End Tooltip Logic ---
 
-
-        // Add required marker if needed
+        // Add required marker if needed (as before)
         if (oneUIControl.required === true) {
-            labelEl.append('&nbsp;<span class="required-marker">*</span>'); // Style .required-marker in CSS
+            labelWrapper.append('&nbsp;<span class="required-marker">*</span>');
         }
 
+        // --- Append elements to the inputContainerEl ---
+        // Prepend the label wrapper (which now contains the icon)
+        inputContainerEl.prepend(labelWrapper);
 
-        // Create wrapper based on position and append label
-        if (labelPosition === 'Above') {
-            const labelWrapper = $('<div>').addClass('inputLabelAbove'); // Block element
-            labelWrapper.append(labelEl);
-            inputContainerEl.prepend(labelWrapper); // Prepend label
-        } else { // 'Side'
-            const labelWrapper = $('<span>').addClass('inputLabelSide'); // Inline-block element
-            labelWrapper.append(labelEl);
-            inputContainerEl.prepend(labelWrapper); // Prepend label
+        // Append the tooltip bubble DIV *after* the label wrapper, if it exists
+        if (tooltipBubbleEl) {
+            // Insert it right after the label wrapper
+            labelWrapper.after(tooltipBubbleEl);
         }
     }
 
