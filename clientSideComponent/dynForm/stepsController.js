@@ -7,16 +7,16 @@ function _createEachTextEntity(outerArray, textFieldArray) {
     const convertedArray = [];
     if (!Array.isArray(outerArray) || !Array.isArray(textFieldArray)) {
         console.error("Invalid input for _createEachTextEntity: Inputs must be arrays.");
-        return convertedArray;
+        return convertedArray; // Return empty array for invalid input
     }
+    // The main logic (for loop) should be OUTSIDE the 'if' block.
     for (let i = 0; i < outerArray.length; i++) {
         const oneItemAsAnArray = outerArray[i];
         const oneItemAsObjLit = {};
-        // Ensure oneItemAsAnArray is also an array before iterating
         if (Array.isArray(oneItemAsAnArray)) {
-            const len = Math.min(oneItemAsAnArray.length, textFieldArray.length); // Use the shorter length to avoid errors
+            const len = Math.min(oneItemAsAnArray.length, textFieldArray.length);
             for (let j = 0; j < len; j++) {
-                if (textFieldArray[j]) { // Check if field name exists
+                if (textFieldArray[j]) {
                     oneItemAsObjLit[textFieldArray[j]] = oneItemAsAnArray[j];
                 } else {
                     console.warn(`_createEachTextEntity: Missing field name at index ${j}`);
@@ -31,7 +31,7 @@ function _createEachTextEntity(outerArray, textFieldArray) {
         }
     }
     return convertedArray;
-}
+} // Final return with the processed array    
 
 
 // Helper function (can be outside if preferred, ensure it's accessible)
@@ -40,11 +40,12 @@ function _createEachExpenseEntity(outerArray, expenseFieldArray) {
     if (!Array.isArray(outerArray) || !Array.isArray(expenseFieldArray)) {
         console.error("Invalid input for _createEachExpenseEntity: Inputs must be arrays.");
         return convertedArray;
-    }
+    } // Return empty array for invalid input
+
+    // The main logic (for loop) should be OUTSIDE the 'if' block.
     for (let i = 0; i < outerArray.length; i++) {
         const oneItemAsAnArray = outerArray[i];
         const oneItemAsObjLit = {};
-        // Ensure oneItemAsAnArray is also an array
         if (Array.isArray(oneItemAsAnArray)) {
             const len = Math.min(oneItemAsAnArray.length, expenseFieldArray.length);
             for (let j = 0; j < len; j++) {
@@ -61,21 +62,20 @@ function _createEachExpenseEntity(outerArray, expenseFieldArray) {
             // Specific conversion for 'amount'
             if (oneItemAsObjLit.hasOwnProperty('amount')) {
                 const converted = Number(oneItemAsObjLit['amount']);
-                if (!isNaN(converted)) { // Use isNaN for number check
+                if (!isNaN(converted)) {
                     oneItemAsObjLit['amount'] = converted;
                 } else {
                     console.warn(`_createEachExpenseEntity: Invalid number for amount at index ${i}. Setting to 0.`);
-                    oneItemAsObjLit['amount'] = 0; // Default to 0 if conversion fails
+                    oneItemAsObjLit['amount'] = 0;
                 }
             }
 
-            oneItemAsObjLit['id'] = '' + i;  // Add a unique id
+            oneItemAsObjLit['id'] = '' + i; // Add a unique id
             convertedArray.push(oneItemAsObjLit);
         } else {
             console.warn(`_createEachExpenseEntity: Item at index ${i} is not an array:`, oneItemAsAnArray);
         }
-    }
-    return convertedArray;
+    } return convertedArray;
 }
 
 
@@ -85,10 +85,12 @@ corticon.dynForm.StepsController = function () {
     let itsPathToData = null; // Path within itsDecisionServiceInput[1] where form data is nested
     let itsFormData = {}; // Reference to the actual form data object (itsDecisionServiceInput[1] or a nested object)
     let itsFlagAllDone = false;
+    let itsFlagReportRequested = false;
     let itsLabelPositionAtUILevel = "Above"; // Default label position
     let itsQuestionnaireName = null;
     let itsInitialLanguage = null;
     let itsFlagRenderWithKui = false; // Kendo UI flag
+    let isReviewStepDisplayed = false; // Add this line
 
     const itsHistory = new corticon.dynForm.History();
     const itsUIControlsRenderer = new corticon.dynForm.UIControlsRenderer();
@@ -242,8 +244,8 @@ corticon.dynForm.StepsController = function () {
 
         console.log("Grouped Simple Array Inputs:", allUiControlsOfArrayType);
         return allUiControlsOfArrayType;
-    }
 
+    }
 
     /**
     * Creates an array of objects for simple array types (Text, Number, DateTime).
@@ -1059,29 +1061,55 @@ corticon.dynForm.StepsController = function () {
      */
     async function processNextStep(baseDynamicUIEl, decisionServiceEngine, language, saveInputToFormData = true) {
         console.log("Processing Next Step...");
+        // Capture the review state *before* doing anything else for this transition
+        const currentlyOnReviewStep = isReviewStepDisplayed;
 
-        if (saveInputToFormData) {
+        // Optionally skip saving/validation when leaving the review step
+        if (saveInputToFormData && !currentlyOnReviewStep) {
             // 1. Validate Current Step Inputs
             if (!validateForm(baseDynamicUIEl)) {
                 console.log("Validation failed. Staying on current step.");
                 return; // Stop if validation fails
             }
             // 2. Save Current Step Inputs
-            _saveEnteredInputsToFormData(baseDynamicUIEl); // Saves non-array and array types
+            _saveEnteredInputsToFormData(baseDynamicUIEl);
+        } else if (currentlyOnReviewStep) {
+            console.log(`Skipping input saving/validation for this step transition (Leaving Review Step).`);
         } else {
-            console.log("Skipping input saving for this step transition.");
+            console.log("Skipping input saving because saveInputToFormData is false.");
         }
 
-        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.NEW_STEP); // Event indicating transition starts
+        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.NEW_STEP);
 
-        // 4. Check if 'Done' flag was set by the *previous* DS call
-        if (itsFlagAllDone) {
-            console.log("Form is marked as done. Handling completion.");
-            handleFormCompletion(decisionServiceEngine); // Pass engine if needed for final post
+        // --- MODIFIED CHECK ---
+        // Only handle completion here if the form was marked done *before* this step
+        // AND we are *not* currently on the review step (because leaving the review step
+        // needs to proceed to the next stage (e.g., stage 7) to get postInfo).
+        if (itsFlagAllDone && !currentlyOnReviewStep) {
+            console.log("Form is marked as done (and not on review step). Handling completion.");
+            handleFormCompletion(decisionServiceEngine);
+            return; // Exit early, completion handled
+        }
+        // --- END MODIFIED CHECK ---
+
+        // 4. Determine the target stage for the NEXT step execution.
+        //    This should come from the 'nextStageNumber' attribute set in the control data
+        //    by the PREVIOUS decision service execution.
+        const targetStage = itsDecisionServiceInput[0]?.nextStageNumber;
+
+        if (targetStage === undefined) {
+            console.error("Cannot determine next stage number from previous step's response. Stopping.", itsDecisionServiceInput[0]);
+            alert("An error occurred determining the next step. Please check the decision service response.");
             return;
         }
 
-        // 5. Prepare for and Execute Decision Service for the *Next* Step
+        // 5. Prepare the payload FOR the target stage BEFORE calling handleDecisionServiceStep
+        //    This updates itsDecisionServiceInput[0].currentStageNumber
+        console.log(`processNextStep: Preparing payload for target stage: ${targetStage}`);
+        _preparePayloadForNextStage(targetStage, language); // Pass language too
+
+        // 6. Execute Decision Service for the *Prepared* Target Step
+        //    handleDecisionServiceStep will use the currentStageNumber set by _preparePayloadForNextStage
         await handleDecisionServiceStep(decisionServiceEngine, baseDynamicUIEl);
     }
 
@@ -1093,11 +1121,14 @@ corticon.dynForm.StepsController = function () {
      * @param {Object} baseDynamicUIEl - The jQuery element to render UI into.
      */
     async function handleDecisionServiceStep(decisionServiceEngine, baseDynamicUIEl) {
-        // Determine the next stage number (usually from the previous DS response)
-        let nextStageNumber = itsDecisionServiceInput[0]?.nextStageNumber ?? (itsDecisionServiceInput[0]?.currentStageNumber + 1); // Calculate next if not provided
-        console.log(`Preparing payload for stage: ${nextStageNumber}`);
-        _preparePayloadForNextStage(nextStageNumber); // Sets itsDecisionServiceInput[0].currentStageNumber
+        // --- MODIFIED LOGIC ---
+        // The correct stage to EXECUTE is already in the control payload prepared by the caller
+        // (either startDynUI preparing stage 0, or processNextStep preparing the next stage from DS response)
+        const stageToExecute = itsDecisionServiceInput[0]?.currentStageNumber ?? 0; // Use the stage already set in the payload
+        console.log(`Executing decision service for stage: ${stageToExecute}`);
+        // No need to call _preparePayloadForNextStage again here, the payload is already prepared.
 
+        // Pass the current payload (which has the correct stageToExecute as currentStageNumber)
         let nextUI = await _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, itsDecisionServiceInput, baseDynamicUIEl);
 
         // Loop if the step had no UI and indicated to continue
@@ -1130,29 +1161,291 @@ corticon.dynForm.StepsController = function () {
             nextUI = await _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, itsDecisionServiceInput, baseDynamicUIEl);
         }
 
-        // After loop (or if first step had UI), check final state
-        if (nextUI) { // If DS call was successful (even if it resulted in no UI render)
-            // Update the 'done' flag based on the *last* DS response processed
+        // Process the final result (could be UI step, error, or the 'done' step)
+        if (nextUI) {
+            // Update flags based on the *final* response for this transition
             itsFlagAllDone = nextUI.done === true;
+            itsFlagReportRequested = nextUI.report === true;
+            console.log(`Internal flags set from step data: done=${itsFlagAllDone}, report=${itsFlagReportRequested}`);
 
-            // Save restart data based on the final state of itsDecisionServiceInput for this step transition
-            saveRestartData(itsQuestionnaireName, JSON.stringify(itsDecisionServiceInput));
-            console.log(`Restart data saved. Is form done? ${itsFlagAllDone}`);
+            // *** NEW LOGIC: Check for Review Step Condition ***
+            if (itsFlagAllDone && itsFlagReportRequested) {
+                console.log("Final step reached, report requested. Rendering Review Step.");
+                isReviewStepDisplayed = true; // Set the review flag
 
-            if (itsFlagAllDone) {
-                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.FORM_DONE); // Raise event immediately if done
-                // Potentially trigger completion handling right away? Or wait for next 'Next' click?
-                // Current logic triggers completion on the *next* click via processNextStep check.
+                // Format data for the report
+                const formattedDataForReport = itsFormData ? [itsFormData] : [];
+                console.log("Formatted data for report:", JSON.stringify(formattedDataForReport));
+
+                // Render the report into the container
+                const containerId = baseDynamicUIEl.attr('id'); // Get container ID
+                if (typeof renderAssessmentReport === 'function') {
+                    try {
+                        console.log(`Calling renderAssessmentReport for Review Step in container #${containerId}...`);
+                        renderAssessmentReport(formattedDataForReport, containerId);
+                        console.log("renderAssessmentReport called successfully for Review Step.");
+                        // Add a title/instruction for the review step
+                        baseDynamicUIEl.prepend('<h3>Review Your Assessment</h3><p>Please review the information below. Click Previous to make changes or Next to submit.</p>');
+                    } catch (error) {
+                        console.error("Error during review step report generation:", error);
+                        if (baseDynamicUIEl && typeof baseDynamicUIEl.empty === 'function') {
+                            baseDynamicUIEl.empty().append(`<p style="color: red;">Error generating review: ${error.message}</p>`);
+                        } else if (baseDynamicUIEl instanceof HTMLElement) {
+                            baseDynamicUIEl.innerHTML = `<p style="color: red;">Error generating review: ${error.message}</p>`;
+                        }
+                    }
+                } else {
+                    console.error("renderAssessmentReport function is not defined.");
+                    if (baseDynamicUIEl && typeof baseDynamicUIEl.empty === 'function') {
+                        baseDynamicUIEl.empty().append('<p style="color: red;">Error: Cannot display review. Report function not found.</p>');
+                    } else if (baseDynamicUIEl instanceof HTMLElement) {
+                        baseDynamicUIEl.innerHTML = '<p style="color: red;">Error: Cannot display review. Report function not found.</p>';
+                    }
+                }
+
+                // Update button states for review (e.g., enable Prev/Next, change Next text)
+                // This might need external calls depending on how buttons are managed
+                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.REVIEW_STEP_DISPLAYED, { historyEmpty: itsHistory.isHistoryEmpty() });
+
+            } else if (itsFlagAllDone && !itsFlagReportRequested) {
+                // Handle case where form is done but no report needed (immediately complete)
+                console.log("Form marked as done, no report requested. Handling completion directly.");
+                handleFormCompletion(decisionServiceEngine);
+                isReviewStepDisplayed = false; // Ensure review flag is false
+            } else {
+                // Normal step (not done, or done without report) - UI was already rendered by _ask...
+                isReviewStepDisplayed = false; // Ensure review flag is false
+                // Update button states for normal step
+                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.HISTORY_STATUS_CHANGED, { historyEmpty: itsHistory.isHistoryEmpty() });
             }
 
-            // Update history status (empty/not empty) for UI buttons
-            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.HISTORY_STATUS_CHANGED, { historyEmpty: itsHistory.isHistoryEmpty() });
+            // Save restart data including the latest flags and review state
+            saveRestartData(itsQuestionnaireName, JSON.stringify(itsDecisionServiceInput));
+            console.log(`Restart data saved. Is form done? ${itsFlagAllDone}. Is review step? ${isReviewStepDisplayed}`);
 
         } else {
             console.error("Error occurred during decision service step processing. Form flow might be interrupted.");
-            // Potentially show error message in UI
-            baseDynamicUIEl.empty().append('<div class="error-message">An error occurred processing the form. Please try again later.</div>');
+            if (baseDynamicUIEl && typeof baseDynamicUIEl.empty === 'function') {
+                baseDynamicUIEl.empty().append('<div class="error-message">An error occurred processing the form step. Please try again later.</div>');
+            } else if (baseDynamicUIEl instanceof HTMLElement) {
+                baseDynamicUIEl.innerHTML = '<div class="error-message">An error occurred processing the form step. Please try again later.</div>';
+            }
         }
+    }
+
+    /**
+     * Handles the final actions when the form is completed *after* the review step (or directly if no review).
+     * Clears restart data, raises event, optionally posts data, and displays completion message.
+     * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
+     */
+    function handleFormCompletion(decisionServiceEngine) {
+        console.log("--- handleFormCompletion called ---");
+        console.log("Final Form Data (itsFormData):", JSON.stringify(itsFormData, null, 2));
+        const finalControlData = itsDecisionServiceInput[0] || {}; // Get final control data
+
+        clearRestartData(itsQuestionnaireName); // Clear persistence
+        isReviewStepDisplayed = false; // Ensure review flag is reset
+        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData); // Send final data with event
+
+        // --- Optional: Post data based on DS instruction ---
+
+        // Read post details directly from the final control data object
+        const postType = finalControlData.postType;
+        const postURL = finalControlData.postURL;
+        const postHeadersRaw = finalControlData.headers; // Get the headers array/object from DS response
+
+        let postAttempted = false;
+        let postSuccessful = false;
+
+        // Check directly using the variables read from finalControlData
+        if (postType === 'REST' && postURL) {
+            postAttempted = true;
+            console.log(`Attempting REST POST to: ${postURL}`);
+            const postData = JSON.stringify(itsFormData); // Post the form data part
+
+            // Start with base headers
+            const finalHeaders = {
+                "Content-Type": "application/json"
+            };
+
+            // Process headers - expecting an array containing one object based on DS response
+            if (postHeadersRaw && Array.isArray(postHeadersRaw) && postHeadersRaw.length > 0) {
+                const headerObj = postHeadersRaw[0]; // Get the first (and likely only) object from the array
+                console.log("Raw header object from DS:", headerObj); // Optional debug log
+                console.log("Type of header object:", typeof headerObj); // Optional debug log
+
+                if (typeof headerObj === 'object' && headerObj !== null) {
+                    // --- MODIFIED ITERATION START ---
+                    // Use Object.keys() and forEach for safer iteration
+                    Object.keys(headerObj).forEach(key => {
+                        const value = headerObj[key]; // Get value using the key
+
+                        // Map known camelCase keys to HTTP header format
+                        if (key === 'xMasterKey') {
+                            finalHeaders['X-Master-key'] = value;
+                            console.log("Mapping header: xMasterKey -> X-Master-key");
+                        } else if (key === 'xCollectionId') {
+                            finalHeaders['X-Collection-Id'] = value;
+                            console.log("Mapping header: xCollectionId -> X-Collection-Id");
+                        } else {
+                            // Pass through any other headers directly
+                            finalHeaders[key] = value;
+                            console.log(`Mapping header: ${key} -> ${key}`);
+                        }
+                    });
+                    // --- MODIFIED ITERATION END ---
+                } else {
+                    console.warn("Headers object within array was not valid:", headerObj);
+                }
+            } else {
+                console.log("No additional headers provided or headers format not recognized/empty.");
+            }
+
+            console.log("Final headers for fetch:", finalHeaders);
+
+            fetch(postURL, {
+                // Read method directly from control data if present, otherwise default to POST
+                method: finalControlData.method || "POST",
+                headers: finalHeaders, // Use the processed headers
+                body: postData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}. Body: ${text}`);
+                        });
+                    }
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.indexOf("application/json") !== -1) {
+                        return response.json();
+                    } else {
+                        return response.text();
+                    }
+                })
+                .then(data => {
+                    console.log("Data successfully posted:", data);
+                    postSuccessful = true;
+                    _displayCompletionMessage("Form submitted successfully!");
+                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
+                })
+                .catch(error => {
+                    console.error("Error posting data:", error);
+                    _displayCompletionMessage(`Error submitting form: ${error.message}`, true);
+                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
+                })
+                .finally(() => {
+                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+                });
+        } else {
+            // Update log message for clarity
+            console.log(`No REST post instruction found or postType is not 'REST'. postType: ${postType}, postURL: ${postURL}`);
+            _displayCompletionMessage("Form Completed!");
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+        }
+
+        console.log("--- handleFormCompletion finished ---");
+    }
+
+    /**
+     * Helper to display the final completion/error message in the UI container.
+     * @param {string} message - The message to display.
+     * @param {boolean} [isError=false] - Whether the message is an error.
+     */
+    function _displayCompletionMessage(message, isError = false) {
+        const container = document.getElementById('dynUIContainerId'); // Assuming same container ID
+        if (container) {
+            container.innerHTML = `<div class="report-section"><p class="${isError ? 'error-message' : 'success-message'}">${message}</p></div>`;
+        } else {
+            // Fallback to alert if container not found
+            alert(message);
+        }
+    }
+
+
+    /**
+     * Calls the decision service to get the next UI step and renders it.
+     * Handles background data processing, "no UI" steps, and "done" state.
+     * @param {Object} decisionServiceEngine - The Corticon engine instance.
+     * @param {Array} payload - The payload for the decision service.
+     * @param {Object} baseEl - The jQuery element to render the UI into.
+     * @returns {Promise<Object|null>} - The control data object (payload[0]) from the decision service response, or null if errors occurred.
+     */
+    async function _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, payload, baseEl) {
+        const result = await _runDecisionService(decisionServiceEngine, payload);
+
+        if (!result || result.corticon?.status !== 'success') {
+            console.error("Decision service execution failed or returned invalid status.");
+            return null; // Indicate failure
+        }
+
+        const nextUI = result.payload[0]; // Assuming result structure is correct
+
+        if (!nextUI) {
+            console.error("Decision service response missing payload[0].");
+            alert("Received invalid response from decision service.");
+            return null;
+        }
+
+        // --- Update State from DS Response (Do this regardless of 'done' status) ---
+        if (nextUI.pathToData !== undefined && nextUI.pathToData !== null) {
+            itsPathToData = nextUI.pathToData;
+            console.log("Data path set to:", itsPathToData === "" ? "(root)" : itsPathToData);
+        }
+        _processLabelPositionSetting(nextUI.labelPosition);
+        itsFormData = itsDecisionServiceInput[1]; // Refresh itsFormData reference
+        console.log("Form data state after DS call:", JSON.stringify(itsFormData, null, 2));
+
+        // *** Check for 'done' state EARLY - if done, we just return the control data ***
+        if (nextUI.done === true) {
+            console.log(`_askDecisionServiceForNextUIElementsAndRender: Detected 'done: true' for stage ${payload[0]?.currentStageNumber}. Skipping UI processing.`);
+            return nextUI; // Return control data (contains done/report flags)
+        }
+        // *** END 'done' CHECK ***
+
+        // --- Process Background Data (Only if not done) ---
+        if (nextUI.backgroundData && Array.isArray(nextUI.backgroundData)) {
+            console.log("Processing background data instructions:", nextUI.backgroundData);
+            for (const backgroundDataInstruction of nextUI.backgroundData) {
+                await _processBackgroundData(backgroundDataInstruction);
+            }
+            console.log("Finished processing background data. Current form data:", JSON.stringify(itsFormData, null, 2));
+            itsFormData = itsDecisionServiceInput[1]; // Refresh itsFormData reference AGAIN
+        }
+
+        // --- Handle "No UI" Steps (Only if not done) ---
+        if (nextUI.noUiToRenderContinue === true) {
+            console.log(`Step ${payload[0]?.currentStageNumber} is a 'no UI' step. Continuing...`);
+            return nextUI; // Return control data, signaling the loop in handleDecisionServiceStep
+        }
+
+        // --- Render UI (Only if not done and not 'no UI') ---
+        const containers = nextUI.containers;
+        if (!containers || !Array.isArray(containers)) {
+            console.error('Decision service response missing valid "containers" array for UI rendering.');
+            alert('Error: Invalid UI structure received.');
+            if (baseEl && typeof baseEl.empty === 'function') {
+                baseEl.empty().append('<div class="error-message">Failed to load UI content.</div>');
+            } else if (baseEl instanceof HTMLElement) {
+                baseEl.innerHTML = '<div class="error-message">Failed to load UI content.</div>';
+            }
+            return null; // Indicate failure
+        }
+
+        console.log(`Rendering UI for stage ${payload[0]?.currentStageNumber}`);
+        // Ensure baseEl is cleared before rendering new content
+        if (baseEl && typeof baseEl.empty === 'function') {
+            baseEl.empty();
+        } else if (baseEl instanceof HTMLElement) {
+            baseEl.innerHTML = '';
+        }
+        // Proceed with rendering
+        itsUIControlsRenderer.renderUI(containers, baseEl, itsLabelPositionAtUILevel, nextUI.language || itsInitialLanguage, itsFlagRenderWithKui);
+
+        // --- Post-Render Event ---
+        const eventData = { "input": payload, "output": result.payload, "stage": payload[0]?.currentStageNumber };
+        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_UI_STEP_RENDERED, eventData);
+
+        return nextUI; // Return the control data for the step that was actually rendered
     }
 
 
@@ -1164,11 +1457,7 @@ corticon.dynForm.StepsController = function () {
      */
     async function processPrevStep(baseDynamicUIEl, decisionServiceEngine, language) {
         console.log("Processing Previous Step...");
-        if (itsFlagAllDone) {
-            console.log("Form is marked done, cannot go back.");
-            // Maybe re-enable form if going back should undo 'done'? Requires thought.
-            return;
-        }
+        isReviewStepDisplayed = false; // Going back always exits review mode
 
         const previousStateData = itsHistory.getPreviousStageData(); // Pops from history stack
 
@@ -1179,7 +1468,8 @@ corticon.dynForm.StepsController = function () {
             return; // At the beginning
         }
 
-        console.log(`Restoring state for previous stage: ${previousStateData.stage}`);
+        const restoredStageNumber = previousStateData.stage; // Get stage number from history item
+        console.log(`Restoring state for previous stage: ${restoredStageNumber}`);
 
         // Restore the entire state (control and form data) from history
         itsDecisionServiceInput = previousStateData.input;
@@ -1187,8 +1477,9 @@ corticon.dynForm.StepsController = function () {
         itsFormData = itsDecisionServiceInput[1] || {};
         // Restore path to data from the restored control data
         itsPathToData = itsDecisionServiceInput[0]?.pathToData ?? null;
-        // Reset 'done' flag as we are going back
-        itsFlagAllDone = false;
+        // Restore flags from control data (important!)
+        itsFlagAllDone = itsDecisionServiceInput[0]?.done === true;
+        itsFlagReportRequested = itsDecisionServiceInput[0]?.report === true;
 
         console.log("State restored from history. Control Data:", JSON.stringify(itsDecisionServiceInput[0]), "Form Data:", JSON.stringify(itsDecisionServiceInput[1]));
 
@@ -1196,25 +1487,15 @@ corticon.dynForm.StepsController = function () {
         saveRestartData(itsQuestionnaireName, JSON.stringify(itsDecisionServiceInput));
 
         // Re-render the UI for the restored stage
-        // We use _askDecisionServiceForNextUIElementsAndRender, but the payload *is* the restored state.
-        // The DS might re-evaluate based on this state, potentially changing the UI slightly
-        // compared to when it was first visited (if rules depend on later data that's now gone).
-        // We need to ensure the payload reflects the stage we are *going back to*.
-        // The `previousStateData.input[0].currentStageNumber` should already be correct.
-        const restoredStageNumber = itsDecisionServiceInput[0]?.currentStageNumber;
-        console.log(`Re-rendering UI for restored stage: ${restoredStageNumber}`);
-
-        // Directly call rendering function - bypass DS call if we just want to show history state?
-        // OR call DS with the restored state to allow re-evaluation? Let's call DS for consistency.
+        // Call _askDecisionServiceForNextUIElementsAndRender with the restored state payload.
         const renderedUI = await _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, itsDecisionServiceInput, baseDynamicUIEl);
 
         if (renderedUI && renderedUI.noUiToRenderContinue === true) {
-            // This scenario is tricky when going back. If the restored step was a no-UI step,
-            // should we automatically go back further? For now, let's just render the next *visible* step back.
-            // The current logic might just re-render the UI *after* the no-UI step because
-            // _askDecisionServiceForNextUIElementsAndRender handles the continuation.
-            console.warn(`Restored to a 'no-UI' step (${restoredStageNumber}). The UI for the subsequent step might be shown.`);
-            // This might require more sophisticated history management if perfect back-stepping over no-UI is needed.
+            console.warn(`Restored to a 'no-UI' step (${restoredStageNumber}). The UI for the subsequent step might be shown if it auto-advanced.`);
+        } else if (renderedUI) {
+            console.log(`UI for restored stage ${restoredStageNumber} rendered.`);
+        } else {
+            console.error(`Failed to render UI for restored stage ${restoredStageNumber}.`);
         }
 
         // Update history button state
@@ -1226,62 +1507,6 @@ corticon.dynForm.StepsController = function () {
         }
     }
 
-    /**
-     * Handles the final actions when the form is completed.
-     * Clears restart data, raises event, optionally posts data.
-      * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
-     */
-    function handleFormCompletion(decisionServiceEngine) { // Added engine param
-        console.log("Form Completed. Final Form Data:", JSON.stringify(itsFormData, null, 2));
-        clearRestartData(itsQuestionnaireName); // Clear persistence
-        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData); // Send final data with event
-
-        // --- Optional: Post data based on DS instruction ---
-        const postInfo = itsDecisionServiceInput[0]?.postInfo; // Look for post instructions in control data
-        if (postInfo && postInfo.postType === 'REST' && postInfo.postURL) {
-            console.log(`Attempting REST POST to: ${postInfo.postURL}`);
-            const postData = JSON.stringify(itsFormData); // Post the form data part
-
-            // Default headers - allow override from postInfo if needed
-            const headers = {
-                "Content-Type": "application/json",
-                ...(postInfo.headers || {}) // Merge custom headers from DS if provided
-            };
-
-            fetch(postInfo.postURL, {
-                method: "POST", // Or allow override: postInfo.method || "POST"
-                headers: headers,
-                body: postData
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        // Include status text for better error reporting
-                        return response.text().then(text => {
-                            throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}. Body: ${text}`);
-                        });
-                    }
-                    return response.json(); // Or response.text() depending on expected response
-                })
-                .then(data => {
-                    console.log("Data successfully posted:", data);
-                    alert("Form submitted successfully!"); // User feedback
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
-                })
-                .catch(error => {
-                    console.error("Error posting data:", error);
-                    alert(`Error submitting form: ${error.message}`); // User feedback
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
-                });
-        } else {
-            console.log("No REST post instruction found or postType is not 'REST'.");
-            // Provide default success feedback if no post is configured
-            alert("Form completed!");
-        }
-
-        // Disable navigation buttons after completion?
-        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
-    }
-
 
     // --- Public Interface ---
     return {
@@ -1291,6 +1516,9 @@ corticon.dynForm.StepsController = function () {
             itsQuestionnaireName = questionnaireName;
             itsInitialLanguage = language;
             itsHistory.setupHistory(); // Reset history
+            itsFlagAllDone = false; // Reset internal flags on start
+            itsFlagReportRequested = false; // Reset internal flags on start
+            isReviewStepDisplayed = false; // Reset review flag
 
             // Check for restart data
             const restartData = getRestartData(questionnaireName);
@@ -1300,10 +1528,43 @@ corticon.dynForm.StepsController = function () {
             if (restartData) {
                 // Use confirm() which is blocking - consider using a modal for better UX
                 if (confirm("Resume previous session?")) {
-                    setStateFromRestartData(questionnaireName, restartData);
+                    setStateFromRestartData(questionnaireName, restartData); // This now restores flags too
                     startFromBeginning = false;
                     initialStageToRender = itsDecisionServiceInput[0]?.currentStageNumber ?? 0; // Get stage from restored data
-                    console.log(`Resuming from stage: ${initialStageToRender}`);
+                    console.log(`Resuming from stage: ${initialStageToRender}. Flags: done=${itsFlagAllDone}, report=${itsFlagReportRequested}, review=${isReviewStepDisplayed}`);
+
+                    // If resuming directly onto the review step, render the report
+                    if (isReviewStepDisplayed) {
+                        console.log("Resuming directly onto Review Step.");
+                        const formattedDataForReport = itsFormData ? [itsFormData] : [];
+                        const containerId = baseDynamicUIEl.attr('id');
+                        if (typeof renderAssessmentReport === 'function') {
+                            try {
+                                renderAssessmentReport(formattedDataForReport, containerId);
+                                baseDynamicUIEl.prepend('<h3>Review Your Assessment</h3><p>Please review the information below. Click Previous to make changes or Next to submit.</p>');
+                                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.REVIEW_STEP_DISPLAYED, { historyEmpty: itsHistory.isHistoryEmpty() });
+                            } catch (error) {
+                                console.error("Error rendering review step report on resume:", error);
+                                if (baseDynamicUIEl && typeof baseDynamicUIEl.empty === 'function') {
+                                    baseDynamicUIEl.empty().append(`<p style="color: red;">Error generating review: ${error.message}</p>`);
+                                } else if (baseDynamicUIEl instanceof HTMLElement) {
+                                    baseDynamicUIEl.innerHTML = `<p style="color: red;">Error generating review: ${error.message}</p>`;
+                                }
+                            }
+                        } else {
+                            console.error("renderAssessmentReport function is not defined for resume.");
+                            if (baseDynamicUIEl && typeof baseDynamicUIEl.empty === 'function') {
+                                baseDynamicUIEl.empty().append('<p style="color: red;">Error: Cannot display review. Report function not found.</p>');
+                            } else if (baseDynamicUIEl instanceof HTMLElement) {
+                                baseDynamicUIEl.innerHTML = '<p style="color: red;">Error: Cannot display review. Report function not found.</p>';
+                            }
+                        }
+                        // Update history status event after potentially rendering review step
+                        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.HISTORY_STATUS_CHANGED, { historyEmpty: itsHistory.isHistoryEmpty() });
+                        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_START, { historyEmpty: itsHistory.isHistoryEmpty() });
+                        return; // Stop further processing as review step is shown
+                    }
+
                 } else {
                     clearRestartData(questionnaireName); // Clear if user chooses not to resume
                 }
@@ -1316,39 +1577,14 @@ corticon.dynForm.StepsController = function () {
 
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.BEFORE_START);
 
-            // --- MODIFICATION START ---
-            // Initial DS call and render FOR THE CORRECT STAGE (0 or restored stage)
-            // Directly call rendering logic, DO NOT call handleDecisionServiceStep here.
+            // --- Initial DS call and render (only if not resuming to review step) ---
             console.log(`Making initial call for stage: ${initialStageToRender}`);
-            const initialUiData = await _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, itsDecisionServiceInput, baseDynamicUIEl);
+            await handleDecisionServiceStep(decisionServiceEngine, baseDynamicUIEl); // Use the main handler
 
-            // Handle if the very first step is 'done' or 'no-UI' (less common, but possible)
-            if (initialUiData) {
-                itsFlagAllDone = initialUiData.done === true;
-                if (itsFlagAllDone) {
-                    console.log("Form marked as done on initial load.");
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.FORM_DONE);
-                    handleFormCompletion(decisionServiceEngine); // Handle completion immediately
-                } else if (initialUiData.noUiToRenderContinue === true) {
-                    console.warn("Initial step was no-UI. Attempting to process next step automatically.");
-                    // This might indicate an issue with the DS logic for stage 0/initial stage
-                    // Or it's intentional, so we proceed like a 'Next' click
-                    await handleDecisionServiceStep(decisionServiceEngine, baseDynamicUIEl); // Now call the handler
-                } else {
-                    // If initial step rendered UI, save restart data for it
-                    saveRestartData(itsQuestionnaireName, JSON.stringify(itsDecisionServiceInput));
-                    console.log("Initial UI rendered, restart data saved.");
-                }
-            } else {
-                console.error("Failed to get initial UI data from decision service.");
-                // Show error in UI?
-                baseDynamicUIEl.empty().append('<div class="error-message">Failed to initialize the form.</div>');
-            }
-            // --- MODIFICATION END ---
+            // --- End Initial DS call handling ---
 
-
-            // Initial history status event
-            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.HISTORY_STATUS_CHANGED, { historyEmpty: itsHistory.isHistoryEmpty() });
+            // Initial history status event (already raised in handleDecisionServiceStep or processPrevStep if resuming)
+            // corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.HISTORY_STATUS_CHANGED, { historyEmpty: itsHistory.isHistoryEmpty() });
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_START, { historyEmpty: itsHistory.isHistoryEmpty() }); // Keep original event if needed
         },
         processNextStep: processNextStep,

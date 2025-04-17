@@ -236,3 +236,108 @@ body {
 }
 
 /* Add other trace styles adjustments as needed */
+/* Basic Reset & Body Style */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    /* Light background for the page */
+    padding: 20px;
+}
+
+/* Container for each report */
+.assessment-report {
+    background-color: #ffffff;
+    /* White background for the report card */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+/* Headings */
+.assessment-report h1,
+.assessment-report h2,
+.assessment-report h3 {
+    color: #2c3e50;
+    /* Dark blue-grey */
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    /* Light underline */
+    padding-bottom: 5px;
+}
+
+.assessment-report h1 {
+    font-size: 1.8em;
+    border-bottom: 2px solid #3498db;
+    /* Stronger underline for main title */
+}
+
+.assessment-report h2 {
+    font-size: 1.4em;
+}
+
+.assessment-report h3 {
+    font-size: 1.2em;
+    margin-top: 25px;
+    /* More space before structure headings */
+    border-bottom-style: dashed;
+    /* Dashed underline for sub-structures */
+}
+
+/* Detail Tables */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Clean borders */
+    margin-bottom: 20px;
+}
+
+.detail-table tbody tr:nth-child(even) {
+    background-color: #f2f7fc;
+    /* Very light blue for alternate rows */
+}
+
+.detail-table td {
+    border: 1px solid #e0e0e0;
+    /* Light grey borders */
+    padding: 10px 12px;
+    /* More padding */
+    vertical-align: top;
+    /* Align content to top */
+}
+
+/* Key Column Styling */
+.detail-table .key-column {
+    font-weight: bold;
+    width: 35%;
+    /* Adjust width as needed */
+    background-color: #ecf0f1;
+    /* Slightly different background for keys */
+    color: #555;
+}
+
+/* Structure item container (optional, for spacing) */
+.structure-item {
+    margin-bottom: 15px;
+}
+
+/* Handling specific data types (example) */
+/* You might add classes in your generation logic */
+.boolean-true {
+    color: green;
+    font-weight: bold;
+}
+
+.boolean-false {
+    color: #777;
+}
+
+.empty-value {
+    font-style: italic;
+    color: #999;
+}
