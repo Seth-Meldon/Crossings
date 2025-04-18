@@ -1247,101 +1247,80 @@ corticon.dynForm.StepsController = function () {
         isReviewStepDisplayed = false; // Ensure review flag is reset
         corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData); // Send final data with event
 
-        // --- Optional: Post data based on DS instruction ---
+        // --- Gather Photos ---
+        const photoFields = ["photoInlet", "photoOutlet", "photoUpstream", "photoDownstream"]; // Add more fields as needed
+        const photoData = [];
 
-        // Read post details directly from the final control data object
-        const postType = finalControlData.postType;
-        const postURL = finalControlData.postURL;
-        const postHeadersRaw = finalControlData.headers; // Get the headers array/object from DS response
+        photoFields.forEach((fieldName) => {
+            const fileInput = document.querySelector(`[data-field-name="${fieldName}"]`);
+            if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
 
-        let postAttempted = false;
-        let postSuccessful = false;
-
-        // Check directly using the variables read from finalControlData
-        if (postType === 'REST' && postURL) {
-            postAttempted = true;
-            console.log(`Attempting REST POST to: ${postURL}`);
-            const postData = JSON.stringify(itsFormData); // Post the form data part
-
-            // Start with base headers
-            const finalHeaders = {
-                "Content-Type": "application/json"
-            };
-
-            // Process headers - expecting an array containing one object based on DS response
-            if (postHeadersRaw && Array.isArray(postHeadersRaw) && postHeadersRaw.length > 0) {
-                const headerObj = postHeadersRaw[0]; // Get the first (and likely only) object from the array
-                console.log("Raw header object from DS:", headerObj); // Optional debug log
-                console.log("Type of header object:", typeof headerObj); // Optional debug log
-
-                if (typeof headerObj === 'object' && headerObj !== null) {
-                    // --- MODIFIED ITERATION START ---
-                    // Use Object.keys() and forEach for safer iteration
-                    Object.keys(headerObj).forEach(key => {
-                        const value = headerObj[key]; // Get value using the key
-
-                        // Map known camelCase keys to HTTP header format
-                        if (key === 'xMasterKey') {
-                            finalHeaders['X-Master-key'] = value;
-                            console.log("Mapping header: xMasterKey -> X-Master-key");
-                        } else if (key === 'xCollectionId') {
-                            finalHeaders['X-Collection-Id'] = value;
-                            console.log("Mapping header: xCollectionId -> X-Collection-Id");
-                        } else {
-                            // Pass through any other headers directly
-                            finalHeaders[key] = value;
-                            console.log(`Mapping header: ${key} -> ${key}`);
-                        }
+                reader.onload = function (event) {
+                    photoData.push({
+                        fieldName: fieldName,
+                        fileName: file.name,
+                        base64Content: event.target.result.split(",")[1], // Extract Base64 content
                     });
-                    // --- MODIFIED ITERATION END ---
-                } else {
-                    console.warn("Headers object within array was not valid:", headerObj);
-                }
-            } else {
-                console.log("No additional headers provided or headers format not recognized/empty.");
+                    console.log(`Photo processed: ${fieldName}, File: ${file.name}`);
+                };
+
+                reader.onerror = function (error) {
+                    console.error(`Error reading file for ${fieldName}:`, error);
+                };
+
+                reader.readAsDataURL(file); // Read file as Base64
             }
+        });
 
-            console.log("Final headers for fetch:", finalHeaders);
+        // --- Prepare Payload ---
+        const payloadForBackend = {
+            formData: itsFormData,
+            photos: photoData,
+        };
 
-            fetch(postURL, {
-                // Read method directly from control data if present, otherwise default to POST
-                method: finalControlData.method || "POST",
-                headers: finalHeaders, // Use the processed headers
-                body: postData
+        console.log("Payload for backend:", JSON.stringify(payloadForBackend, null, 2));
+
+        // --- Submit to Google Cloud Function ---
+        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app"; // <-- Replace with your GCP Function URL
+
+        fetch(gcfFunctionUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payloadForBackend),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    // Try to get more specific error from backend response
+                    return response.text().then((text) => {
+                        throw new Error(
+                            `Submission Error! Status: ${response.status}. Details: ${text || response.statusText}`
+                        );
+                    });
+                }
+                return response.json(); // Assuming your GCF sends back JSON on success
             })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.text().then(text => {
-                            throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}. Body: ${text}`);
-                        });
-                    }
-                    const contentType = response.headers.get("content-type");
-                    if (contentType && contentType.indexOf("application/json") !== -1) {
-                        return response.json();
-                    } else {
-                        return response.text();
-                    }
-                })
-                .then(data => {
-                    console.log("Data successfully posted:", data);
-                    postSuccessful = true;
-                    _displayCompletionMessage("Form submitted successfully!");
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
-                })
-                .catch(error => {
-                    console.error("Error posting data:", error);
-                    _displayCompletionMessage(`Error submitting form: ${error.message}`, true);
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
-                })
-                .finally(() => {
-                    corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
-                });
-        } else {
-            // Update log message for clarity
-            console.log(`No REST post instruction found or postType is not 'REST'. postType: ${postType}, postURL: ${postURL}`);
-            _displayCompletionMessage("Form Completed!");
-            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
-        }
+            .then((data) => {
+                console.log("Successfully submitted via GCF:", data);
+                _displayCompletionMessage("Form submitted successfully!");
+                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
+            })
+            .catch((error) => {
+                console.error("Error submitting data via GCF:", error);
+                // Display a more user-friendly error, potentially masking technical details
+                _displayCompletionMessage(
+                    `Error submitting form: ${error.message || "Please try again later."}`,
+                    true
+                );
+                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
+            })
+            .finally(() => {
+                // Disable navigation buttons regardless of success/failure after attempt
+                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+            });
 
         console.log("--- handleFormCompletion finished ---");
     }
