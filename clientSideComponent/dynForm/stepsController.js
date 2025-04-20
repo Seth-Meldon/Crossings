@@ -1232,98 +1232,166 @@ corticon.dynForm.StepsController = function () {
             }
         }
     }
+    // Helper function to read a file input and return Base64 data
+    async function getBase64FromFile(fileInputId) {
+        const fileInput = document.getElementById(fileInputId);
+        // Check if the input exists and a file is selected
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            console.log(`No file found for input ID: ${fileInputId}`);
+            return null; // No file selected or input not found
+        }
+        const file = fileInput.files[0]; // Get the first selected file
 
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            // Resolve with the result (which includes the data:image/...;base64, prefix)
+            reader.onload = () => resolve({
+                filename: file.name, // Keep original filename
+                // Extract only the Base64 part after the comma
+                content: reader.result.split(',')[1]
+            });
+            reader.onerror = error => {
+                console.error(`Error reading file ${file.name}:`, error);
+                reject(error); // Reject the promise on error
+            };
+            reader.readAsDataURL(file); // Read the file as a Data URL (contains Base64)
+        });
+    }
     /**
      * Handles the final actions when the form is completed *after* the review step (or directly if no review).
      * Clears restart data, raises event, optionally posts data, and displays completion message.
      * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
      */
-    function handleFormCompletion(decisionServiceEngine) {
-        console.log("--- handleFormCompletion called ---");
-        console.log("Final Form Data (itsFormData):", JSON.stringify(itsFormData, null, 2));
-        const finalControlData = itsDecisionServiceInput[0] || {}; // Get final control data
+    /**
+         * Helper function to read a file input and return Base64 data.
+         * PLACE THIS FUNCTION WITHIN stepsController.js, BUT OUTSIDE the StepsController return object,
+         * OR define it inside handleFormCompletion if preferred.
+         */
+    async function getBase64FromFile(fileInputId) {
+        // Use querySelector with data attribute to find the input by fieldName
+        // Assuming your file inputs have data-field-name="photoInlet" etc. AND an id="photoInlet"
+        // If they *only* have data-field-name, adjust the selector below. Using ID is generally more reliable.
+        const fileInput = document.getElementById(fileInputId);
 
-        clearRestartData(itsQuestionnaireName); // Clear persistence
-        isReviewStepDisplayed = false; // Ensure review flag is reset
-        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData); // Send final data with event
+        // Check if the input exists and a file is selected
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            console.log(`No file found for input ID: ${fileInputId}`);
+            return null; // No file selected or input not found
+        }
+        const file = fileInput.files[0]; // Get the first selected file
 
-        // --- Gather Photos ---
-        const photoFields = ["photoInlet", "photoOutlet", "photoUpstream", "photoDownstream"]; // Add more fields as needed
-        const photoData = [];
-
-        photoFields.forEach((fieldName) => {
-            const fileInput = document.querySelector(`[data-field-name="${fieldName}"]`);
-            if (fileInput && fileInput.files && fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-
-                reader.onload = function (event) {
-                    photoData.push({
-                        fieldName: fieldName,
-                        fileName: file.name,
-                        base64Content: event.target.result.split(",")[1], // Extract Base64 content
-                    });
-                    console.log(`Photo processed: ${fieldName}, File: ${file.name}`);
-                };
-
-                reader.onerror = function (error) {
-                    console.error(`Error reading file for ${fieldName}:`, error);
-                };
-
-                reader.readAsDataURL(file); // Read file as Base64
-            }
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            // Resolve with the result object containing filename and base64 content
+            reader.onload = () => resolve({
+                filename: file.name, // Keep original filename
+                // Extract only the Base64 part after the comma
+                content: reader.result.split(',')[1]
+            });
+            reader.onerror = error => {
+                console.error(`Error reading file ${file.name}:`, error);
+                reject(error); // Reject the promise on error
+            };
+            reader.readAsDataURL(file); // Read the file as a Data URL (contains Base64)
         });
+    }
 
-        // --- Prepare Payload ---
+
+    /**
+     * Handles the final actions when the form is completed.
+     * Reads file inputs, prepares payload, and sends to the GCF endpoint.
+     * NOTE: This function is now ASYNCHRONOUS due to file reading.
+     * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
+     */
+    async function handleFormCompletion(decisionServiceEngine) { // <<< Added async keyword
+        console.log("--- handleFormCompletion called ---");
+        console.log("Final Form Data Before File Read (itsFormData):", JSON.stringify(itsFormData, null, 2));
+        const finalControlData = itsDecisionServiceInput[0] || {};
+
+        clearRestartData(itsQuestionnaireName);
+        isReviewStepDisplayed = false;
+        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData);
+
+        // --- Read File Inputs Asynchronously ---
+        const photoData = {}; // Use an object, keyed by field ID/Name
+        // !!! IMPORTANT: Ensure these IDs match the 'id' attributes of your file input elements !!!
+        const fileInputIds = ["photoInlet", "photoOutlet", "photoUpstream", "photoDownstream"]; // Add more IDs as needed
+
+        console.log("Attempting to read files for inputs:", fileInputIds);
+        try {
+            // Use Promise.all to wait for all file reads to complete
+            const results = await Promise.all(fileInputIds.map(id => getBase64FromFile(id).catch(e => {
+                console.error(`Error processing file input ${id}:`, e);
+                return null; // Allow Promise.all to finish even if one file fails
+            })));
+
+            // Populate photoData object after all promises settle
+            fileInputIds.forEach((id, index) => {
+                if (results[index]) { // Check if the read for this ID was successful
+                    photoData[id] = results[index]; // Store {filename, content} object using the input ID as the key
+                    console.log(`Successfully read file for ${id}: ${results[index].filename}`);
+                }
+            });
+            console.log("Final photoData prepared:", photoData);
+
+        } catch (error) {
+            // This catch block might not be strictly necessary if individual errors are caught above,
+            // but good for catching unexpected errors in the Promise.all setup itself.
+            console.error("Unexpected error during file reading process:", error);
+            _displayCompletionMessage(`Error processing file uploads: ${error.message}`, true);
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+            return; // Stop execution
+        }
+        // --- END File Read ---
+
+
+        // --- Prepare Payload (Now done AFTER files are read) ---
         const payloadForBackend = {
             formData: itsFormData,
-            photos: photoData,
+            photos: photoData, // photoData is now an object keyed by input ID
         };
 
-        console.log("Payload for backend:", JSON.stringify(payloadForBackend, null, 2));
+        console.log("Payload for backend:", JSON.stringify(payloadForBackend, null, 2)); // Log the complete payload being sent
 
         // --- Submit to Google Cloud Function ---
-        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app"; // <-- Replace with your GCP Function URL
+        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app"; // Your function URL
 
-        fetch(gcfFunctionUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payloadForBackend),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    // Try to get more specific error from backend response
-                    return response.text().then((text) => {
-                        throw new Error(
-                            `Submission Error! Status: ${response.status}. Details: ${text || response.statusText}`
-                        );
-                    });
-                }
-                return response.json(); // Assuming your GCF sends back JSON on success
-            })
-            .then((data) => {
-                console.log("Successfully submitted via GCF:", data);
-                _displayCompletionMessage("Form submitted successfully!");
-                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
-            })
-            .catch((error) => {
-                console.error("Error submitting data via GCF:", error);
-                // Display a more user-friendly error, potentially masking technical details
-                _displayCompletionMessage(
-                    `Error submitting form: ${error.message || "Please try again later."}`,
-                    true
-                );
-                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
-            })
-            .finally(() => {
-                // Disable navigation buttons regardless of success/failure after attempt
-                corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+        // Use try/catch for the fetch operation as well, since it returns a promise
+        try {
+            const response = await fetch(gcfFunctionUrl, { // <<< Added await
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payloadForBackend),
             });
 
+            if (!response.ok) {
+                const text = await response.text(); // <<< Added await
+                throw new Error(
+                    `Submission Error! Status: ${response.status}. Details: ${text || response.statusText}`
+                );
+            }
+
+            const data = await response.json(); // <<< Added await
+            console.log("Successfully submitted via GCF:", data);
+            _displayCompletionMessage("Form submitted successfully!");
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
+
+        } catch (error) {
+            console.error("Error submitting data via GCF:", error);
+            _displayCompletionMessage(
+                `Error submitting form: ${error.message || "Please try again later."}`,
+                true
+            );
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
+        } finally {
+            // Disable navigation buttons regardless of success/failure after attempt
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+        }
+
         console.log("--- handleFormCompletion finished ---");
-    }
+    } // End of handleFormCompletion function
 
     /**
      * Helper to display the final completion/error message in the UI container.
