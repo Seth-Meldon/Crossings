@@ -1,0 +1,70 @@
+{
+  "assessment": {
+    "localID": "dsf",
+    "leadObserver": "sv",
+    "dateObserved": "2025-04-19",
+    "stream": "sd",
+    "roadType": "",
+    "locationDescription": "",
+    "comments": "",
+    "crossing": [
+      {
+        "crossingType": "Culvert",
+        "numberCulverts": 1,
+        "photoInlet": "C:\\fakepath\\20250408_211910.jpg",
+        "photoOutlet": "C:\\fakepath\\20250408_211901.jpg",
+        "photoUpstream": "C:\\fakepath\\20250408_211758.jpg",
+        "photoDownstream": "C:\\fakepath\\20250408_211736.jpg",
+        "flowCondition": "",
+        "crossingCondition": "",
+        "alignment": "",
+        "roadfillHeight_ft": 0,
+        "scourPool": "",
+        "constriction": "",
+        "city": "Fitchburg",
+        "state": "Massachusetts",
+        "postalCode": "01420",
+        "geo": "42.5834228, -71.8022955",
+        "lat": "42.5834228",
+        "long": "-71.8022955",
+        "structure": [
+          {
+            "material": "Metal",
+            "outletShape": "",
+            "outletArmoring": "",
+            "outletGrade": "",
+            "outletWidthFt": "0",
+            "outletHeightFt": "0",
+            "outletSubstrateWaterWidth": "0",
+            "outletWaterDepth": "0",
+            "outletDropToSurfaceFt": "0",
+            "outletDropToBottomFt": "0",
+            "lengthFt": "0",
+            "inletShape": "",
+            "inletType": "",
+            "inletGrade": "",
+            "inletWidthFt": "1970-01-01T00:00:00.000Z",
+            "inletHeightFt": "0",
+            "inletSubstrateWaterWidth": "0",
+            "inletWaterDepth": "0",
+            "internalStructures": "",
+            "substrateMatchesStream": "",
+            "substrateType": "",
+            "substrateCoverage": "",
+            "physicalBarriersNone": false,
+            "physicalBarriersDebris": "false",
+            "physicalBarriersDeformation": false,
+            "physicalBarriersFreefall": false,
+            "physicalBarriersFencing": false,
+            "physicalBarriersDry": false,
+            "physicalBarriersOther": "",
+            "physicalBarriersSeverity": "false",
+            "waterDepthMatchesStream": "",
+            "waterVelocityMatchesStream": "",
+            "dryPassage": ""
+          }
+        ]
+      }
+    ]
+  }
+}
