@@ -4,19 +4,49 @@ corticon.util.namespace("corticon.dynForm");
 
 corticon.dynForm.UIControlsRenderer = function () {
 
-    // --- MODIFICATION START ---
-    // Declare and initialize counters and flags HERE, at the top of the scope
+    // --- Counters and Flags ---
     let nextUniqueInputId = 0;
     let nextExpenseId = 0;
     let nextTextId = 0;
     let itsFlagRenderWithKui = false;
-    // --- MODIFICATION END ---
 
+    // --- HELPER: Get Base64 (defined within this scope for simplicity) ---
     /**
-     * Creates a unique ID suffix for input elements.
-     * Now it can safely access the variable declared above.
-     * @returns {String} - A unique ID suffix string like "_1", "_2".
+     * Reads a file and converts it to a Base64 encoded string (without data URL prefix).
+     * @param {File} file - The File object to read.
+     * @returns {Promise<Object|null>} - A promise that resolves with { filename: string, content: string } or null if error/no file.
      */
+    async function getBase64FromFileHelper(file) { // Renamed slightly to avoid global conflict if included elsewhere
+        if (!file) {
+            return null;
+        }
+        // console.log(`[getBase64FromFileHelper] Processing file: ${file.name}`); // Optional logging
+
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const readerResult = reader.result;
+                if (typeof readerResult !== 'string' || !readerResult.includes(',')) {
+                    console.error(`[getBase64FromFileHelper] Invalid reader result for ${file.name}`);
+                    resolve(null);
+                    return;
+                }
+                const base64Content = readerResult.split(',')[1];
+                if (!base64Content) {
+                    console.error(`[getBase64FromFileHelper] Could not extract Base64 content for ${file.name}.`);
+                    resolve(null);
+                    return;
+                }
+                resolve({ filename: file.name, content: base64Content });
+            };
+            reader.onerror = error => {
+                console.error(`[getBase64FromFileHelper] FileReader error for ${file.name}:`, error);
+                reject(error);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    // --- END HELPER ---
     function getNextUniqueId() {
         nextUniqueInputId++;
         return "_" + nextUniqueInputId;
@@ -1029,98 +1059,111 @@ corticon.dynForm.UIControlsRenderer = function () {
         addValidationMsgFromDecisionService(oneUIControl, inputContainerEl);
     }
     // --- File Upload ---
-    /**
-    * Renders a standard file input control.
-    * @param {Object} oneUIControl - Control configuration.
-    * @param {Object} parentEl - Parent jQuery element.
-    * @param {String} labelPositionAtContainerLevel - Label position.
-    */
-    function renderFileUploadInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl); // Not array type
-
+     /**
+     * Renders a standard file input control.
+     * MODIFIED: Reads file on change and stores data via stepsControllerInstance.
+     * @param {Object} oneUIControl - Control configuration.
+     * @param {Object} parentEl - Parent jQuery element.
+     * @param {String} labelPositionAtContainerLevel - Label position.
+     */
+     function renderFileUploadInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
+        const inputContainerEl = createInputContainer(parentEl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
-        // --- Input Element ---
-        const inputId = oneUIControl.id;
+        const inputId = oneUIControl.id; // Use the ID from the UI Control definition
         if (!inputId) {
             console.error('Missing id for fileupload control.');
             inputContainerEl.append('<span class="error-message">File upload configuration error: Missing ID.</span>');
             return;
         }
-        const attributes = {
-            "type": "file",
-            "id": inputId,
-            "name": oneUIControl.fieldName || inputId // Name attribute is used during form submission
-        };
-        // Optional: Accept attribute to limit file types
-        if (oneUIControl.accept) {
-            attributes["accept"] = oneUIControl.accept; // e.g., "image/*,.pdf"
-        }
-        // Optional: Multiple attribute
-        if (oneUIControl.allowMultiple === true) {
-            attributes["multiple"] = true;
-        }
+        const attributes = { type: "file", id: inputId, name: oneUIControl.fieldName || inputId };
+        if (oneUIControl.accept) attributes["accept"] = oneUIControl.accept;
+        if (oneUIControl.allowMultiple === true) attributes["multiple"] = true; // Note: current storage only handles single file
 
         const fileInputEl = $('<input/>').attr(attributes);
 
-        // --- Data Attributes ---
-        if (oneUIControl.fieldName) {
-            fileInputEl.data("fieldName", oneUIControl.fieldName);
-        } else {
-            console.error(`Missing fieldName for FileUpload control: ID ${oneUIControl.id}`);
-        }
-        fileInputEl.data("controlType", "FileUpload"); // Mark type
-        if (oneUIControl.required === true) {
-            fileInputEl.attr('data-required', true); // For custom validation
-        }
+        if (oneUIControl.fieldName) fileInputEl.data("fieldName", oneUIControl.fieldName);
+        else console.error(`Missing fieldName for FileUpload control: ID ${oneUIControl.id}`);
+
+        fileInputEl.data("controlType", "FileUpload");
+        if (oneUIControl.required === true) fileInputEl.attr('data-required', true);
 
         inputContainerEl.append(fileInputEl);
 
-        // --- Apply Kendo UI Upload ---
-        if (itsFlagRenderWithKui) {
-            try {
-                // Kendo Upload configuration
-                const kendoOptions = {
-                    multiple: oneUIControl.allowMultiple === true,
-                    // async: { // Example for async upload - NEEDS SERVER ENDPOINT
-                    //     saveUrl: "/api/upload/save",
-                    //     removeUrl: "/api/upload/remove",
-                    //     autoUpload: true
-                    // },
-                    // validation: { // Example validation
-                    //     allowedExtensions: oneUIControl.allowedExtensions || [".jpg", ".png", ".pdf"],
-                    //     maxFileSize: oneUIControl.maxFileSize || 10485760 // 10MB default
-                    // }
-                };
-                // Remove undefined options to avoid issues
-                if (!kendoOptions.validation.allowedExtensions) delete kendoOptions.validation.allowedExtensions;
-                if (!kendoOptions.validation.maxFileSize) delete kendoOptions.validation; // Remove validation if no specifics
+        // --- Feedback Element (Optional) ---
+        const fileInfoEl = $('<span>').addClass('file-info').css('margin-left', '10px').text('(No file chosen)');
+        inputContainerEl.append(fileInfoEl);
 
-                fileInputEl.kendoUpload(kendoOptions);
-            } catch (e) {
-                console.error("Error applying Kendo Upload:", e);
-            }
-        } else {
-            // Add simple change listener for non-KUI to show selected file name(s) maybe
-            fileInputEl.on('change', function () {
-                const fileList = $(this).prop('files');
-                let fileNames = [];
-                if (fileList) {
-                    for (let i = 0; i < fileList.length; i++) {
-                        fileNames.push(fileList[i].name);
-                    }
+        // --- MODIFIED Change Handler ---
+        fileInputEl.on('change', async function (event) { // Make handler async
+            const inputElement = event.target;
+            const files = inputElement.files;
+
+            if (files && files.length > 0) {
+                const file = files[0]; // Process only the first file if multiple are selected but not allowed
+                if (oneUIControl.allowMultiple !== true && files.length > 1) {
+                    console.warn(`Multiple files selected for ${inputId}, but only single file upload is currently handled by storage. Using first file: ${file.name}`);
                 }
-                // Display file names next to the input or in a dedicated area
-                // e.g., inputContainerEl.find('.file-info').remove();
-                // inputContainerEl.append(`<span class="file-info">Selected: ${fileNames.join(', ') || 'None'}</span>`);
-                console.log(`File(s) selected for ${oneUIControl.id}: ${fileNames.join(', ')}`);
-            });
+                fileInfoEl.text(`Processing: ${file.name}...`).css('color', 'orange'); // Update feedback
+
+                try {
+                    // Call helper to get base64 data
+                    const fileData = await getBase64FromFileHelper(file); // Use helper IN THIS SCOPE
+
+                    if (fileData) {
+                        // Call the storage function on the StepsController instance
+                        if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                            corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, fileData); // Use inputId as key
+                            fileInfoEl.text(`Stored: ${file.name}`).css('color', 'green');
+                        } else {
+                            console.error("StepsController instance or storeTemporaryFile function not found!");
+                            fileInfoEl.text(`Error storing ${file.name}`).css('color', 'red');
+                        }
+                    } else {
+                        console.error(`Failed to get Base64 for file: ${file.name}`);
+                        fileInfoEl.text(`Error reading ${file.name}`).css('color', 'red');
+                        // Clear stored data if reading fails
+                         if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                             corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null); // Store null to clear it
+                         }
+                    }
+                } catch (error) {
+                    console.error(`Error in file change handler for ${inputId}:`, error);
+                    fileInfoEl.text(`Error processing ${file.name}`).css('color', 'red');
+                     // Clear stored data on error
+                     if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                         corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null);
+                     }
+                }
+            } else {
+                // No file selected (or file deselected)
+                fileInfoEl.text('(No file chosen)').css('color', ''); // Reset feedback
+                // Clear stored data if file is removed
+                if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                    corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null);
+                    console.log(`Temporary file data cleared for ${inputId}`);
+                }
+            }
+        });
+        // --- END MODIFIED Change Handler ---
+
+
+        // Apply Kendo UI if needed (Kendo might interfere with manual change handler - test carefully)
+        if (itsFlagRenderWithKui) {
+            // Kendo Upload might need different event handling ('select', 'success', 'error')
+            console.warn("Kendo Upload might require different event handling than the basic 'change' listener for immediate Base64 conversion. Testing needed.");
+            try {
+                fileInputEl.kendoUpload({
+                     multiple: oneUIControl.allowMultiple === true,
+                     // Kendo async upload typically handles file transfer, not Base64 conversion directly in the browser
+                     // If using Kendo async, you might not need the manual Base64 conversion above.
+                     // If NOT using Kendo async, the basic input and change handler is likely better.
+                 });
+            } catch (e) { console.error("Error applying Kendo Upload:", e); }
         }
 
-        // Add DS validation message
         addValidationMsgFromDecisionService(oneUIControl, inputContainerEl);
-    }
-
+    } // End renderFileUploadInput
     /**
      * Renders a file input specifically marked for associating with expenses.
      * (Assumes linking logic happens during data saving in stepsController).
