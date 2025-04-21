@@ -1232,31 +1232,162 @@ corticon.dynForm.StepsController = function () {
             }
         }
     }
-    // Helper function to read a file input and return Base64 data
+    // Helper function defined inside handleFormCompletion for better scoping clarity
     async function getBase64FromFile(fileInputId) {
+        console.log(`[getBase64FromFile] Called for input ID: ${fileInputId}`); // LOG 1
         const fileInput = document.getElementById(fileInputId);
-        // Check if the input exists and a file is selected
+
         if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-            console.log(`No file found for input ID: ${fileInputId}`);
+            console.log(`[getBase64FromFile] No file found for input ID: ${fileInputId}`); // LOG 2
             return null; // No file selected or input not found
         }
         const file = fileInput.files[0]; // Get the first selected file
+        console.log(`[getBase64FromFile] Found file: ${file.name}, size: ${file.size}, type: ${file.type}`); // LOG 3
 
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            // Resolve with the result (which includes the data:image/...;base64, prefix)
-            reader.onload = () => resolve({
-                filename: file.name, // Keep original filename
-                // Extract only the Base64 part after the comma
-                content: reader.result.split(',')[1]
-            });
+
+            reader.onload = () => {
+                console.log(`[getBase64FromFile] File ${file.name} - reader.onload triggered.`); // LOG 4
+                const readerResult = reader.result;
+                if (typeof readerResult !== 'string' || !readerResult.includes(',')) {
+                    console.error(`[getBase64FromFile] Invalid reader result for ${file.name}:`, readerResult);
+                    // Resolve with null or reject, depending on how you want Promise.all to behave
+                    resolve(null); // Or reject(new Error('Invalid reader result'));
+                    return;
+                }
+                // console.log(`[getBase64FromFile] Full Data URL for ${file.name}:`, readerResult.substring(0, 50) + "..."); // Log prefix if needed
+                const base64Content = readerResult.split(',')[1]; // Extract Base64 part
+                if (!base64Content) {
+                    console.error(`[getBase64FromFile] Could not extract Base64 content from reader result for ${file.name}.`);
+                    resolve(null); // Or reject
+                    return;
+                }
+                console.log(`[getBase64FromFile] Extracted Base64 for ${file.name} (first 30 chars): ${base64Content.substring(0, 30)}...`); // LOG 5
+                resolve({
+                    filename: file.name,
+                    content: base64Content // Send only Base64
+                });
+            }; // End reader.onload
+
             reader.onerror = error => {
-                console.error(`Error reading file ${file.name}:`, error);
+                console.error(`[getBase64FromFile] FileReader error for ${file.name}:`, error); // LOG 6 (Error)
                 reject(error); // Reject the promise on error
-            };
-            reader.readAsDataURL(file); // Read the file as a Data URL (contains Base64)
-        });
-    }
+            }; // End reader.onerror
+
+            console.log(`[getBase64FromFile] Calling reader.readAsDataURL for ${file.name}`); // LOG 7
+            reader.readAsDataURL(file); // Read the file as a Data URL
+        }); // End Promise
+    } // End getBase64FromFile
+
+
+    /**
+     * Handles the final actions when the form is completed.
+     * Reads file inputs, prepares payload, and sends to the GCF endpoint.
+     * NOTE: This function is ASYNCHRONOUS due to file reading.
+     * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
+     */
+    // *** Ensure this is the ASYNC version ***
+    async function handleFormCompletion(decisionServiceEngine) {
+        console.log("[handleFormCompletion] Starting..."); // LOG A
+        console.log("[handleFormCompletion] Final Form Data Before File Read (itsFormData):", JSON.stringify(itsFormData, null, 2)); // LOG B
+        const finalControlData = itsDecisionServiceInput[0] || {};
+
+        clearRestartData(itsQuestionnaireName);
+        isReviewStepDisplayed = false;
+        corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData);
+
+        // --- Read File Inputs Asynchronously ---
+        const photoData = {};
+        // !!! Ensure these IDs match the 'id' attributes of your file input elements !!!
+        const fileInputIds = ["photoInlet", "photoOutlet", "photoUpstream", "photoDownstream"]; // Add more IDs as needed
+
+        console.log("[handleFormCompletion] Attempting to read files for inputs:", fileInputIds); // LOG C
+        try {
+            // Use Promise.all to wait for all file reads to attempt completion
+            const fileReadPromises = fileInputIds.map(id =>
+                getBase64FromFile(id).catch(e => { // Add catch directly here
+                    console.error(`[handleFormCompletion] Error caught while processing file input ${id}:`, e); // LOG D (Error)
+                    return null; // Return null to allow Promise.all to resolve
+                })
+            );
+            console.log("[handleFormCompletion] Waiting for Promise.all..."); // LOG E
+            const results = await Promise.all(fileReadPromises);
+            console.log("[handleFormCompletion] Promise.all completed. Results array:", results); // LOG F
+
+            // Populate photoData object after all promises settle
+            console.log("[handleFormCompletion] Populating photoData from results...");// LOG G
+            fileInputIds.forEach((id, index) => {
+                console.log(`[handleFormCompletion] Processing result for ID: ${id} (index: ${index})`);// LOG H
+                if (results[index]) { // Check if the read for this ID was successful (not null)
+                    photoData[id] = results[index]; // Store {filename, content} object
+                    console.log(`[handleFormCompletion] Successfully stored file data for ${id}: ${results[index].filename}`); // LOG I
+                } else {
+                    console.log(`[handleFormCompletion] No valid file data returned for ${id} (result was null).`);// LOG J
+                }
+            });
+            console.log("[handleFormCompletion] Final photoData prepared:", photoData); // LOG K
+
+        } catch (error) {
+            // Catch unexpected errors in the Promise.all setup itself (less likely with individual catches)
+            console.error("[handleFormCompletion] Unexpected error during Promise.all processing:", error); // LOG L (Error)
+            _displayCompletionMessage(`Error processing file uploads: ${error.message}`, true);
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+            return; // Stop execution
+        }
+        // --- END File Read ---
+
+
+        // --- Prepare Payload ---
+        const payloadForBackend = {
+            formData: itsFormData,
+            photos: photoData, // photoData should now contain entries if files were read
+        };
+
+        console.log("[handleFormCompletion] Final payload for backend:", JSON.stringify(payloadForBackend, null, 2)); // LOG M (Log payload before sending)
+
+        // --- Submit to Google Cloud Function ---
+        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app";
+
+        try {
+            console.log("[handleFormCompletion] Sending fetch request to GCF..."); // LOG N
+            const response = await fetch(gcfFunctionUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payloadForBackend),
+            });
+            console.log("[handleFormCompletion] Fetch response received. Status:", response.status); // LOG O
+
+            if (!response.ok) {
+                const text = await response.text();
+                console.error("[handleFormCompletion] Fetch response not OK. Details:", text); // Log error text
+                throw new Error(
+                    `Submission Error! Status: ${response.status}. Details: ${text || response.statusText}`
+                );
+            }
+
+            const data = await response.json();
+            console.log("[handleFormCompletion] Successfully submitted via GCF:", data); // LOG P
+            _displayCompletionMessage("Form submitted successfully!");
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
+
+        } catch (error) {
+            console.error("[handleFormCompletion] Error submitting data via GCF:", error); // LOG Q (Error)
+            _displayCompletionMessage(
+                `Error submitting form: ${error.message || "Please try again later."}`,
+                true
+            );
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
+        } finally {
+            console.log("[handleFormCompletion] Disabling navigation.");// LOG R
+            // Disable navigation buttons regardless of success/failure after attempt
+            corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
+        }
+
+        console.log("--- handleFormCompletion finished ---"); // LOG S
+    } // End of handleFormCompletion function
     /**
      * Handles the final actions when the form is completed *after* the review step (or directly if no review).
      * Clears restart data, raises event, optionally posts data, and displays completion message.
@@ -1300,12 +1431,13 @@ corticon.dynForm.StepsController = function () {
     /**
      * Handles the final actions when the form is completed.
      * Reads file inputs, prepares payload, and sends to the GCF endpoint.
-     * NOTE: This function is now ASYNCHRONOUS due to file reading.
+     * NOTE: This function is ASYNCHRONOUS due to file reading.
      * @param {Object} decisionServiceEngine - The Corticon engine instance (passed if needed).
      */
-    async function handleFormCompletion(decisionServiceEngine) { // <<< Added async keyword
-        console.log("--- handleFormCompletion called ---");
-        console.log("Final Form Data Before File Read (itsFormData):", JSON.stringify(itsFormData, null, 2));
+    // *** Ensure this is the ASYNC version ***
+    async function handleFormCompletion(decisionServiceEngine) {
+        console.log("[handleFormCompletion] Starting..."); // LOG A
+        console.log("[handleFormCompletion] Final Form Data Before File Read (itsFormData):", JSON.stringify(itsFormData, null, 2)); // LOG B
         const finalControlData = itsDecisionServiceInput[0] || {};
 
         clearRestartData(itsQuestionnaireName);
@@ -1313,31 +1445,39 @@ corticon.dynForm.StepsController = function () {
         corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.AFTER_DONE, itsFormData);
 
         // --- Read File Inputs Asynchronously ---
-        const photoData = {}; // Use an object, keyed by field ID/Name
-        // !!! IMPORTANT: Ensure these IDs match the 'id' attributes of your file input elements !!!
+        const photoData = {};
+        // !!! Ensure these IDs match the 'id' attributes of your file input elements !!!
         const fileInputIds = ["photoInlet", "photoOutlet", "photoUpstream", "photoDownstream"]; // Add more IDs as needed
 
-        console.log("Attempting to read files for inputs:", fileInputIds);
+        console.log("[handleFormCompletion] Attempting to read files for inputs:", fileInputIds); // LOG C
         try {
-            // Use Promise.all to wait for all file reads to complete
-            const results = await Promise.all(fileInputIds.map(id => getBase64FromFile(id).catch(e => {
-                console.error(`Error processing file input ${id}:`, e);
-                return null; // Allow Promise.all to finish even if one file fails
-            })));
+            // Use Promise.all to wait for all file reads to attempt completion
+            const fileReadPromises = fileInputIds.map(id =>
+                getBase64FromFile(id).catch(e => { // Add catch directly here
+                    console.error(`[handleFormCompletion] Error caught while processing file input ${id}:`, e); // LOG D (Error)
+                    return null; // Return null to allow Promise.all to resolve
+                })
+            );
+            console.log("[handleFormCompletion] Waiting for Promise.all..."); // LOG E
+            const results = await Promise.all(fileReadPromises);
+            console.log("[handleFormCompletion] Promise.all completed. Results array:", results); // LOG F
 
             // Populate photoData object after all promises settle
+            console.log("[handleFormCompletion] Populating photoData from results...");// LOG G
             fileInputIds.forEach((id, index) => {
-                if (results[index]) { // Check if the read for this ID was successful
-                    photoData[id] = results[index]; // Store {filename, content} object using the input ID as the key
-                    console.log(`Successfully read file for ${id}: ${results[index].filename}`);
+                console.log(`[handleFormCompletion] Processing result for ID: ${id} (index: ${index})`);// LOG H
+                if (results[index]) { // Check if the read for this ID was successful (not null)
+                    photoData[id] = results[index]; // Store {filename, content} object
+                    console.log(`[handleFormCompletion] Successfully stored file data for ${id}: ${results[index].filename}`); // LOG I
+                } else {
+                    console.log(`[handleFormCompletion] No valid file data returned for ${id} (result was null).`);// LOG J
                 }
             });
-            console.log("Final photoData prepared:", photoData);
+            console.log("[handleFormCompletion] Final photoData prepared:", photoData); // LOG K
 
         } catch (error) {
-            // This catch block might not be strictly necessary if individual errors are caught above,
-            // but good for catching unexpected errors in the Promise.all setup itself.
-            console.error("Unexpected error during file reading process:", error);
+            // Catch unexpected errors in the Promise.all setup itself (less likely with individual catches)
+            console.error("[handleFormCompletion] Unexpected error during Promise.all processing:", error); // LOG L (Error)
             _displayCompletionMessage(`Error processing file uploads: ${error.message}`, true);
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
             return; // Stop execution
@@ -1345,52 +1485,55 @@ corticon.dynForm.StepsController = function () {
         // --- END File Read ---
 
 
-        // --- Prepare Payload (Now done AFTER files are read) ---
+        // --- Prepare Payload ---
         const payloadForBackend = {
             formData: itsFormData,
-            photos: photoData, // photoData is now an object keyed by input ID
+            photos: photoData, // photoData should now contain entries if files were read
         };
 
-        console.log("Payload for backend:", JSON.stringify(payloadForBackend, null, 2)); // Log the complete payload being sent
+        console.log("[handleFormCompletion] Final payload for backend:", JSON.stringify(payloadForBackend, null, 2)); // LOG M (Log payload before sending)
 
         // --- Submit to Google Cloud Function ---
-        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app"; // Your function URL
+        const gcfFunctionUrl = "https://gh-submission-w33r42dm7q-ul.a.run.app";
 
-        // Use try/catch for the fetch operation as well, since it returns a promise
         try {
-            const response = await fetch(gcfFunctionUrl, { // <<< Added await
+            console.log("[handleFormCompletion] Sending fetch request to GCF..."); // LOG N
+            const response = await fetch(gcfFunctionUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payloadForBackend),
             });
+            console.log("[handleFormCompletion] Fetch response received. Status:", response.status); // LOG O
 
             if (!response.ok) {
-                const text = await response.text(); // <<< Added await
+                const text = await response.text();
+                console.error("[handleFormCompletion] Fetch response not OK. Details:", text); // Log error text
                 throw new Error(
                     `Submission Error! Status: ${response.status}. Details: ${text || response.statusText}`
                 );
             }
 
-            const data = await response.json(); // <<< Added await
-            console.log("Successfully submitted via GCF:", data);
+            const data = await response.json();
+            console.log("[handleFormCompletion] Successfully submitted via GCF:", data); // LOG P
             _displayCompletionMessage("Form submitted successfully!");
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_SUCCESS, data);
 
         } catch (error) {
-            console.error("Error submitting data via GCF:", error);
+            console.error("[handleFormCompletion] Error submitting data via GCF:", error); // LOG Q (Error)
             _displayCompletionMessage(
                 `Error submitting form: ${error.message || "Please try again later."}`,
                 true
             );
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.POST_ERROR, error);
         } finally {
+            console.log("[handleFormCompletion] Disabling navigation.");// LOG R
             // Disable navigation buttons regardless of success/failure after attempt
             corticon.dynForm.raiseEvent(corticon.dynForm.customEvents.DISABLE_NAVIGATION);
         }
 
-        console.log("--- handleFormCompletion finished ---");
+        console.log("--- handleFormCompletion finished ---"); // LOG S
     } // End of handleFormCompletion function
 
     /**
