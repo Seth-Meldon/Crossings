@@ -7,6 +7,8 @@ let itsFlagRenderWithKui = false;
 const itsTracer = new Tracer();
 const itsStepsController = new corticon.dynForm.StepsController();
 
+corticon.dynForm.stepsControllerInstance = itsStepsController;
+
 function processSwitchSample(selectObject) {
     const index = selectObject.value;
     setDataForCurrentSample(index);
