@@ -1,0 +1,71 @@
+{
+  "assessment": {
+    "localID": "asdf",
+    "leadObserver": "asdfasdf",
+    "dateObserved": "2025-04-20",
+    "stream": "adfsdf",
+    "roadType": "",
+    "locationDescription": "",
+    "comments": "",
+    "crossing": [
+      {
+        "crossingType": "Ford",
+        "numberCulverts": 1,
+        "photoInlet": "C:\\fakepath\\sshot_2025-04-08_[18-39-41].png",
+        "photoOutlet": "C:\\fakepath\\sshot_2025-03-23_[11-27-31].jpg",
+        "photoUpstream": "C:\\fakepath\\sshot_2025-03-06_[15-28-19].jpg",
+        "photoDownstream": "C:\\fakepath\\Untitled.png",
+        "flowCondition": "",
+        "crossingCondition": "",
+        "alignment": "",
+        "roadfillHeight_ft": 0,
+        "scourPool": "",
+        "constriction": "",
+        "city": "Merrimack",
+        "state": "New Hampshire",
+        "street": "Contra Way",
+        "postalCode": "03054",
+        "geo": "42.8152815, -71.509366",
+        "lat": "42.8152815",
+        "long": "-71.509366",
+        "structure": [
+          {
+            "material": "Plastic",
+            "outletShape": "3",
+            "outletArmoring": "",
+            "outletGrade": "",
+            "outletWidthFt": "0",
+            "outletHeightFt": "0",
+            "outletSubstrateWaterWidth": "0",
+            "outletWaterDepth": "0",
+            "outletDropToSurfaceFt": "0",
+            "outletDropToBottomFt": "0",
+            "lengthFt": "0",
+            "inletShape": "",
+            "inletType": "",
+            "inletGrade": "",
+            "inletWidthFt": "1970-01-01T00:00:00.000Z",
+            "inletHeightFt": "0",
+            "inletSubstrateWaterWidth": "0",
+            "inletWaterDepth": "0",
+            "internalStructures": "",
+            "substrateMatchesStream": "",
+            "substrateType": "",
+            "substrateCoverage": "",
+            "physicalBarriersNone": false,
+            "physicalBarriersDebris": "false",
+            "physicalBarriersDeformation": false,
+            "physicalBarriersFreefall": false,
+            "physicalBarriersFencing": false,
+            "physicalBarriersDry": false,
+            "physicalBarriersOther": "",
+            "physicalBarriersSeverity": "false",
+            "waterDepthMatchesStream": "",
+            "waterVelocityMatchesStream": "",
+            "dryPassage": ""
+          }
+        ]
+      }
+    ]
+  }
+}
