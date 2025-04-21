@@ -1,0 +1,71 @@
+{
+  "assessment": {
+    "localID": "SDVsdf",
+    "leadObserver": "sdafasd",
+    "dateObserved": "2025-04-20",
+    "stream": "sdaf",
+    "roadType": "",
+    "locationDescription": "",
+    "comments": "",
+    "crossing": [
+      {
+        "crossingType": "Multiple Culvert",
+        "numberCulverts": 1,
+        "photoInlet": "C:\\fakepath\\sshot_2025-03-23_[11-31-10].jpg",
+        "photoOutlet": "C:\\fakepath\\sshot_2025-03-23_[11-27-31].jpg",
+        "photoUpstream": "C:\\fakepath\\sshot_2025-03-23_[11-27-31].png",
+        "photoDownstream": "C:\\fakepath\\sshot_2025-04-08_[18-39-41].png",
+        "flowCondition": "",
+        "crossingCondition": "",
+        "alignment": "",
+        "roadfillHeight_ft": 0,
+        "scourPool": "",
+        "constriction": "",
+        "city": "Nashua",
+        "state": "New Hampshire",
+        "street": "Daniel Webster Highway",
+        "postalCode": "03060",
+        "geo": "42.71229839999999, -71.44394369999999",
+        "lat": "42.71229839999999",
+        "long": "-71.44394369999999",
+        "structure": [
+          {
+            "material": "Wood",
+            "outletShape": "",
+            "outletArmoring": "",
+            "outletGrade": "",
+            "outletWidthFt": "0",
+            "outletHeightFt": "0",
+            "outletSubstrateWaterWidth": "0",
+            "outletWaterDepth": "0",
+            "outletDropToSurfaceFt": "0",
+            "outletDropToBottomFt": "0",
+            "lengthFt": "0",
+            "inletShape": "",
+            "inletType": "",
+            "inletGrade": "",
+            "inletWidthFt": "1970-01-01T00:00:00.000Z",
+            "inletHeightFt": "0",
+            "inletSubstrateWaterWidth": "0",
+            "inletWaterDepth": "0",
+            "internalStructures": "",
+            "substrateMatchesStream": "",
+            "substrateType": "",
+            "substrateCoverage": "",
+            "physicalBarriersNone": false,
+            "physicalBarriersDebris": "false",
+            "physicalBarriersDeformation": false,
+            "physicalBarriersFreefall": false,
+            "physicalBarriersFencing": false,
+            "physicalBarriersDry": false,
+            "physicalBarriersOther": "",
+            "physicalBarriersSeverity": "false",
+            "waterDepthMatchesStream": "",
+            "waterVelocityMatchesStream": "",
+            "dryPassage": ""
+          }
+        ]
+      }
+    ]
+  }
+}
