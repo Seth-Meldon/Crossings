@@ -1059,14 +1059,14 @@ corticon.dynForm.UIControlsRenderer = function () {
         addValidationMsgFromDecisionService(oneUIControl, inputContainerEl);
     }
     // --- File Upload ---
-     /**
-     * Renders a standard file input control.
-     * MODIFIED: Reads file on change and stores data via stepsControllerInstance.
-     * @param {Object} oneUIControl - Control configuration.
-     * @param {Object} parentEl - Parent jQuery element.
-     * @param {String} labelPositionAtContainerLevel - Label position.
-     */
-     function renderFileUploadInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
+    /**
+    * Renders a standard file input control.
+    * MODIFIED: Reads file on change and stores data via stepsControllerInstance.
+    * @param {Object} oneUIControl - Control configuration.
+    * @param {Object} parentEl - Parent jQuery element.
+    * @param {String} labelPositionAtContainerLevel - Label position.
+    */
+    function renderFileUploadInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
         const inputContainerEl = createInputContainer(parentEl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
@@ -1123,17 +1123,17 @@ corticon.dynForm.UIControlsRenderer = function () {
                         console.error(`Failed to get Base64 for file: ${file.name}`);
                         fileInfoEl.text(`Error reading ${file.name}`).css('color', 'red');
                         // Clear stored data if reading fails
-                         if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
-                             corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null); // Store null to clear it
-                         }
+                        if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                            corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null); // Store null to clear it
+                        }
                     }
                 } catch (error) {
                     console.error(`Error in file change handler for ${inputId}:`, error);
                     fileInfoEl.text(`Error processing ${file.name}`).css('color', 'red');
-                     // Clear stored data on error
-                     if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
-                         corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null);
-                     }
+                    // Clear stored data on error
+                    if (corticon.dynForm.stepsControllerInstance && typeof corticon.dynForm.stepsControllerInstance.storeTemporaryFile === 'function') {
+                        corticon.dynForm.stepsControllerInstance.storeTemporaryFile(inputId, null);
+                    }
                 }
             } else {
                 // No file selected (or file deselected)
@@ -1154,11 +1154,11 @@ corticon.dynForm.UIControlsRenderer = function () {
             console.warn("Kendo Upload might require different event handling than the basic 'change' listener for immediate Base64 conversion. Testing needed.");
             try {
                 fileInputEl.kendoUpload({
-                     multiple: oneUIControl.allowMultiple === true,
-                     // Kendo async upload typically handles file transfer, not Base64 conversion directly in the browser
-                     // If using Kendo async, you might not need the manual Base64 conversion above.
-                     // If NOT using Kendo async, the basic input and change handler is likely better.
-                 });
+                    multiple: oneUIControl.allowMultiple === true,
+                    // Kendo async upload typically handles file transfer, not Base64 conversion directly in the browser
+                    // If using Kendo async, you might not need the manual Base64 conversion above.
+                    // If NOT using Kendo async, the basic input and change handler is likely better.
+                });
             } catch (e) { console.error("Error applying Kendo Upload:", e); }
         }
 
@@ -1290,13 +1290,10 @@ corticon.dynForm.UIControlsRenderer = function () {
     * @param {String} labelPositionAtContainerLevel - Default label position for the control.
     */
     function renderGeolocationInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl); // Append to specific container
-
-        // Add the label
+        const inputContainerEl = createInputContainer(parentEl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
-        // --- Create the input element ---
-        const inputId = oneUIControl.id + getNextUniqueId(); // Generate unique ID for autocomplete target
+        const inputId = oneUIControl.id + getNextUniqueId();
         const attributes = {
             "type": "text",
             "id": inputId,
@@ -1304,112 +1301,84 @@ corticon.dynForm.UIControlsRenderer = function () {
             "title": oneUIControl.tooltip || ''
         };
 
-        const textInputEl = $('<input/>').addClass('geolocation-input').attr(attributes); // Specific class
+        const textInputEl = $('<input/>').addClass('geolocation-input').attr(attributes);
 
-        // --- Data Attributes ---
         if (oneUIControl.fieldName) {
             textInputEl.data("fieldName", oneUIControl.fieldName);
-            textInputEl.data("uicontroltype", "Geolocation"); // Mark for saving logic
+            textInputEl.data("uicontroltype", "Geolocation");
         } else {
             console.error(`Missing fieldName for Geolocation control: ID ${oneUIControl.id}`);
             inputContainerEl.append('<span class="error-message">Config error: Missing field name.</span>');
-            return; // Stop rendering this control
+            return;
         }
         if (oneUIControl.required === true) {
             textInputEl.attr('data-required', true);
         }
 
-        // Append input to the container
         inputContainerEl.append(textInputEl);
 
-        // --- Initialize Google Maps Autocomplete ---
-        // Defer initialization slightly to ensure DOM is ready and Maps API is loaded
-        setTimeout(() => {
-            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                try {
-                    const autocomplete = new google.maps.places.Autocomplete(
-                        document.getElementById(inputId), // Target the specific input's DOM element
-                        { types: ["geocode"] } // Or ["address"] if preferred
-                    );
+        // --- Button for Geolocation ---
+        const findLocationButton = $('<button>')
+            .text('Find My Location')
+            .addClass('find-my-location-button')
+            .attr('type', 'button'); // Prevent form submission
+        inputContainerEl.append(findLocationButton);
 
-                    // Bias results to user's location (optional)
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(position => {
-                            const geolocation = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-                            const circle = new google.maps.Circle({ center: geolocation, radius: position.coords.accuracy });
-                            autocomplete.setBounds(circle.getBounds());
-                            console.log("Autocomplete biased to user location.");
-                        }, err => {
-                            console.warn("Geolocation permission denied or unavailable. Cannot bias autocomplete.", err);
-                        });
-                    }
+        // --- Hidden fields for lat/lng (optional, for structured data) ---
+        const latInputId = inputId + "_lat";
+        const lngInputId = inputId + "_lng";
+        const latInputEl = $('<input type="hidden">').attr("id", latInputId).data("fieldName", oneUIControl.fieldName + "_lat");
+        const lngInputEl = $('<input type="hidden">').attr("id", lngInputId).data("fieldName", oneUIControl.fieldName + "_lng");
+        inputContainerEl.append(latInputEl).append(lngInputEl);
 
-                    // --- Place Changed Listener ---
-                    google.maps.event.addListener(autocomplete, "place_changed", function () {
-                        const place = autocomplete.getPlace();
+        // --- Geolocation Functionality on Button Click ---
+        findLocationButton.on('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        textInputEl.val(`${lat}, ${lng}`);
+                        // Store lat/lng in hidden fields
+                        latInputEl.val(lat);
+                        lngInputEl.val(lng);
 
-                        if (!place.geometry || !place.address_components) {
-                            console.warn("Autocomplete returned place without geometry/address components for input:", inputId);
-                            textInputEl.data('geolocationData', null); // Clear stored data on invalid selection
-                            // Optionally clear the input text: textInputEl.val('');
-                            return;
-                        }
-
-                        const address = place.address_components;
-                        const lat = place.geometry.location.lat();
-                        const lng = place.geometry.location.lng();
-
-                        // Prepare structured data object
-                        const locationData = {
-                            geo: `${lat}, ${lng}`,
-                            country: null,
-                            state: null,
-                            city: null,
-                            postalCode: null,
-                            street: null,
-                            streetNumber: null
-                        };
-
-                        // Extract components (adjust component types if needed)
-                        for (let comp of address) {
-                            const type = comp.types[0];
-                            const value = comp.long_name;
-                            switch (type) {
-                                case "country": locationData.country = value; break;
-                                case "administrative_area_level_1": locationData.state = value; break; // State
-                                case "locality": locationData.city = value; break; // City
-                                case "postal_code": locationData.postalCode = value; break;
-                                case "route": locationData.street = value; break; // Street Name
-                                case "street_number": locationData.streetNumber = value; break;
-                                // Add other types if needed (e.g., administrative_area_level_2 for county)
-                            }
-                        }
-
-                        // Store structured data on the input element
-                        textInputEl.data('geolocationData', locationData);
-                        console.log(`Geolocation data stored for ${oneUIControl.fieldName}:`, locationData);
-
-                        // Optional: Update input field to display formatted address
-                        textInputEl.val(place.formatted_address || textInputEl.val());
-
-                        // Trigger change event manually if needed for other libraries/validation
+                        // Optionally, trigger change event on the main input
                         textInputEl.trigger('change');
-                    });
-
-                } catch (e) {
-                    console.error("Error initializing Google Maps Autocomplete:", e);
-                    inputContainerEl.append('<span class="error-message">Error initializing address lookup.</span>');
-                }
+                    },
+                    (error) => {
+                        let errorMessage = "Geolocation failed: ";
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += "Permission denied.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += "Position unavailable.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += "Timeout.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                errorMessage += "Unknown error.";
+                                break;
+                        }
+                        console.error(errorMessage, error);
+                        textInputEl.attr('placeholder', errorMessage);
+                        inputContainerEl.append(`<span class="error-message">${errorMessage}</span>`);
+                    },
+                    {
+                        enableHighAccuracy: false,
+                        timeout: 5000,
+                        maximumAge: 30000
+                    }
+                );
             } else {
-                console.error("Google Maps Places API not loaded when trying to initialize Geolocation input:", inputId);
-                inputContainerEl.append('<span class="error-message">Address lookup unavailable (Maps API not loaded).</span>');
+                console.error("Geolocation is not supported by this browser.");
+                textInputEl.attr('placeholder', 'Geolocation is not supported');
+                inputContainerEl.append('<span class="error-message">Geolocation is not supported by this browser.</span>');
             }
-        }, 100); // Small delay for safety
+        });
 
-        // Add DS validation message placeholder
         addValidationMsgFromDecisionService(oneUIControl, inputContainerEl);
     }
 

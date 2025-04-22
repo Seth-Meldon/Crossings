@@ -461,13 +461,13 @@ corticon.dynForm.StepsController = function () {
 
             // --- Geolocation Handling ---
             if (uiControlType === "Geolocation") {
-                const locationData = oneInputEl.data('geolocationData'); // Get stored object
+                const locationData = oneInputEl.data('geolocationData'); // Try to get structured data
                 if (locationData && formDataFieldName) {
-                    _saveOneFormData(formDataFieldName, locationData); // Save the whole object
-                } else if (!locationData && formDataFieldName) {
-                    // Handle case where input might have text but no valid selection was made
-                    // console.warn(`Geolocation field '${formDataFieldName}' has no structured data. Saving null.`); // Keep commented unless needed
-                    _saveOneFormData(formDataFieldName, null); // Save null if no valid place selected
+                    _saveOneFormData(formDataFieldName, locationData); // Save structured data
+                } else if (formDataFieldName) {
+                    // Save the text input value if no structured data is available
+                    const val = oneInputEl.val();
+                    _saveOneFormData(formDataFieldName, val);
                 }
                 return true; // Continue to the next element
             }
@@ -1271,6 +1271,36 @@ corticon.dynForm.StepsController = function () {
         console.log("--- handleFormCompletion finished ---");
     } // End of handleFormCompletion function
 
+    // --- Intra-Step Update Logic ---
+    async function handleIntraStepUpdate(baseDynamicUIEl, decisionServiceEngine) {
+        console.log("--- Handling Intra-Step Update ---");
+
+        // Save current inputs
+        _saveEnteredInputsToFormData(baseDynamicUIEl);
+        console.log("Saved data before intra-step DS call:", JSON.stringify(itsFormData, null, 2));
+
+        // Prepare payload for the current stage
+        const currentStageNumber = itsDecisionServiceInput[0]?.currentStageNumber;
+        if (currentStageNumber === undefined) {
+            console.error("Cannot perform intra-step update: Current stage number is unknown.");
+            return;
+        }
+        _preparePayloadForNextStage(currentStageNumber);
+
+        // Call Decision Service and re-render UI
+        console.log("Calling DS for intra-step update...");
+        const nextUI = await _askDecisionServiceForNextUIElementsAndRender(decisionServiceEngine, itsDecisionServiceInput, baseDynamicUIEl);
+
+        if (nextUI) {
+            console.log("Intra-step UI update completed.");
+            saveRestartData(itsQuestionnaireName, JSON.stringify(itsDecisionServiceInput));
+        } else {
+            console.error("Intra-step update failed.");
+        }
+
+        console.log("--- Finished Intra-Step Update ---");
+    }
+
     // --- Public Interface ---
     return {
         startDynUI: async function (baseDynamicUIEl, decisionServiceEngine, externalData, language, questionnaireName, useKui) {
@@ -1329,6 +1359,7 @@ corticon.dynForm.StepsController = function () {
         },
         processNextStep: processNextStep,
         processPrevStep: processPrevStep,
+        handleIntraStepUpdate: handleIntraStepUpdate,
         // *** Expose the storage function ***
         storeTemporaryFile: storeTemporaryFile
         // Removed internal getBase64FromFile from public interface
