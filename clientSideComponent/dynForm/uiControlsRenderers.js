@@ -1282,29 +1282,40 @@ corticon.dynForm.UIControlsRenderer = function () {
     }
 
 
-    // --- Geolocation (Google Maps Autocomplete) ---
     /**
-    * Renders a Geolocation input control using Google Maps Autocomplete.
-    * @param {Object} oneUIControl - The UI control object to render.
-    * @param {Object} parentEl - The parent jQuery element (the specific container div).
-    * @param {String} labelPositionAtContainerLevel - Default label position for the control.
-    */
+         * Renders a Geolocation input control using Google Maps Autocomplete
+         * AND a "Find My Location" button using the browser's Geolocation API.
+         * @param {Object} oneUIControl - The UI control object to render.
+         * @param {Object} parentEl - The parent jQuery element (the specific container div).
+         * @param {String} labelPositionAtContainerLevel - Default label position for the control.
+         */
     function renderGeolocationInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
         const inputContainerEl = createInputContainer(parentEl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
-        const inputId = oneUIControl.id + getNextUniqueId();
+        // Use the main control ID for the text input for association with the label
+        const inputId = oneUIControl.id;
+        if (!inputId) {
+            console.error('Missing id for Geolocation control.');
+            inputContainerEl.append('<span class="error-message">Config error: Missing ID.</span>');
+            return;
+        }
+
         const attributes = {
             "type": "text",
-            "id": inputId,
-            "placeholder": oneUIControl.placeholder || "Enter address...",
+            "id": inputId, // Use main control ID
+            "placeholder": oneUIControl.placeholder || "Enter address or click Find My Location",
             "title": oneUIControl.tooltip || ''
         };
 
         const textInputEl = $('<input/>').addClass('geolocation-input').attr(attributes);
 
+        // --- Data Attributes ---
         if (oneUIControl.fieldName) {
             textInputEl.data("fieldName", oneUIControl.fieldName);
+            // Store structured geo data directly on the element for saving
+            textInputEl.data("geolocationData", null);
+            // Indicate the type for the save logic
             textInputEl.data("uicontroltype", "Geolocation");
         } else {
             console.error(`Missing fieldName for Geolocation control: ID ${oneUIControl.id}`);
@@ -1317,68 +1328,127 @@ corticon.dynForm.UIControlsRenderer = function () {
 
         inputContainerEl.append(textInputEl);
 
-        // --- Button for Geolocation ---
+        // --- Initialize Google Maps Autocomplete ---
+        let autocomplete;
+        try {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                autocomplete = new google.maps.places.Autocomplete(
+                    textInputEl[0], // Pass the DOM element
+                    {
+                        // Optional: Add options like componentRestrictions, fields, types
+                        // fields: ["address_components", "geometry", "icon", "name", "formatted_address"],
+                        // types: ['geocode'] // Example: restrict to geocode results
+                    }
+                );
+
+                // --- Autocomplete Event Listener ---
+                autocomplete.addListener('place_changed', () => {
+                    const place = autocomplete.getPlace();
+                    let locationData = null;
+                    let displayValue = '';
+
+                    if (place && place.geometry && place.geometry.location) {
+                        const lat = place.geometry.location.lat();
+                        const lng = place.geometry.location.lng();
+                        displayValue = place.formatted_address || `${lat}, ${lng}`;
+
+                        // Prepare structured data for saving
+                        locationData = {
+                            // Add other components if needed from place.address_components
+                            // e.g., city: ..., state: ..., postalCode: ..., street: ...
+                            geo: `${lat}, ${lng}`,
+                            lat: lat,
+                            long: lng,
+                            address: place.formatted_address || displayValue // Store formatted address
+                        };
+
+                        console.log("Place selected:", place);
+                        console.log("Saving Location Data (Autocomplete):", locationData);
+
+                    } else {
+                        console.warn("Autocomplete returned place without geometry:", place);
+                        displayValue = textInputEl.val(); // Keep user typed value if place is invalid
+                        locationData = { address: displayValue }; // Save at least the typed text
+                    }
+
+                    textInputEl.val(displayValue); // Update input field
+                    textInputEl.data('geolocationData', locationData); // Store structured data
+                });
+            } else {
+                console.warn("Google Maps Places library not loaded. Autocomplete disabled.");
+                inputContainerEl.append('<span class="warning-message">Address autocomplete is unavailable.</span>');
+            }
+        } catch (e) {
+            console.error("Error initializing Google Maps Autocomplete:", e);
+            inputContainerEl.append('<span class="error-message">Error loading address autocomplete.</span>');
+        }
+        // --- END Google Maps Autocomplete ---
+
+
+        // --- Button for Geolocation API ---
         const findLocationButton = $('<button>')
             .text('Find My Location')
-            .addClass('find-my-location-button')
+            .addClass('find-my-location-button k-button k-button-md k-rounded-md k-button-solid k-button-solid-base') // Added Kendo button classes
             .attr('type', 'button'); // Prevent form submission
-        inputContainerEl.append(findLocationButton);
 
-        // --- Hidden fields for lat/lng (optional, for structured data) ---
-        const latInputId = inputId + "_lat";
-        const lngInputId = inputId + "_lng";
-        const latInputEl = $('<input type="hidden">').attr("id", latInputId).data("fieldName", oneUIControl.fieldName + "_lat");
-        const lngInputEl = $('<input type="hidden">').attr("id", lngInputId).data("fieldName", oneUIControl.fieldName + "_lng");
-        inputContainerEl.append(latInputEl).append(lngInputEl);
+        // Append button next to the input
+        textInputEl.after(findLocationButton); // Place button after input
 
-        // --- Geolocation Functionality on Button Click ---
+        // --- Geolocation API Functionality on Button Click ---
         findLocationButton.on('click', () => {
             if (navigator.geolocation) {
+                findLocationButton.prop('disabled', true).text('Finding...'); // Disable button during lookup
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
-                        textInputEl.val(`${lat}, ${lng}`);
-                        // Store lat/lng in hidden fields
-                        latInputEl.val(lat);
-                        lngInputEl.val(lng);
+                        const displayValue = `${lat}, ${lng}`;
+                        const locationData = { // Prepare structured data
+                            geo: displayValue,
+                            lat: lat,
+                            long: lng,
+                            address: displayValue // Store coords as address when using button
+                        };
+
+                        textInputEl.val(displayValue);
+                        textInputEl.data('geolocationData', locationData); // Store structured data
+
+                        console.log("Location found via button:", locationData);
 
                         // Optionally, trigger change event on the main input
                         textInputEl.trigger('change');
+                        findLocationButton.prop('disabled', false).text('Find My Location');
                     },
                     (error) => {
                         let errorMessage = "Geolocation failed: ";
                         switch (error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage += "Permission denied.";
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage += "Position unavailable.";
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage += "Timeout.";
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                errorMessage += "Unknown error.";
-                                break;
+                            case error.PERMISSION_DENIED: errorMessage += "Permission denied."; break;
+                            case error.POSITION_UNAVAILABLE: errorMessage += "Position unavailable."; break;
+                            case error.TIMEOUT: errorMessage += "Timeout."; break;
+                            default: errorMessage += "Unknown error."; break;
                         }
                         console.error(errorMessage, error);
-                        textInputEl.attr('placeholder', errorMessage);
-                        inputContainerEl.append(`<span class="error-message">${errorMessage}</span>`);
+                        // Display error temporarily or near the button
+                        const errorSpanId = inputId + "_geo_error";
+                        $(`#${errorSpanId}`).remove(); // Remove previous error
+                        const errorSpan = $(`<span id="${errorSpanId}" class="error-message" style="margin-left: 5px;">${errorMessage}</span>`);
+                        findLocationButton.after(errorSpan);
+                        setTimeout(() => errorSpan.fadeOut(500, () => errorSpan.remove()), 5000); // Hide after 5s
+                        findLocationButton.prop('disabled', false).text('Find My Location');
+                        textInputEl.data('geolocationData', null); // Clear data on error
                     },
-                    {
-                        enableHighAccuracy: false,
-                        timeout: 5000,
-                        maximumAge: 30000
-                    }
+                    { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 } // Slightly increased timeout
                 );
             } else {
                 console.error("Geolocation is not supported by this browser.");
-                textInputEl.attr('placeholder', 'Geolocation is not supported');
-                inputContainerEl.append('<span class="error-message">Geolocation is not supported by this browser.</span>');
+                const errorSpanId = inputId + "_geo_error";
+                $(`#${errorSpanId}`).remove();
+                const errorSpan = $(`<span id="${errorSpanId}" class="error-message" style="margin-left: 5px;">Geolocation not supported.</span>`);
+                findLocationButton.after(errorSpan).prop('disabled', true); // Disable button if not supported
             }
         });
 
+        // Add validation message placeholder from DS
         addValidationMsgFromDecisionService(oneUIControl, inputContainerEl);
     }
 
