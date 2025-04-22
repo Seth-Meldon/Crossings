@@ -258,7 +258,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      * @param {String} type - 'YesNo' (saves 'yes'/'no') or 'YesNoBoolean' (saves 'T'/'F').
      */
     function renderYesNoInput(oneUIControl, parentEl, labelPositionAtContainerLevel, language, type) {
-        const inputContainerEl = createInputContainer(parentEl); // Append to the specific parentEl
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl); // Append to the specific parentEl
 
         let yes = 'Yes';
         let no = 'No';
@@ -345,7 +345,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      * @param {String} labelPositionAtContainerLevel - Default label position.
      */
     function renderReadOnlyText(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         // Ensure value exists and is not empty before rendering
@@ -376,7 +376,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     function renderInputThatSupportsArrayType(oneUIControl, parentEl, labelPositionAtContainerLevel) {
         const isArray = isArrayType(oneUIControl);
         // Create main container for this control (label + inputs)
-        const mainControlContainer = createInputContainer(parentEl, isArray, false); // Pass parentEl
+        const mainControlContainer = createInputContainer(parentEl, oneUIControl, isArray, false); // Pass parentEl
         mainControlContainer.data("uicontroltype", oneUIControl.type); // Store type for saving logic
 
         // Add the label to the main container
@@ -790,7 +790,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     */
     function renderExpenseInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
         // Main container for the whole expense control (label + inputs + add button)
-        const mainContainerEl = createInputContainer(parentEl, true, true); // Mark as complex array
+        const mainContainerEl = createInputContainer(parentEl, oneUIControl, true, true); // Mark as complex array
         mainContainerEl.data("uicontroltype", oneUIControl.type);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, mainContainerEl);
 
@@ -830,7 +830,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     function createOneExpenseInput(oneUIControl, expenseItemsWrapper) {
         nextExpenseId++; // Use the counter declared at the top
         // Create a container div for this specific expense item row
-        const itemRowEl = createInputContainer(expenseItemsWrapper, true, true); // Still complex array item
+        const itemRowEl = createInputContainer(expenseItemsWrapper, oneUIControl, true, true); // Still complex array item
         itemRowEl.addClass('expense-input-item'); // Add specific class for styling
         itemRowEl.data("uicontroltype", oneUIControl.type); // Redundant? Already on main container.
 
@@ -924,7 +924,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      * @param {String} labelPositionAtContainerLevel - Label position.
      */
     function renderMultiTextInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const mainContainerEl = createInputContainer(parentEl, true, true); // Complex array
+        const mainContainerEl = createInputContainer(parentEl, oneUIControl, true, true); // Complex array
         mainContainerEl.data("uicontroltype", oneUIControl.type);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, mainContainerEl);
 
@@ -962,7 +962,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     function createOneMultiTextInput(oneUIControl, textItemsWrapper) {
         nextTextId++; // Use counter from top scope
         // Create a container div for this specific text item row
-        const itemRowEl = createInputContainer(textItemsWrapper, true, true); // Complex array item
+        const itemRowEl = createInputContainer(textItemsWrapper, oneUIControl, true, true); // Complex array item
         itemRowEl.addClass('multitext-input-item'); // Specific class
         itemRowEl.data("uicontroltype", oneUIControl.type); // May be redundant
 
@@ -1003,7 +1003,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      * @param {Object} parentEl - Parent jQuery element.
      */
     function renderSingleChoiceInput(oneUIControl, parentEl) {
-        const inputContainerEl = createInputContainer(parentEl); // Not an array type
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl); // Not an array type
 
         // Use the control's ID for the input element - IMPORTANT for the label's 'for' attribute
         const inputId = oneUIControl.id;
@@ -1067,7 +1067,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     * @param {String} labelPositionAtContainerLevel - Label position.
     */
     function renderFileUploadInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         const inputId = oneUIControl.id; // Use the ID from the UI Control definition
@@ -1173,7 +1173,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      */
     function renderFileUploadExpenseInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
         // Largely similar to renderFileUploadInput, but with a specific marker class
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         const inputId = oneUIControl.id;
@@ -1229,7 +1229,7 @@ corticon.dynForm.UIControlsRenderer = function () {
         if (!itsFlagRenderWithKui) {
             console.warn("QRCode UI control requires Kendo UI to be enabled.");
             // Render placeholder or message if KUI not used
-            const inputContainerEl = createInputContainer(parentEl);
+            const inputContainerEl = createInputContainer(parentEl, oneUIControl);
             appendLabel(oneUIControl, labelPositionAtUILevel, inputContainerEl);
             inputContainerEl.append('<span class="error-message">QR Code requires Kendo UI.</span>');
             return;
@@ -1238,13 +1238,13 @@ corticon.dynForm.UIControlsRenderer = function () {
         if (!oneUIControl.value) {
             console.warn(`QRCode control ID ${oneUIControl.id} has no value to encode.`);
             // Render placeholder or message if no value
-            const inputContainerEl = createInputContainer(parentEl);
+            const inputContainerEl = createInputContainer(parentEl, oneUIControl);
             appendLabel(oneUIControl, labelPositionAtUILevel, inputContainerEl);
             inputContainerEl.append('<span class="info-message">No data provided for QR Code.</span>');
             return;
         }
 
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtUILevel, inputContainerEl);
 
         const qrCodeDivId = oneUIControl.id; // Use control ID for the div
@@ -1290,7 +1290,7 @@ corticon.dynForm.UIControlsRenderer = function () {
          * @param {String} labelPositionAtContainerLevel - Default label position for the control.
          */
     function renderGeolocationInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         // Use the main control ID for the text input for association with the label
@@ -1461,7 +1461,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     * @param {String} labelPositionAtContainerLevel - Label position.
     */
     function renderRating(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         const inputId = oneUIControl.id + getNextUniqueId();
@@ -1524,7 +1524,7 @@ corticon.dynForm.UIControlsRenderer = function () {
     * @param {String} labelPositionAtContainerLevel - Label position.
     */
     function renderMultipleChoicesInput(oneUIControl, parentEl, labelPositionAtContainerLevel) {
-        const inputContainerEl = createInputContainer(parentEl);
+        const inputContainerEl = createInputContainer(parentEl, oneUIControl);
         appendLabel(oneUIControl, labelPositionAtContainerLevel, inputContainerEl);
 
         // --- Select Element ---
@@ -1818,7 +1818,7 @@ corticon.dynForm.UIControlsRenderer = function () {
      * @param {Boolean} [isComplexArray=false] - Is this a complex array type (like expenses)?
      * @returns {Object} - The jQuery object for the created input container div.
      */
-    function createInputContainer(parentEl, isArray = false, isComplexArray = false) {
+    function createInputContainer(parentEl, oneUIControl, isArray = false, isComplexArray = false) {
         const containerDiv = $('<div>').addClass('inputContainer'); // Base class
 
         // Add marker classes for array types used by saving logic
@@ -1831,7 +1831,20 @@ corticon.dynForm.UIControlsRenderer = function () {
         } else {
             containerDiv.addClass('nonarrayTypeControl');
         }
-
+        if (oneUIControl.triggeredByControlWithId && oneUIControl.triggeredWhenSelection !== undefined) {
+            containerDiv.addClass('corticon-hidden-control'); // Hide initially
+            containerDiv.data('triggeredBy', oneUIControl.triggeredByControlWithId); // Store trigger ID
+            // Store the trigger value(s). Handle potential array of values.
+            const triggerValues = Array.isArray(oneUIControl.triggeredWhenSelection) ?
+                oneUIControl.triggeredWhenSelection : [oneUIControl.triggeredWhenSelection];
+            containerDiv.data('triggerValue', JSON.stringify(triggerValues)); // Store as JSON string array
+            containerDiv.data('isConditional', true); // Mark as conditional
+            if (controlId) {
+                // Store the target's own ID for potential future use, though not strictly needed for showing/hiding itself
+                containerDiv.data('targetControlId', controlId);
+            }
+            console.log(`Marking #${containerDiv.attr('id')} as conditional, triggered by #${oneUIControl.triggeredByControlWithId} when value is ${JSON.stringify(triggerValues)}`);
+        }
         parentEl.append(containerDiv);
         return containerDiv;
     }

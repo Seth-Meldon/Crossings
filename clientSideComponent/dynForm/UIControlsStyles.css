@@ -300,3 +300,7 @@
     box-sizing: border-box;
     /* Include padding/border in width */
 }
+
+.corticon-hidden-control {
+    display: none;
+}
