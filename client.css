@@ -32,7 +32,7 @@ body {
     padding-top: 1rem;
     padding-bottom: 0.5rem;
     font-style: normal;
-    color: #fff;
+    color: #3c1e1e;
     /* White text for title on dark background */
     position: relative;
     z-index: 2;
@@ -226,7 +226,7 @@ body {
 
 /* Styles for Trace elements if needed on dark background */
 .allTracesContainer {
-    color: #ddd;
+    color: #560606;
     /* Lighter text color for trace */
 }
 

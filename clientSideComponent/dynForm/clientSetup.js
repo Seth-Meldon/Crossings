@@ -25,113 +25,147 @@ function setDataForCurrentSample(index) {
     console.log("Input Data:", inputData);
     // Add specific sample logic if needed
 }
-
 /**
  * Attaches delegated event listeners and runs initial check for conditional controls.
- * Should be called after a step's UI is rendered.
+ * Reads HTML attributes. Includes Kendo UI check.
  */
 function setupConditionalVisibility() {
     const uiContainer = $('#dynUIContainerId');
+    const useKui = itsFlagRenderWithKui;
 
-    // Remove previous listener to avoid duplicates (optional but safer)
+    // Remove previous listener
     uiContainer.off('change.conditional');
 
-    // Attach delegated listener for changes on inputs, selects
-    uiContainer.on('change.conditional', ':input', function () {
+    // Attach Delegated Listener
+    console.log("[ConditionalVisibility] Setting up listener (KUI Mode:", useKui, ")");
+    uiContainer.on('change.conditional', ':input', function (event) {
         const changedElement = $(this);
-        const triggerId = changedElement.attr('id'); // ID of the element that changed
+        let triggerId = changedElement.attr('id');
+        let kendoWidget = null;
+
+        // --- Kendo Check ---
+        if (useKui) {
+            kendoWidget = kendo.widgetInstance(changedElement);
+            if (!kendoWidget && changedElement.parent().is('.k-widget')) {
+                let originalElement = changedElement.parent().find('select, input').first();
+                if (originalElement.length) kendoWidget = kendo.widgetInstance(originalElement);
+            }
+            if (kendoWidget && !triggerId && changedElement.closest('.k-widget').length > 0) {
+                triggerId = changedElement.closest('.k-widget').find('select, input').first().attr('id');
+            }
+        }
+        console.log(`[ConditionalVisibility] Change event detected on element ID: ${triggerId || 'N/A'}`);
 
         if (triggerId) {
-            // Find controls triggered by this specific element's ID
-            // Use the container ID in the selector for robustness
-            $(`#dynUIContainerId [data-triggered-by='${triggerId}']`).each(function () {
-                updateConditionalVisibility($(this));
+            // --- Find elements using HTML attribute selector ---
+            const selector = `#dynUIContainerId [data-triggered-by='${triggerId}']`; // Selector remains the same
+            console.log(`[ConditionalVisibility] Using selector: "${selector}"`);
+            const dependentElements = $(selector);
+            console.log(`[ConditionalVisibility] Found ${dependentElements.length} dependent element(s).`); // This should now find elements
+
+            dependentElements.each(function () {
+                console.log(`[ConditionalVisibility] Processing dependent element:`, this);
+                updateConditionalVisibility($(this), kendoWidget); // Pass widget instance
             });
+        } else {
+            console.log("[ConditionalVisibility] Change event on element without ID or non-triggering element.");
         }
     });
 
-    // Initial check for all conditional controls on load
-    // Use the container ID in the selector for robustness
-    $('#dynUIContainerId [data-is-conditional="true"]').each(function () {
-        updateConditionalVisibility($(this));
+    // --- Initial check using HTML attribute selector ---
+    console.log("[ConditionalVisibility] Running initial visibility check...");
+    $('#dynUIContainerId [data-is-conditional="true"]').each(function () { // Use attribute selector here // [!code focus]
+        const dependentContainer = $(this);
+        const triggerId = dependentContainer.attr('data-triggered-by'); // Read attribute // [!code focus]
+        let kendoWidget = null;
+        if (triggerId) {
+            const triggerElement = $(`#${triggerId}`);
+            if (useKui && triggerElement.length) {
+                kendoWidget = kendo.widgetInstance(triggerElement);
+                if (!kendoWidget && triggerElement.parent().is('.k-widget')) {
+                    kendoWidget = kendo.widgetInstance(triggerElement.parent().find('select, input').first());
+                }
+            }
+        }
+        updateConditionalVisibility(dependentContainer, kendoWidget);
     });
 
-    console.log("Conditional visibility setup complete.");
+    console.log("[ConditionalVisibility] Setup complete.");
 }
 
 /**
  * Checks the trigger condition and shows/hides a single conditional control container.
+ * Reads HTML attributes. Includes Kendo UI check.
  * @param {Object} conditionalContainerEl - The jQuery object for the dependent control's container div.
+ * @param {Object|null} kendoWidget - The Kendo widget instance of the trigger element, if applicable.
  */
-function updateConditionalVisibility(conditionalContainerEl) {
-    const triggerId = conditionalContainerEl.data('triggeredBy');
-    const triggerValuesStr = conditionalContainerEl.data('triggerValue'); // This is a JSON string array
-    const targetControlId = conditionalContainerEl.data('targetControlId'); // Get the target's own ID
+function updateConditionalVisibility(conditionalContainerEl, kendoWidget) {
+    // --- Read data using .attr() ---
+    const triggerId = conditionalContainerEl.attr('data-triggered-by'); // [!code focus]
+    const triggerValuesStr = conditionalContainerEl.attr('data-trigger-value'); // [!code focus]
+    const targetControlId = conditionalContainerEl.attr('data-target-control-id'); // [!code focus]
+    // --- End Read Attributes ---
 
-    if (!triggerId || triggerValuesStr === undefined) {
-        // console.warn(`Conditional control container missing trigger data:`, conditionalContainerEl); // Keep commented unless debugging
+    console.log(`[UpdateVisibility] Checking: ${conditionalContainerEl.attr('id')} (Target: ${targetControlId || 'N/A'}) | Trigger ID: ${triggerId} | Trigger Values: ${triggerValuesStr}`);
+
+    if (!triggerId || triggerValuesStr === undefined || triggerValuesStr === null) { // Check for null attribute too
+        // console.warn(`[UpdateVisibility] Conditional control container missing trigger data attributes.`);
         return;
     }
 
-    // Use the trigger ID to find the triggering element *within the current UI container*
-    const triggerElement = $(`#${triggerId}`); // Use the stored ID
-
+    const triggerElement = $(`#${triggerId}`);
     if (triggerElement.length === 0) {
-        // console.warn(`Trigger element with ID #${triggerId} not found for conditional control #${targetControlId || 'unknown'}`); // Keep commented unless debugging
-        // Keep it hidden if the trigger isn't found (might be on a different step)
-        conditionalContainerEl.hide().addClass('corticon-hidden-control'); // Ensure class is added if hiding
+        console.warn(`[UpdateVisibility] Trigger element with ID #${triggerId} not found.`);
+        conditionalContainerEl.hide().addClass('corticon-hidden-control');
         return;
     }
+    // console.log(`[UpdateVisibility] Found trigger element:`, triggerElement[0]);
 
-    // Parse the expected trigger values (it's stored as a JSON string array)
+    // Parse expected trigger values
     let triggerValues;
     try {
         triggerValues = JSON.parse(triggerValuesStr);
         if (!Array.isArray(triggerValues)) throw new Error("Not an array");
     } catch (e) {
-        console.error(`Could not parse trigger values for control #${targetControlId || 'unknown'}. Expected JSON array string, got:`, triggerValuesStr);
+        console.error(`[UpdateVisibility] Could not parse trigger values attribute for control #${targetControlId || 'unknown'}. Expected JSON array string, got:`, triggerValuesStr);
         conditionalContainerEl.hide().addClass('corticon-hidden-control');
         return;
     }
+    // console.log(`[UpdateVisibility] Expected trigger values:`, triggerValues);
 
-
+    // --- Get Current Value (Handle Kendo) ---
     let currentValue;
-    const triggerType = triggerElement.prop('type');
-
-    // Get current value depending on trigger element type
-    if (triggerType === 'checkbox') {
-        currentValue = triggerElement.is(':checked') ? 'true' : 'false'; // Use string 'true'/'false'
-    } else if (triggerElement.is('select')) {
-        currentValue = triggerElement.val();
-        // Handle multi-select case if needed
-        // if (triggerElement.prop('multiple')) { currentValue = triggerElement.val() || []; } // Ensure array
-    } else { // Default to text input types
-        currentValue = triggerElement.val();
+    if (kendoWidget && typeof kendoWidget.value === 'function') {
+        currentValue = kendoWidget.value();
+        // console.log(`[UpdateVisibility] Got value from Kendo widget (${kendoWidget.options.name}):`, currentValue);
+    } else {
+        const triggerType = triggerElement.prop('type');
+        if (triggerType === 'checkbox') { currentValue = triggerElement.is(':checked') ? 'true' : 'false'; }
+        else { currentValue = triggerElement.val(); } // Works for select and text input
+        // console.log(`[UpdateVisibility] Got value using jQuery .val() or .is(':checked'):`, currentValue);
     }
+    console.log(`[UpdateVisibility] Current value of trigger #${triggerId}:`, currentValue);
 
-    // Check if the currentValue matches any of the required triggerValues
-    // Handle both single value and array for multi-select trigger (if implemented later)
+    // --- Comparison ---
     let valueMatches = false;
-    if (Array.isArray(currentValue)) { // Handle trigger being a multi-select
-        valueMatches = currentValue.some(cv =>
-            triggerValues.some(tv => String(tv).toLowerCase() === String(cv).toLowerCase())
-        );
-    } else { // Handle single value trigger
+    if (currentValue !== undefined && currentValue !== null) {
         valueMatches = triggerValues.some(tv =>
             String(tv).toLowerCase() === String(currentValue).toLowerCase()
         );
     }
+    console.log(`[UpdateVisibility] Does current value match required?`, valueMatches);
 
-
-    // Show or hide the dependent control's container
+    // --- Show/Hide Logic ---
     if (valueMatches) {
-        conditionalContainerEl.slideDown(200).removeClass('corticon-hidden-control'); // Animate showing
-        // console.log(`Showing conditional control: #${conditionalContainerEl.attr('id')} triggered by #${triggerId} (value: ${currentValue})`); // Keep commented unless debugging
+        if (!conditionalContainerEl.is(':visible')) {
+            console.log(`[UpdateVisibility] Showing element: #${conditionalContainerEl.attr('id')}`);
+            conditionalContainerEl.slideDown(200).removeClass('corticon-hidden-control');
+        }
     } else {
-        conditionalContainerEl.slideUp(200, function () { $(this).addClass('corticon-hidden-control'); }); // Add class after animation
-        // console.log(`Hiding conditional control: #${conditionalContainerEl.attr('id')} triggered by #${triggerId} (value: ${currentValue})`); // Keep commented unless debugging
-        // Optional: Clear the value of the hidden control?
-        // conditionalContainerEl.find(':input').val('').trigger('change'); // Clear and trigger change if needed
+        if (conditionalContainerEl.is(':visible')) {
+            console.log(`[UpdateVisibility] Hiding element: #${conditionalContainerEl.attr('id')}`);
+            conditionalContainerEl.slideUp(200, function () { $(this).addClass('corticon-hidden-control'); });
+        }
     }
 }
 
@@ -326,11 +360,17 @@ $(document).ready(function () {
         }
     });
 
-    // Add event listener for disabling nav after submission
+    // Inside the $(document).ready function in clientSetup.js
+
     corticon.dynForm.addCustomEventHandler(corticon.dynForm.customEvents.DISABLE_NAVIGATION, (event) => {
         $("#nextActionId").hide();
         $("#prevActionId").hide();
-        console.log("Navigation disabled after submission.");
+        // --- ADD THIS LINE ---
+        console.error("DISABLE_NAVIGATION HANDLER invoked unexpectedly!"); // Keep error marker
+        console.error("--> Received event object:", event); // Log the whole event object
+        console.error(`--> Received event type: "${event.type}"`); // Explicitly log the event type
+        console.error("--> Originating stack trace:", new Error().stack); // Keep stack trace        // --- END ADD ---
+        console.log("Navigation disabled after submission."); // Keep original log too
     });
 
 

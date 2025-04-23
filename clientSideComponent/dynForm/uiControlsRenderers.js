@@ -1810,41 +1810,66 @@ corticon.dynForm.UIControlsRenderer = function () {
             parentEl.append(msgDiv);
         }
     }
-
     /**
-     * Creates the standard container div for a single UI control.
-     * @param {Object} parentEl - The jQuery element to append the container to (e.g., the main container for the step).
-     * @param {Boolean} [isArray=false] - Is this control an array type?
-     * @param {Boolean} [isComplexArray=false] - Is this a complex array type (like expenses)?
-     * @returns {Object} - The jQuery object for the created input container div.
-     */
+         * Creates the standard container div for a single UI control.
+         * Applies initial hiding and data attributes for conditional visibility.
+         * @param {Object} parentEl - The jQuery element to append the container to (e.g., the main container for the step).
+         * @param {Object} oneUIControl - The control's configuration data.
+         * @param {Boolean} [isArray=false] - Is this control an array type?
+         * @param {Boolean} [isComplexArray=false] - Is this a complex array type (like expenses)?
+         * @returns {Object} - The jQuery object for the created input container div.
+         */
+    /**
+         * Creates the standard container div for a single UI control.
+         * Applies initial hiding and data attributes for conditional visibility using HTML attributes.
+         * @param {Object} parentEl - The jQuery element to append the container to.
+         * @param {Object} oneUIControl - The control's configuration data.
+         * @param {Boolean} [isArray=false] - Is this control an array type?
+         * @param {Boolean} [isComplexArray=false] - Is this a complex array type?
+         * @returns {Object} - The jQuery object for the created input container div.
+         */
     function createInputContainer(parentEl, oneUIControl, isArray = false, isComplexArray = false) {
-        const containerDiv = $('<div>').addClass('inputContainer'); // Base class
+        const containerDiv = $('<div>').addClass('inputContainer');
+        let controlId = null;
 
-        // Add marker classes for array types used by saving logic
+        // --- Define controlId and set container ID FIRST ---
+        if (oneUIControl && oneUIControl.id) {
+            controlId = oneUIControl.id;
+            containerDiv.attr('id', `container-for-${controlId}`);
+        } else {
+            console.warn("Control is missing an ID, required for some features like conditional visibility targeting.");
+        }
+
+        // --- Add marker classes for array types ---
         if (isArray) {
-            if (isComplexArray) {
-                containerDiv.addClass('complexArrayTypeControl');
-            } else {
-                containerDiv.addClass('simpleArrayTypeControl');
-            }
+            containerDiv.addClass(isComplexArray ? 'complexArrayTypeControl' : 'simpleArrayTypeControl');
         } else {
             containerDiv.addClass('nonarrayTypeControl');
         }
+
+        // --- Conditional Visibility Logic (Set HTML Attributes) ---
         if (oneUIControl.triggeredByControlWithId && oneUIControl.triggeredWhenSelection !== undefined) {
             containerDiv.addClass('corticon-hidden-control'); // Hide initially
-            containerDiv.data('triggeredBy', oneUIControl.triggeredByControlWithId); // Store trigger ID
-            // Store the trigger value(s). Handle potential array of values.
+
+            // --- Use .attr() to set HTML attributes --- // [!code focus]
+            containerDiv.attr('data-triggered-by', oneUIControl.triggeredByControlWithId); // [!code focus]
+
             const triggerValues = Array.isArray(oneUIControl.triggeredWhenSelection) ?
                 oneUIControl.triggeredWhenSelection : [oneUIControl.triggeredWhenSelection];
-            containerDiv.data('triggerValue', JSON.stringify(triggerValues)); // Store as JSON string array
-            containerDiv.data('isConditional', true); // Mark as conditional
+            containerDiv.attr('data-trigger-value', JSON.stringify(triggerValues)); // [!code focus]
+            containerDiv.attr('data-is-conditional', 'true'); // [!code focus]
+            // --- End Attribute Setting --- // [!code focus]
+
+
             if (controlId) {
-                // Store the target's own ID for potential future use, though not strictly needed for showing/hiding itself
-                containerDiv.data('targetControlId', controlId);
+                containerDiv.attr('data-target-control-id', controlId); // Set target ID attribute // [!code focus]
+                console.log(`Marking #${containerDiv.attr('id')} as conditional, triggered by #${oneUIControl.triggeredByControlWithId} when value is ${JSON.stringify(triggerValues)}`);
+            } else {
+                console.warn(`Conditional control cannot store targetControlId because the control itself is missing an ID. Trigger ID: ${oneUIControl.triggeredByControlWithId}`);
             }
-            console.log(`Marking #${containerDiv.attr('id')} as conditional, triggered by #${oneUIControl.triggeredByControlWithId} when value is ${JSON.stringify(triggerValues)}`);
         }
+        // --- END Conditional Visibility ---
+
         parentEl.append(containerDiv);
         return containerDiv;
     }
