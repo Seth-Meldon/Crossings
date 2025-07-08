@@ -1,0 +1,36 @@
+{
+  "prospect": {
+    "includeHoods": true,
+    "includeCoverall": false,
+    "includeShoeCoversOrBoots": false,
+    "includeSmocks": false,
+    "includeScrubTopsOrBottons": false,
+    "includeArfrGarments": false,
+    "includeEsdGarments": false,
+    "includeMopsWipes": false,
+    "multipleCleanRooms": true,
+    "countCleanRooms": 2,
+    "cleanRoomVisitsPerDayPerEmployee": 1,
+    "cleanRoomVisitsEmployeeCount": 1,
+    "cleanRoomIsSterile": true,
+    "cleanroom": [
+      {
+        "isSterile": true,
+        "visitsEmployeeCount": 1,
+        "visitsPerDayPerEmployee": 1,
+        "neededCount": "1.1"
+      },
+      {
+        "isSterile": true,
+        "visitsEmployeeCount": 1,
+        "visitsPerDayPerEmployee": 1,
+        "neededCount": "1.1"
+      }
+    ],
+    "estimateHoods": "2.2",
+    "firstName": "",
+    "lastName": "",
+    "companyName": "",
+    "email": ""
+  }
+}
